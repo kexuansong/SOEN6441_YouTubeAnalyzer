@@ -6,13 +6,14 @@
         <entry key="play-java-starter-example">
           <value>
             <ProjectSettingsEntry>
-              <option name="playDistrPath" value="$PROJECT_DIR$/../../../../../../../../../../../../../Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/play/play_2.13/2.8.2/play_2.13-2.8.2.jar" />
+              <option name="playDistrPath" value="$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/typesafe/play/play_2.13/2.8.2/play_2.13-2.8.2.jar" />
             </ProjectSettingsEntry>
           </value>
         </entry>
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
+              <option name="sourceDir" value="$PROJECT_DIR$/app" />
               <option name="confDir" value="$PROJECT_DIR$/app" />
               <option name="templateImports">
                 <list>
@@ -43,7 +44,7 @@
                   <option value="play.libs.F" />
                 </list>
               </option>
-              <option name="uri" value="$PROJECT_DIR$/../../../../../../../../../Application%20Support/com.tencent.xinWeChat/2.0b4.0.9/5729e316e378f48ee0ee5730dd60f5fb/Message/MessageTemp/6219efe12de2f2767b07ce1846aef3fa/File/play-samples-play-java-starter-example" />
+              <option name="uri" value="$PROJECT_DIR$" />
             </ProjectSettingsEntry>
           </value>
         </entry>
