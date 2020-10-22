@@ -33,4 +33,12 @@ public class HomeController extends Controller {
             ));
     }
 
+    public Result query() {
+        return ok(
+                query.render(
+                        "SKX .",
+                        assetsFinder
+                ));
+    }
+
 }
