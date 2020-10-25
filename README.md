@@ -1,4 +1,4 @@
-# SOEN6441_YouTubeAnalyzer
+# SOEN6441_YouTubeAnalyzer_Team2
 
 
 ## Running
