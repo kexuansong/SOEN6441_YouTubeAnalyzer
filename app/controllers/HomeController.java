@@ -1,5 +1,8 @@
 package controllers;
 
+import models.YouTubeChannel;
+import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.*;
 
 import views.html.*;
@@ -19,6 +22,9 @@ public class HomeController extends Controller {
         this.assetsFinder = assetsFinder;
     }
 
+    @Inject
+    FormFactory formFactory;
+
     /**
      * An action that renders an HTML page with a welcome message.
      * The configuration in the <code>routes</code> file means that
@@ -32,6 +38,7 @@ public class HomeController extends Controller {
                 assetsFinder
             ));
     }
+
 
 
 }

@@ -24,7 +24,13 @@ public class OwnerFileController extends Controller {
         youtube.setChannelName("This is a test: YD");
 
          return ok(
-                 video.render(youtube, assetsFinder)
+                 video.render(
+                         youtube
+                         ,
+                         assetsFinder)
          );
 
-    }}
+    }
+
+
+}

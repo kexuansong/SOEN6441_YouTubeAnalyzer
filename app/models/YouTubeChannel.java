@@ -1,5 +1,8 @@
 package models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class YouTubeChannel {
     // Api_Key = AIzaSyCdDdyagRPBqUwYQrR1fgBo7_kHpyhaGkU
 
@@ -58,4 +61,21 @@ public class YouTubeChannel {
     public void setTotalViews(int totalViews) {
         this.totalViews = totalViews;
     }
+
+    private static Set<YouTubeChannel> channels;
+
+    static {
+        channels = new HashSet<>();
+        channels.add(new YouTubeChannel("hifg123","Java Coding",34789,7755,79));
+
+    }
+
+    public static Set<YouTubeChannel> allChannels(){
+        return channels;
+    }
+
+    public static void add(YouTubeChannel youTubeChannel){
+        channels.add(youTubeChannel);
+    }
+
 }
