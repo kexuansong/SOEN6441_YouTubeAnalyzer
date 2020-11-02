@@ -52,6 +52,8 @@ public class HomeController extends Controller {
 
     }
 
+    //just try
+    public Result welcome(){}
 
 
 }
