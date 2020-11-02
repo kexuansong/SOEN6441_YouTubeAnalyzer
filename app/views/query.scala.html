@@ -2,7 +2,7 @@
 * This template takes a two arguments, a String containing a
 * message to display and an AssetsFinder to locate static assets.
 *@
-@(youtube: models.YouTubeChannel)(implicit assetsFinder: AssetsFinder)
+@(message: String)(implicit assetsFinder: AssetsFinder)
 
 @*
  * Call the `main` template with two arguments. The first
@@ -15,7 +15,7 @@
      * Get an `Html` object by calling the built-in Play welcome
      * template and passing a `String` message.
      *@
-    <h1>@youtube.getChannelName</h1>
+
 
 
 

@@ -71,13 +71,11 @@ public class SearchImp {
 
             // Restrict the search results to only include videos. See:
             // https://developers.google.com/youtube/v3/docs/search/list#type
-            search.setType("video");
 
             // To increase efficiency, only retrieve the fields that the
             // application uses.
-            search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+            search.setFields("items(id/kind,id/videoId,snippet/channelId,snippet/title)");
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
-
             // Call the API and print results.
             SearchListResponse searchResponse = search.execute();
             searchResultList = searchResponse.getItems();

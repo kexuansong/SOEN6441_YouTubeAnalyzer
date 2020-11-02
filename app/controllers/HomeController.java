@@ -1,6 +1,6 @@
 package controllers;
 
-import com.google.api.services.youtube.model.SearchListResponse;
+import com.google.api.services.youtube.model.SearchResult;
 import models.ChannelSearch;
 import models.SearchImp;
 import play.data.FormFactory;
@@ -13,6 +13,8 @@ import views.html.index;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -36,8 +38,24 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index() {
+    public Result index() throws GeneralSecurityException, IOException {
         SearchImp searchImp  = new SearchImp();
+        List<String> results = new ArrayList<>();
+
+        List<SearchResult> searchResults= searchImp.SearchVideo("java");
+
+        for(SearchResult s : searchResults){
+            String ChannelId = s.getSnippet().getChannelId();
+            results.add(ChannelId);
+        }
+
+        ChannelSearch channelSearch = new ChannelSearch();
+
+        channelSearch.getChannelInfo();
+
+
+
+
 
 
         return ok(

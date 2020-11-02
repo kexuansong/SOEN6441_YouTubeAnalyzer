@@ -24,6 +24,8 @@ lazy val root = (project in file("."))
     libraryDependencies += "com.google.api-client" % "google-api-client-java6" % "1.30.10",
     libraryDependencies += "com.google.oauth-client" % "google-oauth-client-jetty" % "1.31.1",
     libraryDependencies += "com.google.guava" % "guava" % "30.0-jre",
+    libraryDependencies += "org.json" % "json" % "20200518",
+
 
       // Make verbose tests
     testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))

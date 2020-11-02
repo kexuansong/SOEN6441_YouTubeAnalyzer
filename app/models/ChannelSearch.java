@@ -13,78 +13,71 @@ import com.google.api.client.auth.oauth2.Credential;
         import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
         import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
         import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-        import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.javanet.NetHttpTransport;
         import com.google.api.client.json.JsonFactory;
         import com.google.api.client.json.jackson2.JacksonFactory;
 
-        import com.google.api.services.youtube.YouTube;
-        import com.google.api.services.youtube.model.SearchListResponse;
+import com.google.api.client.util.Joiner;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.*;
 
-        import java.io.IOException;
+import java.io.IOException;
         import java.io.InputStream;
         import java.io.InputStreamReader;
-        import java.security.GeneralSecurityException;
-        import java.util.Arrays;
+import java.math.BigInteger;
+import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.Arrays;
         import java.util.Collection;
+import java.util.List;
 
 public class ChannelSearch {
-    private static final String CLIENT_SECRETS= "client_secret.json";
-    private static final Collection<String> SCOPES =
-            Arrays.asList("https://www.googleapis.com/auth/youtube.readonly");
+    private static final String APIKey = "AIzaSyCdDdyagRPBqUwYQrR1fgBo7_kHpyhaGkU";
+    private String title;
+    private String description;
+    private BigInteger totalViews;
+    private BigInteger totalSubscribers;
+    private BigInteger totVideos;
 
-    private static final String APPLICATION_NAME = "API code samples";
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-    /**
-     * Create an authorized Credential object.
-     *
-     * @return an authorized Credential object.
-     * @throws IOException
-     */
-    public Credential authorize(final NetHttpTransport httpTransport) throws IOException {
-        // Load client secrets.
-        InputStream in = ChannelSearch.class.getResourceAsStream(CLIENT_SECRETS);
-        GoogleClientSecrets clientSecrets =
-                GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
-        // Build flow and trigger user authorization request.
-        GoogleAuthorizationCodeFlow flow =
-                new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
-                        .build();
-        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+
+    private YouTube youTube;
+
+    public void getChannelInfo() throws GeneralSecurityException, IOException {
+        List<Channel> channelSearchList = null;
+        youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
+            @Override
+            public void initialize(HttpRequest request) throws IOException {
+            }
+        }).setApplicationName("Channel").build();
+
+        YouTube.Channels.List search =  youTube.channels().list("snippet,statistics");
+        search.setKey(APIKey);
+        search.setId("UCLsChHb_H87b9nW_RGCb73g");
+
+        ChannelListResponse channelListResponse = search.execute();
+
+        channelSearchList = channelListResponse.getItems();
+
+        for(Channel channel : channelSearchList){
+            title = channel.getSnippet().getTitle();
+            description = channel.getSnippet().getDescription();
+
+            totalViews = channel.getStatistics().getViewCount();
+            totalSubscribers = channel.getStatistics().getSubscriberCount();
+            totVideos = channel.getStatistics().getVideoCount();
+
+
+            System.out.println("===========");
+            System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
+        }
+
+
+
     }
 
-    /**
-     * Build and return an authorized API client service.
-     *
-     * @return an authorized API client service
-     * @throws GeneralSecurityException, IOException
-     */
-    public YouTube getService() throws GeneralSecurityException, IOException {
-        final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        Credential credential = authorize(httpTransport);
-        return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
-                .setApplicationName(APPLICATION_NAME)
-                .build();
-    }
-
-    /**
-     * Call function to create API service object. Define and
-     * execute API request. Print API response.
-     *
-     * @throws GeneralSecurityException, IOException, GoogleJsonResponseException
-     */
-    public SearchListResponse getSearchResults(String keyword) throws GeneralSecurityException, IOException, GoogleJsonResponseException{
-        YouTube youtubeService = getService();
-        // Define and execute the API request
-        YouTube.Search.List request = youtubeService.search()
-                .list("snippet");
 
 
-        String apiKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
-        SearchListResponse response = request.setKey(apiKey)
-                .setMaxResults(10L)
-                .setQ(keyword)
-                .execute();
-        return response;
-    }
 }
