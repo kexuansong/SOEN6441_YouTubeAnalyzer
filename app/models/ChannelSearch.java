@@ -50,7 +50,7 @@ public class ChannelSearch {
         GoogleAuthorizationCodeFlow flow =
                 new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
                         .build();
-        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("AIzaSyCdDdyagRPBqUwYQrR1fgBo7_kHpyhaGkU");
+        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
     }
 
     /**
@@ -79,8 +79,12 @@ public class ChannelSearch {
         YouTube.Search.List request = youtubeService.search()
                 .list("snippet");
 
-        return request.setMaxResults(10L)
+
+        String apiKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
+        SearchListResponse response = request.setKey(apiKey)
+                .setMaxResults(10L)
                 .setQ(keyword)
                 .execute();
+        return response;
     }
 }
