@@ -12,6 +12,8 @@ lazy val root = (project in file("."))
       "org.assertj" % "assertj-core" % "3.14.0" % Test,
       "org.awaitility" % "awaitility" % "4.0.1" % Test,
     ),
+    libraryDependencies += "com.google.apis" % "google-api-services-youtube" % "v3-rev20180511-1.27.0",
+
     javacOptions ++= Seq(
       "-encoding", "UTF-8",
       "-parameters",
