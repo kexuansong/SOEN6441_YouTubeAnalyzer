@@ -12,8 +12,7 @@ lazy val root = (project in file("."))
       "org.assertj" % "assertj-core" % "3.14.0" % Test,
       "org.awaitility" % "awaitility" % "4.0.1" % Test,
     ),
-    libraryDependencies += "com.google.apis" % "google-api-services-youtube" % "v3-rev20180511-1.27.0",
-
+    libraryDependencies += "com.google.apis" % "google-api-services-youtube" % "v3-rev222-1.25.0",
     javacOptions ++= Seq(
       "-encoding", "UTF-8",
       "-parameters",
@@ -21,6 +20,9 @@ lazy val root = (project in file("."))
       "-Xlint:deprecation",
       "-Werror"
     ),
-    // Make verbose tests
+    libraryDependencies += "com.google.api-client" % "google-api-client-extensions" % "1.6.0-beta",
+    libraryDependencies += "com.google.api-client" % "google-api-client-java6" % "1.30.10",
+    libraryDependencies += "com.google.oauth-client" % "google-oauth-client-jetty" % "1.31.1",
+      // Make verbose tests
     testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
   )
