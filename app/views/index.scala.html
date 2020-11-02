@@ -2,7 +2,8 @@
 * This template takes a two arguments, a String containing a
 * message to display and an AssetsFinder to locate static assets.
 *@
-@(message: String)(implicit assetsFinder: AssetsFinder)
+@import com.google.api.services.youtube.model.SearchResult
+@(list: List[SearchResult])(implicit assetsFinder: AssetsFinder)
 
 @*
  * Call the `main` template with two arguments. The first
@@ -27,5 +28,8 @@
         </form>
     </div>
 
+    @for(value <- list){
+        <p>@value</p>
 
+    }
 }

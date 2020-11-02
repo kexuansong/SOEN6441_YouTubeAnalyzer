@@ -2,10 +2,13 @@ package controllers;
 
 import com.google.api.services.youtube.model.SearchListResponse;
 import models.ChannelSearch;
+import models.SearchImp;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
+
+
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -34,26 +37,18 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() {
+        SearchImp searchImp  = new SearchImp();
+
+
         return ok(
             index.render(
-                "SKX .",
+                    searchImp.SearchVideo("java")
+                ,
                 assetsFinder
             ));
     }
 
-    public Result search() throws GeneralSecurityException, IOException {
-       ChannelSearch channelSearch = new ChannelSearch();
 
-       SearchListResponse lists = channelSearch.getSearchResults("java");
-
-       System.out.println(lists);
-
-       return ok();
-
-    }
-
-    //just try
-    public Result welcome(){}
 
 
 }
