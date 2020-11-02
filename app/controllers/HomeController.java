@@ -1,13 +1,15 @@
 package controllers;
 
-import models.YouTubeChannel;
-import play.data.Form;
+import com.google.api.services.youtube.model.SearchListResponse;
+import models.ChannelSearch;
 import play.data.FormFactory;
-import play.mvc.*;
-
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.index;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -37,6 +39,17 @@ public class HomeController extends Controller {
                 "SKX .",
                 assetsFinder
             ));
+    }
+
+    public Result search() throws GeneralSecurityException, IOException {
+       ChannelSearch channelSearch = new ChannelSearch();
+
+       SearchListResponse lists = channelSearch.getSearchResults("java");
+
+       System.out.println(lists);
+
+       return ok();
+
     }
 
 

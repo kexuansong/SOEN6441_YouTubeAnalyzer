@@ -41,7 +41,7 @@ public class ChannelSearch {
      * @return an authorized Credential object.
      * @throws IOException
      */
-    public static Credential authorize(final NetHttpTransport httpTransport) throws IOException {
+    public Credential authorize(final NetHttpTransport httpTransport) throws IOException {
         // Load client secrets.
         InputStream in = ChannelSearch.class.getResourceAsStream(CLIENT_SECRETS);
         GoogleClientSecrets clientSecrets =
@@ -50,9 +50,7 @@ public class ChannelSearch {
         GoogleAuthorizationCodeFlow flow =
                 new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
                         .build();
-        Credential credential =
-                new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("AIzaSyCdDdyagRPBqUwYQrR1fgBo7_kHpyhaGkU");
-        return credential;
+        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("AIzaSyCdDdyagRPBqUwYQrR1fgBo7_kHpyhaGkU");
     }
 
     /**
@@ -61,7 +59,7 @@ public class ChannelSearch {
      * @return an authorized API client service
      * @throws GeneralSecurityException, IOException
      */
-    public static YouTube getService() throws GeneralSecurityException, IOException {
+    public YouTube getService() throws GeneralSecurityException, IOException {
         final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
         Credential credential = authorize(httpTransport);
         return new YouTube.Builder(httpTransport, JSON_FACTORY, credential)
@@ -75,7 +73,7 @@ public class ChannelSearch {
      *
      * @throws GeneralSecurityException, IOException, GoogleJsonResponseException
      */
-    public static SearchListResponse getSearchResults(String keyword) throws GeneralSecurityException, IOException, GoogleJsonResponseException{
+    public SearchListResponse getSearchResults(String keyword) throws GeneralSecurityException, IOException, GoogleJsonResponseException{
         YouTube youtubeService = getService();
         // Define and execute the API request
         YouTube.Search.List request = youtubeService.search()
