@@ -51,7 +51,7 @@ public class ChannelSearch {
                 new GoogleAuthorizationCodeFlow.Builder(httpTransport, JSON_FACTORY, clientSecrets, SCOPES)
                         .build();
         Credential credential =
-                new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
+                new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("AIzaSyCdDdyagRPBqUwYQrR1fgBo7_kHpyhaGkU");
         return credential;
     }
 
