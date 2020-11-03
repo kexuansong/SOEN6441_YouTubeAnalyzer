@@ -34,7 +34,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ChannelSearch {
-    private static final String APIKey = "AIzaSyCdDdyagRPBqUwYQrR1fgBo7_kHpyhaGkU";
+    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
     private String title;
     private String description;
     private BigInteger totalViews;

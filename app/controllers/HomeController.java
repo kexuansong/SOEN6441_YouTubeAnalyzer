@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.api.services.youtube.model.SearchResult;
 import models.ChannelSearch;
+import models.Comments;
 import models.SearchImp;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -54,10 +55,6 @@ public class HomeController extends Controller {
         channelSearch.getChannelInfo();
 
 
-
-
-
-
         return ok(
             index.render(
                     searchImp.SearchVideo("java")
@@ -66,7 +63,24 @@ public class HomeController extends Controller {
             ));
     }
 
+    public Result Comments() throws GeneralSecurityException, IOException {
+        Comments comments = new Comments();
+        List<String> commentResults = new ArrayList<>();
 
+//        List<CommentThread> searchResults= comments.SearchComment("_VB39Jo8mAQ");
+
+//        for(CommentThread s : searchResults){
+//            String ChannelId = s.getSnippet().getChannelId();
+//            commentResults.add(ChannelId);
+//        }
+//
+//        ChannelSearch channelSearch = new ChannelSearch();
+//
+//        channelSearch.getChannelInfo();
+//
+
+        return ok(comments.SearchComment().toString());
+    }
 
 
 }
