@@ -4,7 +4,7 @@
 *@
 
 @import com.google.api.services.youtube.model.SearchResult
-@(list: List[SearchResult])(implicit assetsFinder: AssetsFinder)
+@(mes: String)(implicit assetsFinder: AssetsFinder)
 
 @*
  * Call the `main` template with two arguments. The first
@@ -29,8 +29,6 @@
         </form>
     </div>
 
-    @for(value <- list){
-        <p>@value</p>
+    <p>@mes</p>
 
-    }
 }

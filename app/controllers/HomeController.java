@@ -1,9 +1,11 @@
 package controllers;
 
 import com.google.api.services.youtube.model.SearchResult;
-import models.ChannelSearch;
+
 import models.Comments;
+import models.Profile;
 import models.SearchImp;
+import org.checkerframework.checker.units.qual.C;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -40,47 +42,17 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() throws GeneralSecurityException, IOException {
-        SearchImp searchImp  = new SearchImp();
-        List<String> results = new ArrayList<>();
-
-        List<SearchResult> searchResults= searchImp.SearchVideo("java");
-
-        for(SearchResult s : searchResults){
-            String ChannelId = s.getSnippet().getChannelId();
-            results.add(ChannelId);
-        }
-
-        ChannelSearch channelSearch = new ChannelSearch();
-
-        channelSearch.getChannelInfo();
-
-
-        return ok(
-            index.render(
-                    searchImp.SearchVideo("java")
-                ,
-                assetsFinder
-            ));
-    }
-
-    public Result Comments() throws GeneralSecurityException, IOException {
         Comments comments = new Comments();
-        List<String> commentResults = new ArrayList<>();
 
-//        List<CommentThread> searchResults= comments.SearchComment("_VB39Jo8mAQ");
+       comments.SearchComment();
 
-//        for(CommentThread s : searchResults){
-//            String ChannelId = s.getSnippet().getChannelId();
-//            commentResults.add(ChannelId);
-//        }
-//
-//        ChannelSearch channelSearch = new ChannelSearch();
-//
-//        channelSearch.getChannelInfo();
-//
+        //Profile profile = new Profile();
+        //profile.getChannelInfo();
 
-        return ok(comments.SearchComment().toString());
+        return ok(index.render("hee",assetsFinder));
     }
+
+
 
 
 }

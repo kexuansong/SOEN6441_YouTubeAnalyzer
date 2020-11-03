@@ -33,7 +33,7 @@ import java.util.Arrays;
         import java.util.Collection;
 import java.util.List;
 
-public class ChannelSearch {
+public class Profile {
     private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
     private String title;
     private String description;
@@ -61,6 +61,7 @@ public class ChannelSearch {
 
         channelSearchList = channelListResponse.getItems();
 
+
         for(Channel channel : channelSearchList){
             title = channel.getSnippet().getTitle();
             description = channel.getSnippet().getDescription();
@@ -73,10 +74,9 @@ public class ChannelSearch {
             System.out.println("===========");
             System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
         }
-
-
-
     }
+
+
 
 
 

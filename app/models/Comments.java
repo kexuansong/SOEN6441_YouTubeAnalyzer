@@ -29,9 +29,8 @@ public class Comments {
 //    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static YouTube youtube;
 
-    public List<CommentThread> SearchComment(){
+    public List<CommentThread> SearchComment() throws IOException {
         List<CommentThread> searchCommentsList = null;
-        try{
             youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer(){
                 public void initialize(HttpRequest request) throws IOException {
                 }
@@ -52,21 +51,15 @@ public class Comments {
 
             searchCommentsList = response.getItems();
 
-            List<String> commentList = new ArrayList<>();
+        System.out.println(searchCommentsList.size());
 
-            if(searchCommentsList != null){
-                for (CommentThread searchComments : searchCommentsList){
-                    commentList.add(searchComments.toString());
-                }
+            for(CommentThread c : searchCommentsList){
+               String comment =  c.getSnippet().getTopLevelComment().getSnippet().getTextDisplay();
+                System.out.println("========");
+                System.out.println(comment);
+                System.out.println("========");
             }
-        } catch (GoogleJsonResponseException e) {
-            System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
-                    + e.getDetails().getMessage());
-        } catch (IOException e) {
-            System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-        } catch (Throwable t) {
-            t.printStackTrace();
-        }
+
         return searchCommentsList;
     }
 

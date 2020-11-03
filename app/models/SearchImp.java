@@ -34,7 +34,7 @@ public class SearchImp {
 
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
-    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
+    private static final String APIKey = "AIzaSyDV4V-65t4ooVa94BWnB13qNcojEiWgdn4";
 
     /**
      * Define a global instance of a Youtube object, which will be used
@@ -55,7 +55,7 @@ public class SearchImp {
             youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
                 public void initialize(HttpRequest request) throws IOException {
                 }
-            }).setApplicationName("yongffnfbdbsbsdfdsvle").build();
+            }).setApplicationName("example").build();
 
             // Prompt the user to enter a query term.
 
