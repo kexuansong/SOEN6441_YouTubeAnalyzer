@@ -1,9 +1,8 @@
 package models;
 
 /**
- * Sample Java code for youtube.search.list
- * See instructions for running these code samples locally:
- * https://developers.google.com/explorer-help/guides/code_samples#java
+ * @author Wang Chenwen
+ * Get Channel information for creating Profile
  */
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -33,7 +32,7 @@ import java.util.Arrays;
         import java.util.Collection;
 import java.util.List;
 
-public class Profile {
+public class ProfileImp {
     private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
     private String title;
     private String description;
@@ -41,11 +40,14 @@ public class Profile {
     private BigInteger totalSubscribers;
     private BigInteger totVideos;
 
-
-
     private YouTube youTube;
 
-    public void getChannelInfo() throws GeneralSecurityException, IOException {
+    /**
+     * Get channel title, channel description, view number, video number and subscriber number
+     * @param ChannelId channel id
+     */
+
+    public void getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
         List<Channel> channelSearchList = null;
         youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
             @Override
@@ -55,7 +57,7 @@ public class Profile {
 
         YouTube.Channels.List search =  youTube.channels().list("snippet,statistics");
         search.setKey(APIKey);
-        search.setId("UCLsChHb_H87b9nW_RGCb73g");
+        search.setId(ChannelId);
 
         ChannelListResponse channelListResponse = search.execute();
 

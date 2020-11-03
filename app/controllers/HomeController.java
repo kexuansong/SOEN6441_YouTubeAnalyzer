@@ -3,9 +3,8 @@ package controllers;
 import com.google.api.services.youtube.model.SearchResult;
 
 import models.Comments;
-import models.Profile;
-import models.SearchImp;
-import org.checkerframework.checker.units.qual.C;
+import models.Search;
+import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -42,15 +41,13 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() throws GeneralSecurityException, IOException {
-        Comments comments = new Comments();
+        Form<Search> searchForm = formFactory.form(Search.class);
 
-       comments.SearchComment();
-
-        //Profile profile = new Profile();
-        //profile.getChannelInfo();
 
         return ok(index.render("hee",assetsFinder));
     }
+
+
 
 
 
