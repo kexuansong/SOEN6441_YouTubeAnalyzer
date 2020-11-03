@@ -38,15 +38,14 @@ public class Comments {
                     .setApplicationName(APPLICATION_NAME)
                     .build();
 
-//            YouTube youtubeService = getService();
+//
             YouTube.CommentThreads.List comments = youtube.commentThreads()
                     .list("snippet,replies");
 
 
             CommentThreadListResponse response = comments.setKey(DEVELOPER_KEY)
-                    .setId("_VB39Jo8mAQ")
+                    .setVideoId("WXVHcdRniWg")
                     .setMaxResults(NUMBER_OF_COMMENTS_RETURNED)
-                    .setFields("items(snippet/topLevelComment/snippet/textDisplay)")
                     .execute();
 
             searchCommentsList = response.getItems();
