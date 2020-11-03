@@ -2,8 +2,7 @@ package controllers;
 
 import com.google.api.services.youtube.model.SearchResult;
 
-import models.Comments;
-import models.Search;
+import models.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -41,10 +40,25 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index() throws GeneralSecurityException, IOException {
-        Form<Search> searchForm = formFactory.form(Search.class);
+        //Form<Search> searchForm = formFactory.form(Search.class);
 
+        //Search search = searchForm.get();
 
-        return ok(index.render("hee",assetsFinder));
+        //Display comment
+        /*Comments comments = new Comments();
+        comments.SearchComment("WXVHcdRniWg"); */
+
+        //Display Channel information
+        //ProfileImp profileImp = new ProfileImp();
+        //profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
+
+        SearchImp searchImp = new SearchImp();
+        List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
+
+        for (SearchResult s : searchResults){
+            System.out.println(s.getSnippet().getTitle());
+        }
+        return ok(index.render("",assetsFinder));
     }
 
 
