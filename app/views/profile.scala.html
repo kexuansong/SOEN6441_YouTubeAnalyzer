@@ -1,0 +1,25 @@
+@*
+* This template takes a two arguments, a String containing a
+* message to display and an AssetsFinder to locate static assets.
+*@
+@(imp : ProfileImp)(implicit assetsFinder: AssetsFinder)
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+@main("Profile") {
+
+    @*
+     * Get an `Html` object by calling the built-in Play welcome
+     * template and passing a `String` message.
+     *@
+    <div style="text-align: center; font-size: 30px">
+    <p style="color: blue">Channel Title : @imp.getTitle</p>
+    <p style="color: purple">Channel Description : @imp.getDescription</p>
+    <p style="color: pink">Total Views Number : @imp.getTotalViews</p>
+    <p style="color: orange">Total Subscribers Number : @imp.getTotalSubscribers</p>
+    <p style="color: gray">Total Video Number : @imp.getTotVideos</p>
+    </div>
+}

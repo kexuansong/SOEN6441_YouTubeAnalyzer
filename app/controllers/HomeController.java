@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.SearchResult;
 
 import models.*;
@@ -8,11 +9,12 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
-
+import views.html.profile;
 
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,25 +47,51 @@ public class HomeController extends Controller {
         //Search search = searchForm.get();
 
         //Display comment
-        /*Comments comments = new Comments();
-        comments.SearchComment("WXVHcdRniWg"); */
+        //Comments comments = new Comments();
+        //comments.SearchComment("WXVHcdRniWg");
 
         //Display Channel information
-        //ProfileImp profileImp = new ProfileImp();
-        //profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
+        ProfileImp profileImp = new ProfileImp();
+        profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
 
-        SearchImp searchImp = new SearchImp();
+        /*SearchImp searchImp = new SearchImp();
         List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
 
         for (SearchResult s : searchResults){
             System.out.println(s.getSnippet().getTitle());
-        }
-        return ok(index.render("",assetsFinder));
+        } */
+        return ok(index.render("", assetsFinder));
     }
 
 
+    public Result profile() throws GeneralSecurityException, IOException {
+        List<Channel> requiredInfo = new ArrayList<>();
+        ProfileImp profileImp = new ProfileImp();
 
 
+        requiredInfo = profileImp.getChannelInfo("UCgWD0gHPDM_lCf0PSYDnTIg");
+        Channel channel = requiredInfo.get(0);
 
+        String title = channel.getSnippet().getTitle();
+        String description = channel.getSnippet().getDescription();
+
+        BigInteger totalViews = channel.getStatistics().getViewCount();
+        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
+        BigInteger totVideos = channel.getStatistics().getVideoCount();
+
+        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
+
+        // render list
+        return ok(
+                profile.render(imp, assetsFinder)
+        );
+    }
 
 }
+
+
+
+
+
+
+

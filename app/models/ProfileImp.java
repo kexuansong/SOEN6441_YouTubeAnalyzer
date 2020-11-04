@@ -27,12 +27,10 @@ import java.io.IOException;
         import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Arrays;
-        import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class ProfileImp {
+    private YouTube youTube;
     private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
     private String title;
     private String description;
@@ -40,14 +38,63 @@ public class ProfileImp {
     private BigInteger totalSubscribers;
     private BigInteger totVideos;
 
-    private YouTube youTube;
+    public ProfileImp() {
+    }
+
+    public ProfileImp(String title, String description, BigInteger totalViews, BigInteger totalSubscribers, BigInteger totVideos) {
+        this.title = title;
+        this.description = description;
+        this.totalViews = totalViews;
+        this.totalSubscribers = totalSubscribers;
+        this.totVideos = totVideos;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigInteger getTotalViews() {
+        return totalViews;
+    }
+
+    public void setTotalViews(BigInteger totalViews) {
+        this.totalViews = totalViews;
+    }
+
+    public BigInteger getTotalSubscribers() {
+        return totalSubscribers;
+    }
+
+    public void setTotalSubscribers(BigInteger totalSubscribers) {
+        this.totalSubscribers = totalSubscribers;
+    }
+
+    public BigInteger getTotVideos() {
+        return totVideos;
+    }
+
+    public void setTotVideos(BigInteger totVideos) {
+        this.totVideos = totVideos;
+    }
 
     /**
-     * Get channel title, channel description, view number, video number and subscriber number
+     * Get channel title, channel description, view number, profile number and subscriber number
      * @param ChannelId channel id
      */
 
-    public void getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
+    public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
         List<Channel> channelSearchList = null;
         youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
             @Override
@@ -64,7 +111,7 @@ public class ProfileImp {
         channelSearchList = channelListResponse.getItems();
 
 
-        for(Channel channel : channelSearchList){
+        /*for(Channel channel : channelSearchList){
             title = channel.getSnippet().getTitle();
             description = channel.getSnippet().getDescription();
 
@@ -75,11 +122,11 @@ public class ProfileImp {
 
             System.out.println("===========");
             System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
-        }
+        } */
+
+        return channelSearchList;
+
     }
-
-
-
 
 
 }

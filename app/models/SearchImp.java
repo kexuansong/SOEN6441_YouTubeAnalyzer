@@ -34,7 +34,7 @@ public class SearchImp {
 
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
-    private static final String APIKey = "AIzaSyDV4V-65t4ooVa94BWnB13qNcojEiWgdn4";
+    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
 
     /**
      * Define a global instance of a Youtube object, which will be used
@@ -130,7 +130,7 @@ public class SearchImp {
 
     /*h
      * Prints out all results in the Iterator. For each result, print the
-     * title, video ID, and thumbnail.
+     * title, profile ID, and thumbnail.
      *
      * @param iteratorSearchResults Iterator of SearchResults to print
      *
@@ -152,9 +152,9 @@ public class SearchImp {
             SearchResult singleVideo = iteratorSearchResults.next();
             ResourceId rId = singleVideo.getId();
 
-            // Confirm that the result represents a video. Otherwise, the
-            // item will not contain a video ID.
-            if (rId.getKind().equals("youtube#video")) {
+            // Confirm that the result represents a profile. Otherwise, the
+            // item will not contain a profile ID.
+            if (rId.getKind().equals("youtube#profile")) {
                 Thumbnail thumbnail = singleVideo.getSnippet().getThumbnails().getDefault();
 
                 System.out.println(" Video Id " + rId.getVideoId());
