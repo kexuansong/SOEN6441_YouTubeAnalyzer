@@ -34,7 +34,7 @@ public class SearchImp {
 
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
-    private static final String APIKey = "AIzaSyDV4V-65t4ooVa94BWnB13qNcojEiWgdn4";
+    private static final String APIKey = "AIzaSyC7kyGs_tGv9O7YwCmJc66PDgf_ZiF3dqA";
 
     /**
      * Define a global instance of a Youtube object, which will be used
@@ -116,7 +116,6 @@ public class SearchImp {
         BufferedReader bReader = null;
 
         bReader = new BufferedReader(new InputStreamReader(System.in));
-
 
 
         inputQuery = bReader.readLine();
