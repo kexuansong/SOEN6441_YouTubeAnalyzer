@@ -43,7 +43,11 @@ public class SearchImp {
     private static YouTube youtube;
 
 
-
+    /**
+     * Search video through YouTube Api
+     * @param queryTerm search key
+     * @return result of searching list
+     */
     public List<SearchResult> SearchVideo(String queryTerm) {
 
         List<SearchResult> searchResultList = null;
@@ -105,7 +109,7 @@ public class SearchImp {
         return searchResultList;
     }
 
-    /*
+    /**
      * Prompt the user to enter a query term and return the user-specified term.
      */
     public String getInputQuery() throws IOException {
@@ -128,7 +132,7 @@ public class SearchImp {
         return inputQuery;
     }
 
-    /*h
+    /**
      * Prints out all results in the Iterator. For each result, print the
      * title, profile ID, and thumbnail.
      *

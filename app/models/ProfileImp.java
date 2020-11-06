@@ -29,18 +29,39 @@ import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
+/**
+ * Get and Store information of Profile
+ */
 public class ProfileImp {
+    /**  YouTube Model from Google APi    */
     private YouTube youTube;
+    /**  APi key from Google APi    */
     private static final String APIKey = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
+    /**  channel title   */
     private String title;
+    /**  channel description   */
     private String description;
+    /**  channel view number    */
     private BigInteger totalViews;
+    /**  channel subscriber number  */
     private BigInteger totalSubscribers;
+    /**  channel video number   */
     private BigInteger totVideos;
 
+    /**
+     * Default Constructor
+     */
     public ProfileImp() {
     }
 
+    /**
+     * Constructor
+     * @param title Channel Title
+     * @param description Channel Description
+     * @param totalViews View numbers of Channel
+     * @param totalSubscribers Subscribers number of Channel
+     * @param totVideos Total Video Numbers
+     */
     public ProfileImp(String title, String description, BigInteger totalViews, BigInteger totalSubscribers, BigInteger totVideos) {
         this.title = title;
         this.description = description;
@@ -49,42 +70,82 @@ public class ProfileImp {
         this.totVideos = totVideos;
     }
 
+    /**
+     * Getter
+     * @return channel title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Setter
+     * @param title set channel title
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Getter
+     * @return channel description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * Setter
+     * @param description set channel description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+     * Getter view numbers
+     * @return channel view number
+     */
     public BigInteger getTotalViews() {
         return totalViews;
     }
 
+    /**
+     * Setter
+     * @param totalViews set channel view number
+     */
     public void setTotalViews(BigInteger totalViews) {
         this.totalViews = totalViews;
     }
 
+    /**
+     * Getter
+     * @return get total number of subscribers
+     */
     public BigInteger getTotalSubscribers() {
         return totalSubscribers;
     }
 
+    /**
+     * Setter
+     * @param totalSubscribers set total number of subscribers
+     */
     public void setTotalSubscribers(BigInteger totalSubscribers) {
         this.totalSubscribers = totalSubscribers;
     }
 
+    /**
+     * Getter
+     * @return get channel videos number
+     */
     public BigInteger getTotVideos() {
         return totVideos;
     }
 
+    /**
+     * Setter
+     * @param totVideos Set total video number
+     */
     public void setTotVideos(BigInteger totVideos) {
         this.totVideos = totVideos;
     }

@@ -68,6 +68,13 @@ public class HomeController extends Controller {
         return ok(index.render(assetsFinder));
     }
 
+    /**
+     * Search video function
+     * @param searchKey query term key
+     * @return pass result list to views
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
     public Result search(String searchKey) throws GeneralSecurityException, IOException {
         List<Video> list = new ArrayList<>();
         SearchImp searchImp = new SearchImp();
@@ -85,8 +92,7 @@ public class HomeController extends Controller {
             ProfileImp profileImp = new ProfileImp();
 
             List<Channel> channelList =profileImp.getChannelInfo(channelID);
-            BigInteger viewCount = channelList.get(0).getStatistics().getViewCount();
-            Video video = new Video(videoName,channelTitle,channelID,viewCount,dateTime);
+            Video video = new Video(videoName,channelTitle,channelID,dateTime);
             list.add(video);
 
         }
@@ -121,6 +127,13 @@ public class HomeController extends Controller {
         );
     }
 
+    /**
+     * Perform profile request
+     * @param channelID channel id for get information of required channel
+     * @return pass result list to views
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
     public Result profile(String channelID) throws GeneralSecurityException, IOException {
         List<Channel> requiredInfo = new ArrayList<>();
         ProfileImp profileImp = new ProfileImp();
