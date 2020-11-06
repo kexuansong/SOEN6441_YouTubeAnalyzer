@@ -25,6 +25,16 @@ lazy val root = (project in file("."))
     libraryDependencies += "com.google.oauth-client" % "google-oauth-client-jetty" % "1.31.1",
     libraryDependencies += "com.google.guava" % "guava" % "30.0-jre",
     libraryDependencies += "org.json" % "json" % "20200518",
+    libraryDependencies += "com.vdurmont" % "emoji-java" % "5.1.1",
+
+
+      javaOptions in Test ++= Seq(
+      "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9998",
+      "-Xms512M",
+      "-Xmx1536M",
+      "-Xss1M",
+      "-XX:MaxPermSize=384M"
+    ),
 
 
       // Make verbose tests

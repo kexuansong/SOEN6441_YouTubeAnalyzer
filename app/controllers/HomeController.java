@@ -51,13 +51,13 @@ public class HomeController extends Controller {
         //Search search = searchForm.get();
 
         //Display comment
-        //Comments comments = new Comments();
-        //comments.SearchComment("WXVHcdRniWg");
+        Comments comments = new Comments();
+        comments.SearchComment("WXVHcdRniWg");
 
         //Display Channel information
-        ProfileImp profileImp = new ProfileImp();
-        profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
-        List<SearchResult> list = null;
+        //ProfileImp profileImp = new ProfileImp();
+        //profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
+        //List<SearchResult> list = null;
 
         /*SearchImp searchImp = new SearchImp();
         List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
