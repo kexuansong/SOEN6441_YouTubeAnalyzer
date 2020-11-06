@@ -1,23 +1,10 @@
-@import play.mvc.Http.Request
-@(widgets: Seq[Search], form: Form[searchForm])(implicit request: Request, messages: play.i18n.Messages)
+
+@* @(widgets: Seq[Search], form: Form[searchForm])*@
+@(implicit assetsFinder: AssetsFinder)
 
 @main("YouTubeAnalyzer") {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-    <h1>Search</h1>
     <div class="container" style="text-align: center">
-
-            <div class="form-group" >
-                <h1 style="font-size: 60px">YouTube Analyzer</h1>
-                <br>
-                <br>
-                @helper.form(routes.HomeController.createKeyword) {
-                    @helper.CSRF.formField
-
-                    @helper.inputText(form("keyword"))
-
-                    <button type="submit">Create widget</button>
-                }
-            </div>
 
 
     </div>

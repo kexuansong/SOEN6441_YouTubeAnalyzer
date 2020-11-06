@@ -31,7 +31,7 @@ import java.util.*;
 
 public class ProfileImp {
     private YouTube youTube;
-    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
+    private static final String APIKey = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
     private String title;
     private String description;
     private BigInteger totalViews;

@@ -17,6 +17,11 @@ public class Video {
     public Video() {
     }
 
+    public Video(String videoTitle, String channelTitle) {
+        this.videoTitle = videoTitle;
+        this.channelTitle = channelTitle;
+    }
+
     public Video(String videoTitle, String channelTitle, BigInteger viewCount, Date dateTime) {
         this.videoTitle = videoTitle;
         this.channelTitle = channelTitle;

@@ -10,6 +10,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.index;
 import views.html.profile;
+import views.html.search;
 
 
 import javax.inject.Inject;
@@ -53,6 +54,7 @@ public class HomeController extends Controller {
         //Display Channel information
         ProfileImp profileImp = new ProfileImp();
         profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
+        List<SearchResult> list = null;
 
         /*SearchImp searchImp = new SearchImp();
         List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
@@ -60,7 +62,26 @@ public class HomeController extends Controller {
         for (SearchResult s : searchResults){
             System.out.println(s.getSnippet().getTitle());
         } */
-        return ok(index.render("", assetsFinder));
+        return ok(index.render(assetsFinder));
+    }
+
+    public Result search(String searchKey){
+        List<Video> list = new ArrayList<>();
+        SearchImp searchImp = new SearchImp();
+
+
+        List<SearchResult> searchResults =searchImp.SearchVideo(searchKey);
+
+        for(SearchResult s : searchResults){
+            String videoName = s.getSnippet().getTitle();
+            String channelTitle = s.getSnippet().getChannelTitle();
+            Video video = new Video(videoName,channelTitle);
+            list.add(video);
+
+        }
+
+        return ok(search.render(list,assetsFinder));
+
     }
 
 

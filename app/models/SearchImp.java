@@ -34,7 +34,7 @@ public class SearchImp {
 
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
-    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
+    private static final String APIKey = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
 
     /**
      * Define a global instance of a Youtube object, which will be used
@@ -74,7 +74,7 @@ public class SearchImp {
 
             // To increase efficiency, only retrieve the fields that the
             // application uses.
-            search.setFields("items(id/kind,id/videoId,snippet/channelId,snippet/title)");
+            search.setFields("items(id/kind,id/videoId,snippet/channelId,snippet/title,snippet/channelTitle)");
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
             // Call the API and print results.
             SearchListResponse searchResponse = search.execute();
