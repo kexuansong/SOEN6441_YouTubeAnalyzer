@@ -2,7 +2,9 @@
 * This template takes a two arguments, a String containing a
 * message to display and an AssetsFinder to locate static assets.
 *@
-@(Num : String)(implicit assetsFinder: AssetsFinder)
+@import com.google.api.services.youtube.model.SearchResult
+@(list : List[Video])(implicit assetsFinder: AssetsFinder)
+
 
 @*
  * Call the `main` template with two arguments. The first
@@ -11,12 +13,23 @@
  *@
 @main("Search Result") {
 
-    @*
-     * Get an `Html` object by calling the built-in Play welcome
-     * template and passing a `String` message.
-     *@
-    <h1 style="text-align: center">
-        @Num
-    </h1>
+
+ <p>
+  @for(result <- list){
+
+   <div style="text-align: center">
+   <br>
+      <p style="color: #cc0000">Title : @result.getVideoTitle</p>
+      <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>
+      <p style="color: #cc0000">ViewCounts : @result.getViewCount</p>
+    <p style="color: #cc0000">Date : @result.getDateTime</p>
+   <br>
+   </div>
+
+  }
+
+ </p>
+
+
 
 }

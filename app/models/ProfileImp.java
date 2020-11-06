@@ -27,27 +27,135 @@ import java.io.IOException;
         import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Arrays;
-        import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
+/**
+ * Get and Store information of Profile
+ */
 public class ProfileImp {
-    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
+    /**  YouTube Model from Google APi    */
+    private YouTube youTube;
+    /**  APi key from Google APi    */
+    private static final String APIKey = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
+    /**  channel title   */
     private String title;
+    /**  channel description   */
     private String description;
+    /**  channel view number    */
     private BigInteger totalViews;
+    /**  channel subscriber number  */
     private BigInteger totalSubscribers;
+    /**  channel video number   */
     private BigInteger totVideos;
 
-    private YouTube youTube;
+    /**
+     * Default Constructor
+     */
+    public ProfileImp() {
+    }
 
     /**
-     * Get channel title, channel description, view number, video number and subscriber number
+     * Constructor
+     * @param title Channel Title
+     * @param description Channel Description
+     * @param totalViews View numbers of Channel
+     * @param totalSubscribers Subscribers number of Channel
+     * @param totVideos Total Video Numbers
+     */
+    public ProfileImp(String title, String description, BigInteger totalViews, BigInteger totalSubscribers, BigInteger totVideos) {
+        this.title = title;
+        this.description = description;
+        this.totalViews = totalViews;
+        this.totalSubscribers = totalSubscribers;
+        this.totVideos = totVideos;
+    }
+
+    /**
+     * Getter
+     * @return channel title
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Setter
+     * @param title set channel title
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * Getter
+     * @return channel description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Setter
+     * @param description set channel description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Getter view numbers
+     * @return channel view number
+     */
+    public BigInteger getTotalViews() {
+        return totalViews;
+    }
+
+    /**
+     * Setter
+     * @param totalViews set channel view number
+     */
+    public void setTotalViews(BigInteger totalViews) {
+        this.totalViews = totalViews;
+    }
+
+    /**
+     * Getter
+     * @return get total number of subscribers
+     */
+    public BigInteger getTotalSubscribers() {
+        return totalSubscribers;
+    }
+
+    /**
+     * Setter
+     * @param totalSubscribers set total number of subscribers
+     */
+    public void setTotalSubscribers(BigInteger totalSubscribers) {
+        this.totalSubscribers = totalSubscribers;
+    }
+
+    /**
+     * Getter
+     * @return get channel videos number
+     */
+    public BigInteger getTotVideos() {
+        return totVideos;
+    }
+
+    /**
+     * Setter
+     * @param totVideos Set total video number
+     */
+    public void setTotVideos(BigInteger totVideos) {
+        this.totVideos = totVideos;
+    }
+
+    /**
+     * Get channel title, channel description, view number, profile number and subscriber number
      * @param ChannelId channel id
      */
 
-    public void getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
+    public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
         List<Channel> channelSearchList = null;
         youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
             @Override
@@ -64,7 +172,7 @@ public class ProfileImp {
         channelSearchList = channelListResponse.getItems();
 
 
-        for(Channel channel : channelSearchList){
+        /*for(Channel channel : channelSearchList){
             title = channel.getSnippet().getTitle();
             description = channel.getSnippet().getDescription();
 
@@ -75,11 +183,11 @@ public class ProfileImp {
 
             System.out.println("===========");
             System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
-        }
+        } */
+
+        return channelSearchList;
+
     }
-
-
-
 
 
 }

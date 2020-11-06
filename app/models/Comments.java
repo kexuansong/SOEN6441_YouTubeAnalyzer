@@ -38,7 +38,7 @@ public class Comments {
 //    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static YouTube youtube;
 
-    public List<CommentThread> SearchComment() throws IOException {
+    public List<CommentThread> SearchComment(String VideoId) throws IOException {
         List<CommentThread> searchCommentsList = null;
             youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer(){
                 public void initialize(HttpRequest request) throws IOException {
@@ -53,7 +53,7 @@ public class Comments {
 
 
             CommentThreadListResponse response = comments.setKey(DEVELOPER_KEY)
-                    .setVideoId("WXVHcdRniWg")
+                    .setVideoId(VideoId)
                     .setMaxResults(NUMBER_OF_COMMENTS_RETURNED)
                     .execute();
 

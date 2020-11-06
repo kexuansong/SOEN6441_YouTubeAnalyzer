@@ -34,7 +34,7 @@ public class SearchImp {
 
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
-    private static final String APIKey = "AIzaSyDV4V-65t4ooVa94BWnB13qNcojEiWgdn4";
+    private static final String APIKey = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
 
     /**
      * Define a global instance of a Youtube object, which will be used
@@ -43,7 +43,11 @@ public class SearchImp {
     private static YouTube youtube;
 
 
-
+    /**
+     * Search video through YouTube Api
+     * @param queryTerm search key
+     * @return result of searching list
+     */
     public List<SearchResult> SearchVideo(String queryTerm) {
 
         List<SearchResult> searchResultList = null;
@@ -74,7 +78,7 @@ public class SearchImp {
 
             // To increase efficiency, only retrieve the fields that the
             // application uses.
-            search.setFields("items(id/kind,id/videoId,snippet/channelId,snippet/title)");
+            search.setFields("items(id/kind,id/videoId,snippet/channelId,snippet/title,snippet/channelTitle,snippet/publishedAt)");
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
             // Call the API and print results.
             SearchListResponse searchResponse = search.execute();
@@ -105,7 +109,7 @@ public class SearchImp {
         return searchResultList;
     }
 
-    /*
+    /**
      * Prompt the user to enter a query term and return the user-specified term.
      */
     public String getInputQuery() throws IOException {
@@ -128,9 +132,9 @@ public class SearchImp {
         return inputQuery;
     }
 
-    /*h
+    /**
      * Prints out all results in the Iterator. For each result, print the
-     * title, video ID, and thumbnail.
+     * title, profile ID, and thumbnail.
      *
      * @param iteratorSearchResults Iterator of SearchResults to print
      *
@@ -152,9 +156,9 @@ public class SearchImp {
             SearchResult singleVideo = iteratorSearchResults.next();
             ResourceId rId = singleVideo.getId();
 
-            // Confirm that the result represents a video. Otherwise, the
-            // item will not contain a video ID.
-            if (rId.getKind().equals("youtube#video")) {
+            // Confirm that the result represents a profile. Otherwise, the
+            // item will not contain a profile ID.
+            if (rId.getKind().equals("youtube#profile")) {
                 Thumbnail thumbnail = singleVideo.getSnippet().getThumbnails().getDefault();
 
                 System.out.println(" Video Id " + rId.getVideoId());
