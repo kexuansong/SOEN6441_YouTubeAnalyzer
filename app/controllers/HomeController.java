@@ -85,6 +85,31 @@ public class HomeController extends Controller {
 
     }
 
+   //Owner/Channel Videos: Display the info for ten latest videos posted by the same owner/
+    //channel as the one from the search results (where available, linked through owner field).
+    //The videos must be sorted by upload date followed by the search terms.
+    public Result ownerVideos(String channelID) throws GeneralSecurityException, IOException {
+
+        List<Channel> requiredInfo = new ArrayList<>();
+        ProfileImp profileImp = new ProfileImp();
+
+        requiredInfo = profileImp.getChannelInfo(channelID);
+        Channel channel = requiredInfo.get(0);
+
+        String title = channel.getSnippet().getTitle();
+        String description = channel.getSnippet().getDescription();
+
+        BigInteger totalViews = channel.getStatistics().getViewCount();
+        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
+        BigInteger totVideos = channel.getStatistics().getVideoCount();
+
+        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
+
+        // render list
+        return ok(
+                profile.render(imp, assetsFinder)
+        );
+    }
 
     public Result profile(String channelID) throws GeneralSecurityException, IOException {
         List<Channel> requiredInfo = new ArrayList<>();
