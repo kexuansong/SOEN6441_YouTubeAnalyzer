@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.SearchResult;
 
@@ -15,9 +16,11 @@ import views.html.search;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,9 +68,10 @@ public class HomeController extends Controller {
         return ok(index.render(assetsFinder));
     }
 
-    public Result search(String searchKey){
+    public Result search(String searchKey) throws GeneralSecurityException, IOException {
         List<Video> list = new ArrayList<>();
         SearchImp searchImp = new SearchImp();
+
 
 
         List<SearchResult> searchResults =searchImp.SearchVideo(searchKey);
@@ -76,7 +80,13 @@ public class HomeController extends Controller {
             String videoName = s.getSnippet().getTitle();
             String channelTitle = s.getSnippet().getChannelTitle();
             String channelID = s.getSnippet().getChannelId();
-            Video video = new Video(videoName,channelTitle,channelID);
+            DateTime dateTime = s.getSnippet().getPublishedAt();
+
+            ProfileImp profileImp = new ProfileImp();
+
+            List<Channel> channelList =profileImp.getChannelInfo(channelID);
+            BigInteger viewCount = channelList.get(0).getStatistics().getViewCount();
+            Video video = new Video(videoName,channelTitle,channelID,viewCount,dateTime);
             list.add(video);
 
         }

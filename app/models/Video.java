@@ -1,4 +1,6 @@
 package models;
+import com.google.api.client.util.DateTime;
+
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -12,22 +14,17 @@ public class Video {
     private String videoTitle;
     private String channelTitle;
     private BigInteger viewCount;
-    private Date dateTime;
+    private DateTime dateTime;
     private String channelID;
 
     public Video() {
     }
 
-    public Video(String videoTitle, String channelTitle,String channelID) {
+    public Video(String videoTitle, String channelTitle,String channelID,BigInteger viewCount,DateTime dateTime) {
         this.videoTitle = videoTitle;
         this.channelTitle = channelTitle;
         this.channelID = channelID;
-    }
-
-    public Video(String videoTitle, String channelTitle, BigInteger viewCount, Date dateTime) {
-        this.videoTitle = videoTitle;
-        this.channelTitle = channelTitle;
-        this.viewCount = viewCount;
+        this.viewCount =viewCount;
         this.dateTime = dateTime;
     }
 
@@ -55,15 +52,18 @@ public class Video {
         this.viewCount = viewCount;
     }
 
-    public Date getDateTime() {
+    public DateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(Date dateTime) {
+    public void setDateTime(DateTime dateTime) {
         this.dateTime = dateTime;
     }
+
+
 
     public String getChannelID() {
         return channelID;
     }
+
 }

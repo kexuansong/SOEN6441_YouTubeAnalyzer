@@ -20,7 +20,9 @@
    <div style="text-align: center">
    <br>
       <p style="color: #cc0000">Title : @result.getVideoTitle</p>
-    <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>
+      <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>
+      <p style="color: #cc0000">ViewCounts : @result.getViewCount</p>
+    <p style="color: #cc0000">Date : @result.getDateTime</p>
    <br>
    </div>
 
