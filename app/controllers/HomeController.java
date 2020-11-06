@@ -75,7 +75,8 @@ public class HomeController extends Controller {
         for(SearchResult s : searchResults){
             String videoName = s.getSnippet().getTitle();
             String channelTitle = s.getSnippet().getChannelTitle();
-            Video video = new Video(videoName,channelTitle);
+            String channelID = s.getSnippet().getChannelId();
+            Video video = new Video(videoName,channelTitle,channelID);
             list.add(video);
 
         }
@@ -85,12 +86,12 @@ public class HomeController extends Controller {
     }
 
 
-    public Result profile() throws GeneralSecurityException, IOException {
+    public Result profile(String channelID) throws GeneralSecurityException, IOException {
         List<Channel> requiredInfo = new ArrayList<>();
         ProfileImp profileImp = new ProfileImp();
 
 
-        requiredInfo = profileImp.getChannelInfo("UCgWD0gHPDM_lCf0PSYDnTIg");
+        requiredInfo = profileImp.getChannelInfo(channelID);
         Channel channel = requiredInfo.get(0);
 
         String title = channel.getSnippet().getTitle();

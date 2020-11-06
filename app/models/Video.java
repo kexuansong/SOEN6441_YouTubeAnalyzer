@@ -13,13 +13,15 @@ public class Video {
     private String channelTitle;
     private BigInteger viewCount;
     private Date dateTime;
+    private String channelID;
 
     public Video() {
     }
 
-    public Video(String videoTitle, String channelTitle) {
+    public Video(String videoTitle, String channelTitle,String channelID) {
         this.videoTitle = videoTitle;
         this.channelTitle = channelTitle;
+        this.channelID = channelID;
     }
 
     public Video(String videoTitle, String channelTitle, BigInteger viewCount, Date dateTime) {
@@ -59,5 +61,9 @@ public class Video {
 
     public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public String getChannelID() {
+        return channelID;
     }
 }

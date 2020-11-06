@@ -4,7 +4,7 @@
 
 GET     /                           controllers.HomeController.index
 GET     /search                     controllers.HomeController.search(searchkey: String)
-GET     /p                           controllers.HomeController.profile
+GET     /profile:channelID          controllers.HomeController.profile(channelID: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
