@@ -121,6 +121,8 @@ public Result index() throws GeneralSecurityException, IOException {
         Channel channel = requiredInfo.get(0);
 
         String title = channel.getSnippet().getTitle();
+        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
+        String contentOwner =  channel.getContentOwnerDetails().getContentOwner();
         String description = channel.getSnippet().getDescription();
 
         BigInteger totalViews = channel.getStatistics().getViewCount();
