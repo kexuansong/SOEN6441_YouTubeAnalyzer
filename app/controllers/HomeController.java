@@ -45,28 +45,28 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index() throws GeneralSecurityException, IOException {
-        //Form<Search> searchForm = formFactory.form(Search.class);
-
-        //Search search = searchForm.get();
-
-        //Display comment
-        Comments comments = new Comments();
-        comments.SearchComment("WXVHcdRniWg");
-
-        //Display Channel information
-        //ProfileImp profileImp = new ProfileImp();
-        //profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
-        //List<SearchResult> list = null;
-
-        /*SearchImp searchImp = new SearchImp();
-        List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
-
-        for (SearchResult s : searchResults){
-            System.out.println(s.getSnippet().getTitle());
-        } */
-        return ok(index.render(assetsFinder));
-    }
+//    public Result index() throws GeneralSecurityException, IOException {
+//        //Form<Search> searchForm = formFactory.form(Search.class);
+//
+//        //Search search = searchForm.get();
+//
+//        //Display comment
+//        Comments comments = new Comments();
+//        comments.SearchComment("WXVHcdRniWg");
+//
+//        //Display Channel information
+//        //ProfileImp profileImp = new ProfileImp();
+//        //profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
+//        //List<SearchResult> list = null;
+//
+//        /*SearchImp searchImp = new SearchImp();
+//        List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
+//
+//        for (SearchResult s : searchResults){
+//            System.out.println(s.getSnippet().getTitle());
+//        } */
+//        return ok(index.render(assetsFinder));
+//    }
 
     /**
      * Search video function
@@ -78,21 +78,29 @@ public class HomeController extends Controller {
     public Result search(String searchKey) throws GeneralSecurityException, IOException {
         List<Video> list = new ArrayList<>();
         SearchImp searchImp = new SearchImp();
+        Comments searchComments = new Comments();
 
 
 
         List<SearchResult> searchResults =searchImp.SearchVideo(searchKey);
+        System.out.println(searchResults);
+
 
         for(SearchResult s : searchResults){
             String videoName = s.getSnippet().getTitle();
+            System.out.println("videoname：" + videoName);
+            String videoID = s.getId().getVideoId();
+            System.out.println("videoid:" + videoID);
             String channelTitle = s.getSnippet().getChannelTitle();
             String channelID = s.getSnippet().getChannelId();
             DateTime dateTime = s.getSnippet().getPublishedAt();
+            String sentiment = searchComments.SearchComment(videoID);
+            System.out.println("sentiment： "+ sentiment);
 
             ProfileImp profileImp = new ProfileImp();
 
             List<Channel> channelList =profileImp.getChannelInfo(channelID);
-            Video video = new Video(videoName,channelTitle,channelID,dateTime);
+            Video video = new Video(videoName,videoID,channelTitle,channelID,dateTime,sentiment);
             list.add(video);
 
         }

@@ -13,6 +13,8 @@ import java.util.Date;
 public class Video {
     /**  video title   */
     private String videoTitle;
+    /**  video ID   */
+    private String videoID;
     /**  Channel title   */
     private String channelTitle;
     /**   view number   */
@@ -21,6 +23,8 @@ public class Video {
     private DateTime dateTime;
     /**  channel id    */
     private String channelID;
+    /**  video sentiment    */
+    private String sentiment;
 
     /**
      * Default Constructor
@@ -35,11 +39,13 @@ public class Video {
      * @param channelID channel id
      * @param dateTime publish date
      */
-    public Video(String videoTitle, String channelTitle,String channelID,DateTime dateTime) {
+    public Video(String videoTitle,String videoID, String channelTitle,String channelID,DateTime dateTime,String sentiment) {
         this.videoTitle = videoTitle;
+        this.videoID = videoID;
         this.channelTitle = channelTitle;
         this.channelID = channelID;
         this.dateTime = dateTime;
+        this.sentiment = sentiment;
     }
 
     /**
@@ -48,6 +54,14 @@ public class Video {
      */
     public String getVideoTitle() {
         return videoTitle;
+    }
+
+    /**
+     * Getter
+     * @return get video title
+     */
+    public String getVideoID() {
+        return videoID;
     }
 
     /**
@@ -80,6 +94,14 @@ public class Video {
      */
     public String getChannelID() {
         return channelID;
+    }
+
+    /**
+     * Getter
+     * @return get video sentiment
+     */
+    public String getSentiment() {
+        return sentiment;
     }
 
 }
