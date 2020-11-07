@@ -80,8 +80,6 @@ public Result index() throws GeneralSecurityException, IOException {
         SearchImp searchImp = new SearchImp();
         Comments searchComments = new Comments();
 
-
-
         List<SearchResult> searchResults =searchImp.SearchVideo(searchKey);
         System.out.println(searchResults);
 
@@ -120,8 +118,13 @@ public Result index() throws GeneralSecurityException, IOException {
         requiredInfo = profileImp.getChannelInfo(channelID);
         Channel channel = requiredInfo.get(0);
 
+        Playlist playlist = new Playlist();
+
         String title = channel.getSnippet().getTitle();
         String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
+        String channelId = channel.getId();
+        playlist.setPlaylist(uploadId);
+        playlist.setChannelId(channelId);
         String contentOwner =  channel.getContentOwnerDetails().getContentOwner();
         String description = channel.getSnippet().getDescription();
 
