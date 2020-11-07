@@ -34,7 +34,7 @@ public class SearchImp {
 
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
-    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
+    private static final String APIKey = "AIzaSyBVJ00Q0_3VQIe__67PJ82HwQmY75cE8JA";
 
     /**
      * Define a global instance of a Youtube object, which will be used

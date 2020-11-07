@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-#GET     /                           controllers.HomeController.index
+GET     /                           controllers.HomeController.index
 GET     /search                     controllers.HomeController.search(searchkey: String)
 GET     /profile:channelID          controllers.HomeController.profile(channelID: String)
 GET     /ownerVideos                controllers.HomeController.ownerVideos(channelID: String)

@@ -45,7 +45,7 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-//    public Result index() throws GeneralSecurityException, IOException {
+public Result index() throws GeneralSecurityException, IOException {
 //        //Form<Search> searchForm = formFactory.form(Search.class);
 //
 //        //Search search = searchForm.get();
@@ -65,8 +65,8 @@ public class HomeController extends Controller {
 //        for (SearchResult s : searchResults){
 //            System.out.println(s.getSnippet().getTitle());
 //        } */
-//        return ok(index.render(assetsFinder));
-//    }
+   return ok(index.render(assetsFinder));
+  }
 
     /**
      * Search video function
