@@ -95,9 +95,9 @@ public class SearchImp {
 
             }
 
-            if (searchResultList != null) {
+            /*if (searchResultList != null) {
                 prettyPrint(searchResultList.iterator(), queryTerm);
-            }
+            }*/
         } catch (GoogleJsonResponseException e) {
             System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
                     + e.getDetails().getMessage());

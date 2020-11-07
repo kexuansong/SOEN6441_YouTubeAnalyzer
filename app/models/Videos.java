@@ -10,7 +10,7 @@ import java.util.Date;
  *
  */
 
-public class Video {
+public class Videos {
     /**  video title   */
     private String videoTitle;
     /**  video ID   */
@@ -26,10 +26,11 @@ public class Video {
     /**  video sentiment    */
     private String sentiment;
 
+
     /**
      * Default Constructor
      */
-    public Video() {
+    public Videos() {
     }
 
     /**
@@ -39,13 +40,14 @@ public class Video {
      * @param channelID channel id
      * @param dateTime publish date
      */
-    public Video(String videoTitle,String videoID, String channelTitle,String channelID,DateTime dateTime,String sentiment) {
+    public Videos(String videoTitle, String videoID, String channelTitle, String channelID,BigInteger viewCount ,DateTime dateTime,String sentiment) {
         this.videoTitle = videoTitle;
         this.videoID = videoID;
         this.channelTitle = channelTitle;
         this.channelID = channelID;
         this.dateTime = dateTime;
         this.sentiment = sentiment;
+        this.viewCount  = viewCount;
     }
 
     /**

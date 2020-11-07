@@ -5,7 +5,6 @@ import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.SearchResult;
 
 import models.*;
-import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -16,11 +15,9 @@ import views.html.search;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -65,6 +62,8 @@ public Result index() throws GeneralSecurityException, IOException {
 //        for (SearchResult s : searchResults){
 //            System.out.println(s.getSnippet().getTitle());
 //        } */
+    //VideoImp videoImp = new VideoImp();
+    // videoImp.getVideoComment();
    return ok(index.render(assetsFinder));
   }
 
@@ -76,8 +75,9 @@ public Result index() throws GeneralSecurityException, IOException {
      * @throws IOException
      */
     public Result search(String searchKey) throws GeneralSecurityException, IOException {
-        List<Video> list = new ArrayList<>();
+        List<Videos> list = new ArrayList<>();
         SearchImp searchImp = new SearchImp();
+        VideoImp videoImp = new VideoImp();
         Comments searchComments = new Comments();
 
         List<SearchResult> searchResults =searchImp.SearchVideo(searchKey);
@@ -86,22 +86,22 @@ public Result index() throws GeneralSecurityException, IOException {
 
         for(SearchResult s : searchResults){
             String videoName = s.getSnippet().getTitle();
-            System.out.println("videoname：" + videoName);
+            //System.out.println("videoname：" + videoName);
             String videoID = s.getId().getVideoId();
-            System.out.println("videoid:" + videoID);
+            //System.out.println("videoid:" + videoID);
             String channelTitle = s.getSnippet().getChannelTitle();
             String channelID = s.getSnippet().getChannelId();
             DateTime dateTime = s.getSnippet().getPublishedAt();
             String sentiment = searchComments.SearchComment(videoID);
-            System.out.println("sentiment： "+ sentiment);
-
-            ProfileImp profileImp = new ProfileImp();
-
-            List<Channel> channelList =profileImp.getChannelInfo(channelID);
-            Video video = new Video(videoName,videoID,channelTitle,channelID,dateTime,sentiment);
+            BigInteger viewCount = videoImp.getVideoView(videoID);
+            //System.out.println("sentiment： "+ sentiment);
+            Videos video = new Videos(videoName,videoID,channelTitle,channelID,viewCount,dateTime,sentiment);
             list.add(video);
-
         }
+
+
+
+
 
         return ok(search.render(list,assetsFinder));
 
