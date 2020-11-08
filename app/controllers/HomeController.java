@@ -5,9 +5,9 @@ import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.SearchResult;
 
 import models.*;
+import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
-import play.mvc.Http;
 import play.mvc.Result;
 import views.html.index;
 import views.html.profile;
@@ -16,11 +16,12 @@ import views.html.search;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -44,7 +45,7 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-public Result index(Http.Request request) throws GeneralSecurityException, IOException {
+public Result index() throws GeneralSecurityException, IOException {
 //        //Form<Search> searchForm = formFactory.form(Search.class);
 //
 //        //Search search = searchForm.get();
@@ -64,14 +65,7 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
 //        for (SearchResult s : searchResults){
 //            System.out.println(s.getSnippet().getTitle());
 //        } */
-    //VideoImp videoImp = new VideoImp();
-    // videoImp.getVideoComment();
-    Optional<String> userSession = request.session().get("Connected");
-    if(userSession.isPresent()){
-        return redirect("/").addingToSession(request,"Connected","MySession");
-    }else {
-        return ok(index.render(assetsFinder));
-    }
+   return ok(index.render(assetsFinder));
   }
 
     /**
@@ -85,7 +79,7 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
         List<Videos> list = new ArrayList<>();
         SearchImp searchImp = new SearchImp();
         VideoImp videoImp = new VideoImp();
-        Comments searchComments = new Comments();
+//        Comments searchComments = new Comments();
 
         List<SearchResult> searchResults =searchImp.SearchVideo(searchKey);
         System.out.println(searchResults);
@@ -96,10 +90,11 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
             //System.out.println("videoname：" + videoName);
             String videoID = s.getId().getVideoId();
             //System.out.println("videoid:" + videoID);
+            Comments searchComments = new Comments(videoID);
             String channelTitle = s.getSnippet().getChannelTitle();
             String channelID = s.getSnippet().getChannelId();
             DateTime dateTime = s.getSnippet().getPublishedAt();
-            String sentiment = searchComments.SearchComment(videoID);
+            String sentiment = searchComments.SearchComment();
             BigInteger viewCount = videoImp.getVideoView(videoID);
             //System.out.println("sentiment： "+ sentiment);
             Videos video = new Videos(videoName,videoID,channelTitle,channelID,viewCount,dateTime,sentiment);

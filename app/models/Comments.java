@@ -25,7 +25,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.function.Predicate;
+
 
 import static java.util.stream.Collectors.toList;
 
@@ -38,28 +41,36 @@ public class Comments {
 
     private static YouTube youtube;
 
-    public String SearchComment(String VideoId) throws GeneralSecurityException, IOException, GoogleJsonResponseException {
+    private static String VideoId;
+
+    List<CommentThread> searchCommentsList = null;
+
+    public Comments(String VideoId) throws IOException {
+
+        this.VideoId = VideoId;
+
+
+        youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
+            public void initialize(HttpRequest request) throws IOException {
+            }
+        })
+                .setApplicationName(APPLICATION_NAME)
+                .build();
+
+        YouTube.CommentThreads.List comments = youtube.commentThreads()
+                .list("snippet,replies");
+
+        CommentThreadListResponse response = comments.setKey(DEVELOPER_KEY)
+                .setVideoId(VideoId)
+                .setMaxResults(NUMBER_OF_COMMENTS_RETURNED)
+                .execute();
+
+        searchCommentsList = response.getItems();
+    }
+
+
+    public String SearchComment() throws GeneralSecurityException, IOException, GoogleJsonResponseException {
         try {
-            List<CommentThread> searchCommentsList = null;
-            youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
-                public void initialize(HttpRequest request) throws IOException {
-                }
-            })
-                    .setApplicationName(APPLICATION_NAME)
-                    .build();
-
-
-            YouTube.CommentThreads.List comments = youtube.commentThreads()
-                    .list("snippet,replies");
-
-
-            CommentThreadListResponse response = comments.setKey(DEVELOPER_KEY)
-                    .setVideoId(VideoId)
-                    .setMaxResults(NUMBER_OF_COMMENTS_RETURNED)
-                    .execute();
-
-            searchCommentsList = response.getItems();
-
 
             List<String> commentsList = new ArrayList<>();
             List<String> emojiList = new ArrayList<>();
@@ -101,6 +112,12 @@ public class Comments {
             );
 
 
+//            public List<String> findHappyEmo(String emojiList){
+//                List<CompletableFuture>String happy =  emojiList.stream()
+//                        .map(e -> CompletableFuture.supplyAsync(() -> e.replace("[", "").replace("]", "") ))
+//                        .filter(future -> future.thenApply(w1 -> happyEmo.stream().anyMatch(w2 -> w1.contains(w2))))
+//                return
+//            }
             List<String> happy = emojiList.stream()
                     .map(e -> e.replace("[", "").replace("]", ""))
                     .filter(w1 -> happyEmo.stream().anyMatch(w2 -> w1.contains(w2)))
