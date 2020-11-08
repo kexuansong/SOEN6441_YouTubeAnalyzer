@@ -81,7 +81,7 @@ public class PlayListImp {
         YouTube.PlaylistItems.List request = youtubeService.playlistItems()
                 .list("snippet");
         PlaylistItemListResponse response = request.setMaxResults(10L)
-                .setPlaylistId("UU29ju8bIPH5as8OGnQzwJyA")
+                .setPlaylistId("AIzaSyD2wbGudy-BKrfstjvKIr2YUaNFMilmwDs")
                 .execute();
         System.out.println(response);
     }

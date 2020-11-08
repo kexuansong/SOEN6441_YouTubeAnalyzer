@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.model.Channel;
+import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.SearchResult;
 
 import models.*;
@@ -47,7 +48,7 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-public Result index(Http.Request request) throws GeneralSecurityException, IOException {
+    public Result index(Http.Request request) throws GeneralSecurityException, IOException {
 //        //Form<Search> searchForm = formFactory.form(Search.class);
 //
 //        //Search search = searchForm.get();
@@ -68,13 +69,13 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
 //            System.out.println(s.getSnippet().getTitle());
 //        } */
 
-    Optional<String> userSession = request.session().get("Connected");
-    if(!userSession.isPresent()){
-        return redirect("/").addingToSession(request,"Connected","MySession");
+        Optional<String> userSession = request.session().get("Connected");
+        if(!userSession.isPresent()){
+            return redirect("/").addingToSession(request,"Connected","MySession");
 
-    } else {
-        return ok(index.render(assetsFinder));}
-  }
+        } else {
+            return ok(index.render(assetsFinder));}
+    }
 
     /**
      * Search video function
@@ -117,7 +118,7 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
 
     }
 
-   //Owner/Channel Videos: Display the info for ten latest videos posted by the same owner/
+    //Owner/Channel Videos: Display the info for ten latest videos posted by the same owner/
     //channel as the one from the search results (where available, linked through owner field).
     //The videos must be sorted by upload date followed by the search terms.
     public Result ownerVideos(String channelID) throws GeneralSecurityException, IOException {
@@ -128,13 +129,13 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
         requiredInfo = profileImp.getChannelInfo(channelID);
         Channel channel = requiredInfo.get(0);
 
-        Playlist playlist = new Playlist();
+       // Playlist playlist = new Playlist();
 
         String title = channel.getSnippet().getTitle();
         String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
         String channelId = channel.getId();
-        playlist.setPlaylist(uploadId);
-        playlist.setChannelId(channelId);
+        //playlist.setPlaylist(uploadId);
+        //playlist.setChannelId(channelId);
         String contentOwner =  channel.getContentOwnerDetails().getContentOwner();
         String description = channel.getSnippet().getDescription();
 
@@ -149,6 +150,8 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
                 profile.render(imp, assetsFinder)
         );
     }
+
+
 
     /**
      * Perform profile request
@@ -167,12 +170,51 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
 
         String title = channel.getSnippet().getTitle();
         String description = channel.getSnippet().getDescription();
+        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
+        System.out.println("-------------");
+        System.out.println("upload id is ~~~~~~"+ uploadId);
+        System.out.println("-------------");
+
 
         BigInteger totalViews = channel.getStatistics().getViewCount();
         BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
         BigInteger totVideos = channel.getStatistics().getVideoCount();
 
         ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
+
+
+        Playlist playlist = new Playlist();
+        List<PlaylistItem> OneChannelVideos = playlist.getPlaylistItems(uploadId);
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println(OneChannelVideos);
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+
+        List<Videos> list = new ArrayList<>();
+        VideoImp videoImp = new VideoImp();
+
+        for(PlaylistItem p : OneChannelVideos){
+            String videoName = p.getSnippet().getTitle();
+            //System.out.println("videoname：" + videoName);
+            String videoID = p.getId();
+            //System.out.println("videoid:" + videoID);
+
+            String channelTitle = p.getSnippet().getChannelTitle();
+            System.out.println("================");
+            DateTime dateTime = p.getSnippet().getPublishedAt();
+           System.out.println(dateTime);
+            System.out.println("================");
+
+            //System.out.println("sentiment： "+ sentiment);
+            //Videos video = new Videos(videoName,videoID,channelTitle,channelID,viewCount,dateTime,sentiment);
+            //list.add(video);
+        }
+
 
         // render list
         return ok(
@@ -181,10 +223,4 @@ public Result index(Http.Request request) throws GeneralSecurityException, IOExc
     }
 
 }
-
-
-
-
-
-
 

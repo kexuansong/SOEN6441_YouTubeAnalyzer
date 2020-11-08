@@ -6,25 +6,25 @@ package models;
  */
 
 import com.google.api.client.auth.oauth2.Credential;
-        import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
-        import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
-        import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-        import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-        import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-        import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
-        import com.google.api.client.json.JsonFactory;
-        import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 import com.google.api.client.util.Joiner;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
 
 import java.io.IOException;
-        import java.io.InputStream;
-        import java.io.InputStreamReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.*;
@@ -36,7 +36,7 @@ public class ProfileImp {
     /**  YouTube Model from Google APi    */
     private YouTube youTube;
     /**  APi key from Google APi    */
-    private static final String APIKey = "AIzaSyBVJ00Q0_3VQIe__67PJ82HwQmY75cE8JA";
+    private static final String APIKey = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
     /**  channel title   */
     private String title;
     /**  channel description   */
@@ -47,6 +47,8 @@ public class ProfileImp {
     private BigInteger totalSubscribers;
     /**  channel video number   */
     private BigInteger totVideos;
+    /** channel upload id*/
+    private String uploadId;
 
     /**
      * Default Constructor
@@ -68,6 +70,11 @@ public class ProfileImp {
         this.totalViews = totalViews;
         this.totalSubscribers = totalSubscribers;
         this.totVideos = totVideos;
+    }
+
+    public ProfileImp(String title,String uploadId){
+        this.title = title;
+        this.uploadId  = uploadId;
     }
 
     /**
@@ -151,6 +158,18 @@ public class ProfileImp {
     }
 
     /**
+     * Getter
+     * @return get upload id
+     */
+    public String getUploadId(){
+        return uploadId;
+    }
+
+    public void setUploadId(){
+        this.uploadId = uploadId;
+    }
+
+    /**
      * Get channel title, channel description, view number, profile number and subscriber number
      * @param ChannelId channel id
      */
@@ -163,7 +182,7 @@ public class ProfileImp {
             }
         }).setApplicationName("Channel").build();
 
-        YouTube.Channels.List search =  youTube.channels().list("snippet,statistics");
+        YouTube.Channels.List search =  youTube.channels().list("snippet,contentDetails,statistics");
         search.setKey(APIKey);
         search.setId(ChannelId);
 
@@ -172,18 +191,19 @@ public class ProfileImp {
         channelSearchList = channelListResponse.getItems();
 
 
-        /*for(Channel channel : channelSearchList){
+        for(Channel channel : channelSearchList){
             title = channel.getSnippet().getTitle();
             description = channel.getSnippet().getDescription();
-
             totalViews = channel.getStatistics().getViewCount();
             totalSubscribers = channel.getStatistics().getSubscriberCount();
             totVideos = channel.getStatistics().getVideoCount();
-
-
+            uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
             System.out.println("===========");
+
+            System.out.println(" upload id is " + uploadId);
+
             System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
-        } */
+        }
 
         return channelSearchList;
 
