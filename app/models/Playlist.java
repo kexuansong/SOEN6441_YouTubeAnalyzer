@@ -56,13 +56,13 @@ public class Playlist {
                 .list("snippet");
         request.setPlaylistId(playlistId);
         request.setKey(APIKey);
-        request.setFields("items(snippet/channelId,snippet/title,snippet/publishedAt,snippet/description)");
+        request.setFields("items(id,snippet/channelId,snippet/title,snippet/publishedAt,snippet/description)");
         PlaylistItemListResponse response = request.setMaxResults(NUMBER_OF_VIDEOS_RETURNED)
                 .execute();
-        System.out.println("-----------------");
-        System.out.println("-----------------");
-        System.out.println("-----------------");
-        System.out.println(response);
+//        System.out.println("-----------------");
+//        System.out.println("-----------------");
+//        System.out.println("-----------------");
+//        System.out.println(response);
 
         playlistItems = response.getItems();
         return playlistItems;

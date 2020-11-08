@@ -151,6 +151,8 @@ public class HomeController extends Controller {
         );
     }
 
+
+
     /**
      * Perform profile request
      * @param channelID channel id for get information of required channel
@@ -180,17 +182,38 @@ public class HomeController extends Controller {
 
         ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
 
+
         Playlist playlist = new Playlist();
         List<PlaylistItem> OneChannelVideos = playlist.getPlaylistItems(uploadId);
-        System.out.println("====================");
-        System.out.println("====================");
-        System.out.println("====================");
-        System.out.println("====================");
-        System.out.println(OneChannelVideos);
-        System.out.println("====================");
-        System.out.println("====================");
-        System.out.println("====================");
-        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println(OneChannelVideos);
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+//        System.out.println("====================");
+
+        List<Videos> list = new ArrayList<>();
+        VideoImp videoImp = new VideoImp();
+
+        for(PlaylistItem p : OneChannelVideos){
+            String videoName = p.getSnippet().getTitle();
+            //System.out.println("videoname：" + videoName);
+            String videoID = p.getId();
+            //System.out.println("videoid:" + videoID);
+
+            String channelTitle = p.getSnippet().getChannelTitle();
+            System.out.println("================");
+            DateTime dateTime = p.getSnippet().getPublishedAt();
+           System.out.println(dateTime);
+            System.out.println("================");
+
+            //System.out.println("sentiment： "+ sentiment);
+            //Videos video = new Videos(videoName,videoID,channelTitle,channelID,viewCount,dateTime,sentiment);
+            //list.add(video);
+        }
 
 
         // render list
