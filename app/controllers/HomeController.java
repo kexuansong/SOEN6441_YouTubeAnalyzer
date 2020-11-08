@@ -99,11 +99,11 @@ public class HomeController extends Controller {
             //System.out.println("videoname：" + videoName);
             String videoID = s.getId().getVideoId();
             //System.out.println("videoid:" + videoID);
-            Comments searchComments = new Comments(videoID);
+            Comments c = new Comments(videoID);
             String channelTitle = s.getSnippet().getChannelTitle();
             String channelID = s.getSnippet().getChannelId();
             DateTime dateTime = s.getSnippet().getPublishedAt();
-            String sentiment = searchComments.SearchComment();
+            String sentiment = c.SearchComment(c.getComments(videoID));
             BigInteger viewCount = videoImp.getVideoView(videoID);
             //System.out.println("sentiment： "+ sentiment);
             Videos video = new Videos(videoName,videoID,channelTitle,channelID,viewCount,dateTime,sentiment);
