@@ -39,23 +39,27 @@ public class Comments {
     private static final long NUMBER_OF_COMMENTS_RETURNED = 100;
     private static final String APPLICATION_NAME = "API code samples";
 
-    private static YouTube youtube;
+    private static YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
+        public void initialize(HttpRequest request) throws IOException {
+        }
+    })
+            .setApplicationName(APPLICATION_NAME)
+            .build();
 
     private static String VideoId;
 
     List<CommentThread> searchCommentsList = null;
 
-    public Comments(String VideoId) throws IOException {
 
+
+    public Comments(String VideoId){
         this.VideoId = VideoId;
+    }
 
 
-        youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
-            public void initialize(HttpRequest request) throws IOException {
-            }
-        })
-                .setApplicationName(APPLICATION_NAME)
-                .build();
+    public List<String> getComments(String VideoId) throws IOException {
+
+        List<String> commentsList = new ArrayList<>();
 
         YouTube.CommentThreads.List comments = youtube.commentThreads()
                 .list("snippet,replies");
@@ -66,19 +70,21 @@ public class Comments {
                 .execute();
 
         searchCommentsList = response.getItems();
+
+        for (CommentThread c : searchCommentsList) {
+            String comment = c.getSnippet().getTopLevelComment().getSnippet().getTextDisplay();
+            commentsList.add(comment);
+        }
+        return commentsList;
+
     }
 
-
-    public String SearchComment() throws GeneralSecurityException, IOException, GoogleJsonResponseException {
+    public String SearchComment(List<String> commentsList){
         try {
 
-            List<String> commentsList = new ArrayList<>();
             List<String> emojiList = new ArrayList<>();
 
-            for (CommentThread c : searchCommentsList) {
-                String comment = c.getSnippet().getTopLevelComment().getSnippet().getTextDisplay();
-                commentsList.add(comment);
-
+            for (String comment : commentsList) {
                 if (EmojiManager.containsEmoji(comment) == true) {
                     List<String> emoji = EmojiParser.extractEmojis(comment);
                     List<String> emojiPro = emoji.stream().map(e -> {
@@ -104,7 +110,7 @@ public class Comments {
             );
 
             List<String> sadEmo = Arrays.asList(
-                    "\u2639\uFE0F️", "\uD83D\uDE41", "\uD83D\uDE16", "\uD83D\uDE1E", "\uD83D\uDE1F", "\uD83D\uDE24", "\uD83D\uDE22", "\uD83D\uDE2D"
+                    "\u2639\uFE0F", "\uD83D\uDE41", "\uD83D\uDE16", "\uD83D\uDE1E", "\uD83D\uDE1F", "\uD83D\uDE24", "\uD83D\uDE22", "\uD83D\uDE2D"
                     , "\uD83D\uDE26", "\uD83D\uDE27", "\uD83D\uDE28", "\uD83D\uDE29",
                     "\uD83E\uDD2F", "\uD83D\uDE2C", "\uD83D\uDE30", "\uD83D\uDE31", "\uD83E\uDD75"
                     , "\uD83E\uDD76", "\uD83D\uDE33", "\uD83D\uDE35", "\uD83D\uDE21", "\uD83D\uDE20", "\uD83E\uDD2C", "\uD83E\uDD2E"
@@ -112,12 +118,7 @@ public class Comments {
             );
 
 
-//            public List<String> findHappyEmo(String emojiList){
-//                List<CompletableFuture>String happy =  emojiList.stream()
-//                        .map(e -> CompletableFuture.supplyAsync(() -> e.replace("[", "").replace("]", "") ))
-//                        .filter(future -> future.thenApply(w1 -> happyEmo.stream().anyMatch(w2 -> w1.contains(w2))))
-//                return
-//            }
+
             List<String> happy = emojiList.stream()
                     .map(e -> e.replace("[", "").replace("]", ""))
                     .filter(w1 -> happyEmo.stream().anyMatch(w2 -> w1.contains(w2)))
