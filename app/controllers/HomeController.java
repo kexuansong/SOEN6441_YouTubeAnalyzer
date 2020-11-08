@@ -7,6 +7,7 @@ import com.google.api.services.youtube.model.SearchResult;
 import models.*;
 import play.data.FormFactory;
 import play.mvc.Controller;
+import play.mvc.Http;
 import play.mvc.Result;
 import views.html.index;
 import views.html.profile;
@@ -19,6 +20,7 @@ import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -42,7 +44,7 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-public Result index() throws GeneralSecurityException, IOException {
+public Result index(Http.Request request) throws GeneralSecurityException, IOException {
 //        //Form<Search> searchForm = formFactory.form(Search.class);
 //
 //        //Search search = searchForm.get();
@@ -64,7 +66,12 @@ public Result index() throws GeneralSecurityException, IOException {
 //        } */
     //VideoImp videoImp = new VideoImp();
     // videoImp.getVideoComment();
-   return ok(index.render(assetsFinder));
+    Optional<String> userSession = request.session().get("Connected");
+    if(userSession.isPresent()){
+        return redirect("/").addingToSession(request,"Connected","MySession");
+    }else {
+        return ok(index.render(assetsFinder));
+    }
   }
 
     /**
