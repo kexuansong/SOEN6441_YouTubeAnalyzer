@@ -11,6 +11,7 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import views.html.channelVideos;
 import views.html.index;
 import views.html.profile;
 import views.html.search;
@@ -140,7 +141,7 @@ public class HomeController extends Controller {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    public Result channelVideos(String channelID) throws GeneralSecurityException, IOException {
+    public Result CVideos(String channelID) throws GeneralSecurityException, IOException {
         List<Channel> requiredInfo = new ArrayList<>();
         ProfileImp profileImp = new ProfileImp();
 
@@ -151,54 +152,39 @@ public class HomeController extends Controller {
         String title = channel.getSnippet().getTitle();
         String description = channel.getSnippet().getDescription();
         String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
-        System.out.println("-------------");
-        System.out.println("upload id is ~~~~~~"+ uploadId);
-        System.out.println("-------------");
-
-
-        BigInteger totalViews = channel.getStatistics().getViewCount();
-        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
-        BigInteger totVideos = channel.getStatistics().getVideoCount();
-
-        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
-
 
         Playlist playlist = new Playlist();
         List<PlaylistItem> OneChannelVideos = playlist.getPlaylistItems(uploadId);
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println(OneChannelVideos);
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println("====================");
-
-        List<Videos> list = new ArrayList<>();
+        List<Videos> channelVideolist = new ArrayList<>();
         VideoImp videoImp = new VideoImp();
 
         for(PlaylistItem p : OneChannelVideos){
             String videoName = p.getSnippet().getTitle();
-            //System.out.println("videoname：" + videoName);
+            System.out.println("videoname：" + videoName);
+            System.out.println("================");
+            System.out.println("================");
             String videoID = p.getId();
-            //System.out.println("videoid:" + videoID);
+            System.out.println("videoid:" + videoID);
+            System.out.println("================");
+            System.out.println("================");
 
             String channelTitle = p.getSnippet().getChannelTitle();
-            System.out.println("================");
+            String videoDescription =p.getSnippet().getDescription();
+            //System.out.println("================");
             DateTime dateTime = p.getSnippet().getPublishedAt();
-            System.out.println(dateTime);
-            System.out.println(videoID);
-            System.out.println("================");
+            //System.out.println(dateTime);
+            //System.out.println(videoID);
+
+            //Comments c = new Comments(videoID);
 
             //System.out.println("sentiment： "+ sentiment);
-            //Videos video = new Videos(videoName,videoID,channelTitle,channelID,viewCount,dateTime,sentiment);
-            //list.add(video);
+            Videos video = new Videos(videoID,videoName,dateTime,videoDescription);
+            channelVideolist.add(video);
         }
 
         // render list
         return ok(
-                profile.render(imp, assetsFinder)
+                channelVideos.render(title,channelID,channelVideolist,assetsFinder)
         );
     }
 

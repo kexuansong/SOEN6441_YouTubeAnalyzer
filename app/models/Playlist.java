@@ -52,10 +52,10 @@ public class Playlist {
 
         // Define and execute the API request
         YouTube.PlaylistItems.List request = youtube.playlistItems()
-                .list("snippet");
+                .list("snippet,contentDetails");
         request.setPlaylistId(playlistId);
         request.setKey(APIKey);
-        request.setFields("items(snippet/resourceId/videoId,snippet/channelId,snippet/title,snippet/publishedAt,snippet/description)");
+        request.setFields("items(contentDetails/videoId,snippet/channelId,snippet/title,snippet/publishedAt,snippet/description)");
         PlaylistItemListResponse response = request.setMaxResults(NUMBER_OF_VIDEOS_RETURNED)
                 .execute();
 //        System.out.println("-----------------");
