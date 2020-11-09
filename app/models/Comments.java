@@ -71,6 +71,7 @@ public class Comments {
 
         searchCommentsList = response.getItems();
 
+
         for (CommentThread c : searchCommentsList) {
             String comment = c.getSnippet().getTopLevelComment().getSnippet().getTextDisplay();
             commentsList.add(comment);
