@@ -51,8 +51,6 @@ public class Comments {
     List<CommentThread> searchCommentsList = null;
 
 
-    public Comments() {
-    }
 
     public Comments(String VideoId){
         this.VideoId = VideoId;
