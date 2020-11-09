@@ -67,14 +67,6 @@ public class Videos {
 
     /**
      * Getter
-     * @return get video title
-     */
-    public String getVideoID() {
-        return videoID;
-    }
-
-    /**
-     * Getter
      * @return get channel title
      */
     public String getChannelTitle() {

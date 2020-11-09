@@ -51,8 +51,6 @@ public class Comments {
     List<CommentThread> searchCommentsList = null;
 
 
-    public Comments() {
-    }
 
     public Comments(String VideoId){
         this.VideoId = VideoId;
@@ -72,6 +70,7 @@ public class Comments {
                 .execute();
 
         searchCommentsList = response.getItems();
+
 
         for (CommentThread c : searchCommentsList) {
             String comment = c.getSnippet().getTopLevelComment().getSnippet().getTextDisplay();
