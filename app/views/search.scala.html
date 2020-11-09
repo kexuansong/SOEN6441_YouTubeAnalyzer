@@ -3,7 +3,8 @@
 * message to display and an AssetsFinder to locate static assets.
 *@
 @import com.google.api.services.youtube.model.SearchResult
-@(list : List[Videos])(implicit assetsFinder: AssetsFinder)
+@import java.util.concurrent.CompletableFuture
+@(keyword: String ,list : List[Videos])(implicit assetsFinder: AssetsFinder)
 
 
 @*
@@ -12,7 +13,7 @@
  * argument is an `Html` object containing the body of the page.
  *@
 @main("Search Result") {
-
+    <h2 style="color: #cc0000; text-align: center">Search Key : @keyword</h2>
 
  <p>
   @for(result <- list){

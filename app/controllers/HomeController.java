@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -77,14 +79,15 @@ public class HomeController extends Controller {
             return ok(index.render(assetsFinder));}
     }
 
-    /**
+    /*/**
      * Search video function
      * @param searchKey query term key
      * @return pass result list to views
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    public Result search(String searchKey) throws GeneralSecurityException, IOException {
+
+   public Result search(String searchKey) throws GeneralSecurityException, IOException {
         List<Videos> list = new ArrayList<>();
         SearchImp searchImp = new SearchImp();
         VideoImp videoImp = new VideoImp();
@@ -100,23 +103,36 @@ public class HomeController extends Controller {
             String videoID = s.getId().getVideoId();
             //System.out.println("videoid:" + videoID);
             Comments c = new Comments(videoID);
-            String channelTitle = s.getSnippet().getChannelTitle();
-            String channelID = s.getSnippet().getChannelId();
-            DateTime dateTime = s.getSnippet().getPublishedAt();
-            String sentiment = c.SearchComment(c.getComments(videoID));
-            BigInteger viewCount = videoImp.getVideoView(videoID);
-            //System.out.println("sentiment： "+ sentiment);
-            Videos video = new Videos(videoName,videoID,channelTitle,channelID,viewCount,dateTime,sentiment);
-            list.add(video);
+            General.GetSearchInfo(s, videoName, videoID, c, videoImp, list);
         }
 
 
 
-
-
-        return ok(search.render(list,assetsFinder));
+        return ok(search.render(searchKey,list,assetsFinder));
 
     }
+
+
+
+
+   /* public CompletionStage<Result> search(String searchKey){
+        General general = new General();
+
+        return CompletableFuture.supplyAsync(()-> general.processSearchAsync(searchKey)).thenApply(results ->{
+            try{
+            return ok(search.render(results.get(),assetsFinder));
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            return notFound("Error");
+        }
+        );
+    }
+    */
+
+
+
 
     //Owner/Channel Videos: Display the info for ten latest videos posted by the same owner/
     //channel as the one from the search results (where available, linked through owner field).

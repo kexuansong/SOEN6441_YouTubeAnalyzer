@@ -48,6 +48,7 @@ public class Videos {
         this.dateTime = dateTime;
         this.sentiment = sentiment;
         this.viewCount  = viewCount;
+
     }
 
     /**
