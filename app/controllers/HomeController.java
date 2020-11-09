@@ -137,46 +137,15 @@ public class HomeController extends Controller {
     //Owner/Channel Videos: Display the info for ten latest videos posted by the same owner/
     //channel as the one from the search results (where available, linked through owner field).
     //The videos must be sorted by upload date followed by the search terms.
-    public Result ownerVideos(String channelID) throws GeneralSecurityException, IOException {
 
-        List<Channel> requiredInfo = new ArrayList<>();
-        ProfileImp profileImp = new ProfileImp();
-
-        requiredInfo = profileImp.getChannelInfo(channelID);
-        Channel channel = requiredInfo.get(0);
-
-       // Playlist playlist = new Playlist();
-
-        String title = channel.getSnippet().getTitle();
-        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
-        String channelId = channel.getId();
-        //playlist.setPlaylist(uploadId);
-        //playlist.setChannelId(channelId);
-        String contentOwner =  channel.getContentOwnerDetails().getContentOwner();
-        String description = channel.getSnippet().getDescription();
-
-        BigInteger totalViews = channel.getStatistics().getViewCount();
-        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
-        BigInteger totVideos = channel.getStatistics().getVideoCount();
-
-        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
-
-        // render list
-        return ok(
-                profile.render(imp, assetsFinder)
-        );
-    }
-
-
-
-    /**
-     * Perform profile request
+    /*/**
+     * Search top ten videos in one channel
      * @param channelID channel id for get information of required channel
      * @return pass result list to views
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    public Result profile(String channelID) throws GeneralSecurityException, IOException {
+    public Result channelVideos(String channelID) throws GeneralSecurityException, IOException {
         List<Channel> requiredInfo = new ArrayList<>();
         ProfileImp profileImp = new ProfileImp();
 
@@ -223,7 +192,8 @@ public class HomeController extends Controller {
             String channelTitle = p.getSnippet().getChannelTitle();
             System.out.println("================");
             DateTime dateTime = p.getSnippet().getPublishedAt();
-           System.out.println(dateTime);
+            System.out.println(dateTime);
+            System.out.println(videoID);
             System.out.println("================");
 
             //System.out.println("sentiment： "+ sentiment);
@@ -231,12 +201,42 @@ public class HomeController extends Controller {
             //list.add(video);
         }
 
-
         // render list
         return ok(
                 profile.render(imp, assetsFinder)
         );
     }
 
+
+
+    /**
+     * Perform profile request
+     * @param channelID channel id for get information of required channel
+     * @return pass result list to views
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
+    public Result profile(String channelID) throws GeneralSecurityException, IOException {
+        List<Channel> requiredInfo = new ArrayList<>();
+        ProfileImp profileImp = new ProfileImp();
+
+
+        requiredInfo = profileImp.getChannelInfo(channelID);
+        Channel channel = requiredInfo.get(0);
+
+        String title = channel.getSnippet().getTitle();
+        String description = channel.getSnippet().getDescription();
+
+        BigInteger totalViews = channel.getStatistics().getViewCount();
+        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
+        BigInteger totVideos = channel.getStatistics().getVideoCount();
+
+        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
+
+        // render list
+        return ok(
+                profile.render(imp, assetsFinder)
+        );
+    }
 }
 

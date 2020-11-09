@@ -51,6 +51,12 @@ public class Videos {
 
     }
 
+    public Videos(String videoID,String videoTitle, DateTime dateTime){
+          this.videoID = videoID;
+          this.videoTitle= videoTitle;
+          this.dateTime = dateTime;
+    }
+
     /**
      * Getter
      * @return get video title
