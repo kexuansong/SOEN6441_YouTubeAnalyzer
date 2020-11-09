@@ -33,10 +33,8 @@ import java.util.*;
  * Get and Store information of Profile
  */
 public class ProfileImp {
-    /**  YouTube Model from Google APi    */
-    private YouTube youTube;
     /**  APi key from Google APi    */
-    private static final String APIKey = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
+    private static final String APIKey = "AIzaSyAARU7Vm1p4xqzydOh6kCOdOnHanLMWY7A";
     /**  channel title   */
     private String title;
     /**  channel description   */
@@ -102,27 +100,11 @@ public class ProfileImp {
     }
 
     /**
-     * Setter
-     * @param description set channel description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
      * Getter view numbers
      * @return channel view number
      */
     public BigInteger getTotalViews() {
         return totalViews;
-    }
-
-    /**
-     * Setter
-     * @param totalViews set channel view number
-     */
-    public void setTotalViews(BigInteger totalViews) {
-        this.totalViews = totalViews;
     }
 
     /**
@@ -134,27 +116,11 @@ public class ProfileImp {
     }
 
     /**
-     * Setter
-     * @param totalSubscribers set total number of subscribers
-     */
-    public void setTotalSubscribers(BigInteger totalSubscribers) {
-        this.totalSubscribers = totalSubscribers;
-    }
-
-    /**
      * Getter
      * @return get channel videos number
      */
     public BigInteger getTotVideos() {
         return totVideos;
-    }
-
-    /**
-     * Setter
-     * @param totVideos Set total video number
-     */
-    public void setTotVideos(BigInteger totVideos) {
-        this.totVideos = totVideos;
     }
 
     /**
@@ -174,13 +140,14 @@ public class ProfileImp {
      * @param ChannelId channel id
      */
 
+    public YouTube youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
+        @Override
+        public void initialize(HttpRequest request) throws IOException {
+        }
+    }).setApplicationName("Channel").build();
+
     public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
         List<Channel> channelSearchList = null;
-        youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
-            @Override
-            public void initialize(HttpRequest request) throws IOException {
-            }
-        }).setApplicationName("Channel").build();
 
         YouTube.Channels.List search =  youTube.channels().list("snippet,contentDetails,statistics");
         search.setKey(APIKey);
@@ -191,19 +158,19 @@ public class ProfileImp {
         channelSearchList = channelListResponse.getItems();
 
 
-        for(Channel channel : channelSearchList){
+        /*for(Channel channel : channelSearchList){
             title = channel.getSnippet().getTitle();
             description = channel.getSnippet().getDescription();
             totalViews = channel.getStatistics().getViewCount();
             totalSubscribers = channel.getStatistics().getSubscriberCount();
             totVideos = channel.getStatistics().getVideoCount();
             uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
-            System.out.println("===========");
+            //System.out.println("===========");
 
-            System.out.println(" upload id is " + uploadId);
+            //System.out.println(" upload id is " + uploadId);
 
-            System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
-        }
+            //System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
+        }*/
 
         return channelSearchList;
 

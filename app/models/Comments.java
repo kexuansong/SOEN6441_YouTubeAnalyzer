@@ -34,7 +34,7 @@ import static java.util.stream.Collectors.toList;
 
 public class Comments {
 
-    private static final String DEVELOPER_KEY = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
+    private static final String DEVELOPER_KEY = "AIzaSyAARU7Vm1p4xqzydOh6kCOdOnHanLMWY7A";
 
     private static final long NUMBER_OF_COMMENTS_RETURNED = 100;
     private static final String APPLICATION_NAME = "API code samples";
@@ -70,6 +70,7 @@ public class Comments {
                 .execute();
 
         searchCommentsList = response.getItems();
+
 
         for (CommentThread c : searchCommentsList) {
             String comment = c.getSnippet().getTopLevelComment().getSnippet().getTextDisplay();

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <profile name="sbt 1" modules="play-samples-play-java-starter-example_2135" />
-    <profile name="sbt 2" modules="play-java-starter-example">
+    <profile name="sbt 2" modules="SOEN6441_YouTubeAnalyzer.play-java-starter-example,play-java-starter-example">
       <option name="deprecationWarnings" value="true" />
       <option name="uncheckedWarnings" value="true" />
       <parameters>

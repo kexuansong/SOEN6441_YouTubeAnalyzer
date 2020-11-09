@@ -25,7 +25,7 @@ public class General {
     }).setApplicationName("example").build();
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
-    private static final String APIKey = "AIzaSyD2wbGudy-BKrfstjvKIr2YUaNFMilmwDs";
+    private static final String APIKey = "AIzaSyAARU7Vm1p4xqzydOh6kCOdOnHanLMWY7A";
     private List<Videos> list = new ArrayList<>();
 
 
@@ -73,18 +73,18 @@ public class General {
     public CompletableFuture<List<Videos>> processSearchAsync(String searchKey){
         return CompletableFuture.supplyAsync(()-> searchVideo(searchKey))
                 .thenApplyAsync( searchResultList -> {
-
-                    SearchResult searchResult = new SearchResult();
-                    String videoName = searchResult.getSnippet().getTitle();
-                    String videoId = searchResult.getId().getVideoId();
-                    VideoImp videoImp = new VideoImp();
-                    Comments comments = new Comments(videoId);
-                    //initial model
-                    try {
-                        GetSearchInfo(searchResult, videoName, videoId, comments, videoImp, list);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    searchResultList.forEach(searchResult -> {
+                                String videoName = searchResult.getSnippet().getTitle();
+                                String videoId = searchResult.getId().getVideoId();
+                                VideoImp videoImp = new VideoImp();
+                                Comments comments = new Comments(videoId);
+                                try {
+                                    GetSearchInfo(searchResult, videoName, videoId, comments, videoImp, list);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            );
 
                     return list;
                 }

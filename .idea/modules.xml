@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/SOEN6441_YouTubeAnalyzer.play-java-starter-example.iml" filepath="$PROJECT_DIR$/.idea/modules/SOEN6441_YouTubeAnalyzer.play-java-starter-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/justtest.iml" filepath="$PROJECT_DIR$/justtest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/play-java-starter-example.iml" filepath="$PROJECT_DIR$/.idea/modules/play-java-starter-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/play-java-starter-example-build.iml" filepath="$PROJECT_DIR$/.idea/modules/play-java-starter-example-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project.play-java-starter-example-build.iml" filepath="$PROJECT_DIR$/.idea/modules/project.play-java-starter-example-build.iml" />
     </modules>
   </component>
 </project>
