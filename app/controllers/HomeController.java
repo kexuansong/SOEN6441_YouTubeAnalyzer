@@ -11,6 +11,7 @@ import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import views.html.channelVideos;
 import views.html.index;
 import views.html.profile;
 import views.html.search;
@@ -132,33 +133,58 @@ public class HomeController extends Controller {
     //Owner/Channel Videos: Display the info for ten latest videos posted by the same owner/
     //channel as the one from the search results (where available, linked through owner field).
     //The videos must be sorted by upload date followed by the search terms.
-    public Result ownerVideos(String channelID) throws GeneralSecurityException, IOException {
 
+    /*/**
+     * Search top ten videos in one channel
+     * @param channelID channel id for get information of required channel
+     * @return pass result list to views
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
+    public Result CVideos(String channelID) throws GeneralSecurityException, IOException {
         List<Channel> requiredInfo = new ArrayList<>();
         ProfileImp profileImp = new ProfileImp();
+
 
         requiredInfo = profileImp.getChannelInfo(channelID);
         Channel channel = requiredInfo.get(0);
 
-       // Playlist playlist = new Playlist();
-
         String title = channel.getSnippet().getTitle();
-        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
-        String channelId = channel.getId();
-        //playlist.setPlaylist(uploadId);
-        //playlist.setChannelId(channelId);
-        String contentOwner =  channel.getContentOwnerDetails().getContentOwner();
         String description = channel.getSnippet().getDescription();
+        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
 
-        BigInteger totalViews = channel.getStatistics().getViewCount();
-        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
-        BigInteger totVideos = channel.getStatistics().getVideoCount();
+        Playlist playlist = new Playlist();
+        List<PlaylistItem> OneChannelVideos = playlist.getPlaylistItems(uploadId);
+        List<Videos> channelVideolist = new ArrayList<>();
+        VideoImp videoImp = new VideoImp();
 
-        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
+        for(PlaylistItem p : OneChannelVideos){
+            String videoName = p.getSnippet().getTitle();
+            System.out.println("videoname：" + videoName);
+            System.out.println("================");
+            System.out.println("================");
+            String videoID = p.getId();
+            System.out.println("videoid:" + videoID);
+            System.out.println("================");
+            System.out.println("================");
+
+            String channelTitle = p.getSnippet().getChannelTitle();
+            String videoDescription =p.getSnippet().getDescription();
+            //System.out.println("================");
+            DateTime dateTime = p.getSnippet().getPublishedAt();
+            //System.out.println(dateTime);
+            //System.out.println(videoID);
+
+            //Comments c = new Comments(videoID);
+
+            //System.out.println("sentiment： "+ sentiment);
+            Videos video = new Videos(videoID,videoName,dateTime,videoDescription);
+            channelVideolist.add(video);
+        }
 
         // render list
         return ok(
-                profile.render(imp, assetsFinder)
+                channelVideos.render(title,channelID,channelVideolist,assetsFinder)
         );
     }
 
@@ -181,11 +207,6 @@ public class HomeController extends Controller {
 
         String title = channel.getSnippet().getTitle();
         String description = channel.getSnippet().getDescription();
-        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
-        System.out.println("-------------");
-        System.out.println("upload id is ~~~~~~"+ uploadId);
-        System.out.println("-------------");
-
 
         BigInteger totalViews = channel.getStatistics().getViewCount();
         BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
@@ -193,45 +214,10 @@ public class HomeController extends Controller {
 
         ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
 
-
-        Playlist playlist = new Playlist();
-        List<PlaylistItem> OneChannelVideos = playlist.getPlaylistItems(uploadId);
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println(OneChannelVideos);
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println("====================");
-//        System.out.println("====================");
-
-        List<Videos> list = new ArrayList<>();
-        VideoImp videoImp = new VideoImp();
-
-        for(PlaylistItem p : OneChannelVideos){
-            String videoName = p.getSnippet().getTitle();
-            //System.out.println("videoname：" + videoName);
-            String videoID = p.getId();
-            //System.out.println("videoid:" + videoID);
-
-            String channelTitle = p.getSnippet().getChannelTitle();
-            System.out.println("================");
-            DateTime dateTime = p.getSnippet().getPublishedAt();
-           System.out.println(dateTime);
-            System.out.println("================");
-
-            //System.out.println("sentiment： "+ sentiment);
-            //Videos video = new Videos(videoName,videoID,channelTitle,channelID,viewCount,dateTime,sentiment);
-            //list.add(video);
-        }
-
-
         // render list
         return ok(
                 profile.render(imp, assetsFinder)
         );
     }
-
 }
 

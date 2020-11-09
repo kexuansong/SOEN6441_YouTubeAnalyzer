@@ -25,6 +25,8 @@ public class Videos {
     private String channelID;
     /**  video sentiment    */
     private String sentiment;
+    /**  Description    */
+    private String description;
 
 
     /**
@@ -51,12 +53,37 @@ public class Videos {
 
     }
 
+    public Videos(String videoID,String videoTitle, DateTime dateTime,String description){
+          this.videoID = videoID;
+          this.videoTitle= videoTitle;
+          this.dateTime = dateTime;
+          this.description = description;
+//          this.sentiment = sentiment;
+//          this.viewCount  = viewCount;
+    }
+
+    /**
+     * Getter
+     * @return get videoID
+     */
+    public String getVideoID() {
+        return videoID;
+    }
+
     /**
      * Getter
      * @return get video title
      */
     public String getVideoTitle() {
         return videoTitle;
+    }
+
+    /**
+     * Getter
+     * @return get video description
+     */
+    public String getVideoDescription() {
+        return description;
     }
 
     /**
@@ -82,6 +109,7 @@ public class Videos {
     public DateTime getDateTime() {
         return dateTime;
     }
+
 
     /**
      * Getter
