@@ -26,9 +26,12 @@ lazy val root = (project in file("."))
     libraryDependencies += "com.google.guava" % "guava" % "30.0-jre",
     libraryDependencies += "org.json" % "json" % "20200518",
     libraryDependencies += "com.vdurmont" % "emoji-java" % "5.1.1",
+    libraryDependencies += "org.mockito" % "mockito-core" % "3.3.3",
+    libraryDependencies += "org.mockito" % "mockito-inline" % "2.7.13" % Test,
 
 
-      javaOptions in Test ++= Seq(
+
+    javaOptions in Test ++= Seq(
       "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9998",
       "-Xms512M",
       "-Xmx1536M",
@@ -37,6 +40,6 @@ lazy val root = (project in file("."))
     ),
 
 
-      // Make verbose tests
+    // Make verbose tests
     testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
   )

@@ -19,7 +19,10 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class General {
-    private static YouTube youtube;
+    private static YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
+        public void initialize(HttpRequest request) throws IOException {
+        }
+    }).setApplicationName("example").build();
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
     private static final String APIKey = "AIzaSyD2wbGudy-BKrfstjvKIr2YUaNFMilmwDs";
@@ -35,10 +38,6 @@ public class General {
             // argument is required, but since we don't need anything
             // initialized when the HttpRequest is initialized, we override
             // the interface and provide a no-op function.
-            youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
-                public void initialize(HttpRequest request) throws IOException {
-                }
-            }).setApplicationName("example").build();
 
             // Prompt the user to enter a query term.
 
@@ -63,28 +62,11 @@ public class General {
             SearchListResponse searchResponse = search.execute();
             searchResultList = searchResponse.getItems();
 
-            List<String> videoList = new ArrayList<>();
-            if(searchResultList != null) {
-                for (SearchResult searchResult : searchResultList) {
-                    videoList.add(searchResult.getId().getVideoId());
-                }
-                Joiner joiner = Joiner.on(',');
-                String videoID = joiner.join(videoList);
-                VideoListResponse listResponse = youtube.videos().list("snippet").setId(videoID).execute();
 
-            }
-
-            /*if (searchResultList != null) {
-                prettyPrint(searchResultList.iterator(), queryTerm);
-            }*/
-        } catch (GoogleJsonResponseException e) {
-            System.err.println("There was a service error: " + e.getDetails().getCode() + " : "
-                    + e.getDetails().getMessage());
-        } catch (IOException e) {
-            System.err.println("There was an IO error: " + e.getCause() + " : " + e.getMessage());
-        } catch (Throwable t) {
-            t.printStackTrace();
+            } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return searchResultList;
     }
 

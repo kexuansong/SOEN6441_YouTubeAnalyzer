@@ -86,8 +86,7 @@ public class HomeController extends Controller {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-
-  /* public Result search(String searchKey) throws GeneralSecurityException, IOException {
+    public Result search(String searchKey) throws GeneralSecurityException, IOException {
         List<Videos> list = new ArrayList<>();
         VideoImp videoImp = new VideoImp();
         General general = new General();
@@ -112,23 +111,23 @@ public class HomeController extends Controller {
     }
 
 
-   */
 
 
-   public CompletionStage<Result> search(String searchKey){
-        General general = new General();
 
-        return CompletableFuture.supplyAsync(()-> general.processSearchAsync(searchKey)).thenApply(results ->{
-            try{
-            return ok(search.render(searchKey,results.get(),assetsFinder));
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                return notFound("Error");
-            }
-        }
-        );
-    }
+//   public CompletionStage<Result> search(String searchKey){
+//        General general = new General();
+//
+//        return CompletableFuture.supplyAsync(()-> general.processSearchAsync(searchKey)).thenApply(results ->{
+//            try{
+//            return ok(search.render(searchKey,results.get(),assetsFinder));
+//            }
+//            catch (Exception e){
+//                e.printStackTrace();
+//                return notFound("Error");
+//            }
+//        }
+//        );
+//    }
 
 
 
