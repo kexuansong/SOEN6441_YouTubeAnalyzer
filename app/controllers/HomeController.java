@@ -86,48 +86,45 @@ public class HomeController extends Controller {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    public Result search(String searchKey) throws GeneralSecurityException, IOException {
-        List<Videos> list = new ArrayList<>();
-        VideoImp videoImp = new VideoImp();
-        General general = new General();
-
-        List<SearchResult> searchResults =general.searchVideo(searchKey);
-        System.out.println(searchResults);
-
-
-        for(SearchResult s : searchResults){
-            String videoName = s.getSnippet().getTitle();
-            //System.out.println("videoname：" + videoName);
-            String videoID = s.getId().getVideoId();
-            //System.out.println("videoid:" + videoID);
-            Comments c = new Comments(videoID);
-            General.GetSearchInfo(s, videoName, videoID, c, videoImp, list);
-        }
-
-
-
-        return ok(search.render(searchKey,list,assetsFinder));
-
-    }
-
-
-
-
-
-//   public CompletionStage<Result> search(String searchKey){
+//    public Result search(String searchKey) throws GeneralSecurityException, IOException {
+//        List<Videos> list = new ArrayList<>();
+//        VideoImp videoImp = new VideoImp();
 //        General general = new General();
 //
-//        return CompletableFuture.supplyAsync(()-> general.processSearchAsync(searchKey)).thenApply(results ->{
-//            try{
-//            return ok(search.render(searchKey,results.get(),assetsFinder));
-//            }
-//            catch (Exception e){
-//                e.printStackTrace();
-//                return notFound("Error");
-//            }
+//        List<SearchResult> searchResults =general.searchVideo(searchKey);
+//        System.out.println(searchResults);
+//
+//
+//        for(SearchResult s : searchResults){
+//            String videoName = s.getSnippet().getTitle();
+//            //System.out.println("videoname：" + videoName);
+//            String videoID = s.getId().getVideoId();
+//            //System.out.println("videoid:" + videoID);
+//            Comments c = new Comments(videoID);
+//            General.GetSearchInfo(s, videoName, videoID, c, videoImp, list);
 //        }
-//        );
+//
+//
+//
+//        return ok(search.render(searchKey,list,assetsFinder));
+//
 //    }
+
+
+
+    public CompletionStage<Result> search(String searchKey){
+            General general = new General();
+            return CompletableFuture.supplyAsync(()-> general.processSearchAsync(searchKey)).thenApply(results ->{
+                try{
+                return ok(search.render(searchKey,results.get(),assetsFinder));
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    return notFound("Error");
+                }
+            }
+            );
+        }
 
 
 
