@@ -33,27 +33,27 @@ public class TestController {
 //        //Assert.assertEquals(OK,result.status());
 //    }
 
-    @Test
-    public void TestComment(){
-        JSONParser jsonParser = new JSONParser();
-        try {
-            Object obj = jsonParser.parse(new FileReader("/Users/OngChen/IdeaProjects/SOEN6441_YouTubeAnalyzer/test/tesefile.json"));
-
-            // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
-            JSONObject jsonObject = (JSONObject) obj;
-
-            // A JSON array. JSONObject supports java.util.List interface.
-            JSONArray companyList = (JSONArray) jsonObject.get("items");
-
-            // An iterator over a collection. Iterator takes the place of Enumeration in the Java Collections Framework.
-            // Iterators differ from enumerations in two ways:
-            // 1. Iterators allow the caller to remove elements from the underlying collection during the iteration with well-defined semantics.
-            // 2. Method names have been improved.
-            for (Object o : companyList) {
-                System.out.println(o);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void TestComment(){
+//        JSONParser jsonParser = new JSONParser();
+//        try {
+//            Object obj = jsonParser.parse(new FileReader("/Users/OngChen/IdeaProjects/SOEN6441_YouTubeAnalyzer/test/tesefile.json"));
+//
+//            // A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
+//            JSONObject jsonObject = (JSONObject) obj;
+//
+//            // A JSON array. JSONObject supports java.util.List interface.
+//            JSONArray companyList = (JSONArray) jsonObject.get("items");
+//
+//            // An iterator over a collection. Iterator takes the place of Enumeration in the Java Collections Framework.
+//            // Iterators differ from enumerations in two ways:
+//            // 1. Iterators allow the caller to remove elements from the underlying collection during the iteration with well-defined semantics.
+//            // 2. Method names have been improved.
+//            for (Object o : companyList) {
+//                System.out.println(o);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

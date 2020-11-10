@@ -143,7 +143,6 @@ public class Comments {
                 return ("\uD83D\uDE10");
             }
         } catch (Exception e) {
-            System.out.println(e);
             return("CommentDisabled");
         }
     }

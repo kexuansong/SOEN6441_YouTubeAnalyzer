@@ -29,6 +29,7 @@ lazy val root = (project in file("."))
     libraryDependencies += "org.mockito" % "mockito-core" % "3.3.3",
     libraryDependencies += "org.mockito" % "mockito-inline" % "2.7.13" % Test,
     libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1",
+    libraryDependencies += "com.google.code.gson" % "gson" % "2.8.6",
 
 
 

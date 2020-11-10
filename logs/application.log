@@ -1,33 +1,24 @@
-2020-11-09 22:04:49,838 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-7 - ApplicationTimer demo: Starting application at 2020-11-10T03:04:49.837495Z
-2020-11-09 22:04:49,863 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-7 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2020-11-09 23:13:24,623 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-5 - ApplicationTimer demo: Starting application at 2020-11-10T04:13:24.621078800Z
+2020-11-09 23:13:24,686 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     filters.ExampleFilter
 
-2020-11-09 22:04:49,988 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-7 - Application started (Dev) (no global state)
-2020-11-09 22:15:01,828 [INFO] from application in application-akka.actor.internal-dispatcher-2 - ApplicationTimer demo: Stopping application at 2020-11-10T03:15:01.822662Z after 612s.
-2020-11-09 22:15:02,043 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-19 - ApplicationTimer demo: Starting application at 2020-11-10T03:15:02.043263Z
-2020-11-09 22:15:02,048 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-19 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2020-11-09 23:13:25,075 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev) (no global state)
+2020-11-09 23:20:20,341 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-12-thread-3 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 35000 milliseconds timeout
+2020-11-09 23:20:20,344 [INFO] from play.core.server.AkkaHttpServer in pool-12-thread-3 - Stopping Akka HTTP server...
+2020-11-09 23:20:20,354 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
+2020-11-09 23:20:26,534 [INFO] from application in application-akka.actor.internal-dispatcher-4 - ApplicationTimer demo: Stopping application at 2020-11-10T04:20:26.516368300Z after 422s.
+2020-11-09 23:20:27,195 [INFO] from application in play-dev-mode-akka.actor.internal-dispatcher-19 - ApplicationTimer demo: Starting application at 2020-11-10T04:20:27.195370700Z
+2020-11-09 23:20:27,209 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.internal-dispatcher-19 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     filters.ExampleFilter
 
-2020-11-09 22:15:02,056 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-19 - Application started (Dev) (no global state)
-2020-11-09 22:15:18,228 [INFO] from application in application-akka.actor.internal-dispatcher-3 - ApplicationTimer demo: Stopping application at 2020-11-10T03:15:18.228666Z after 16s.
-2020-11-09 22:15:18,352 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-24 - ApplicationTimer demo: Starting application at 2020-11-10T03:15:18.352050Z
-2020-11-09 22:15:18,355 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-24 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    filters.ExampleFilter
-
-2020-11-09 22:15:18,360 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-24 - Application started (Dev) (no global state)
-2020-11-09 22:17:12,671 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
-2020-11-09 22:17:12,674 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-31 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
-2020-11-09 22:17:12,683 [INFO] from application in application-akka.actor.internal-dispatcher-3 - ApplicationTimer demo: Stopping application at 2020-11-10T03:17:12.683388Z after 114s.
-2020-11-09 22:17:12,693 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-32 - Running provided shutdown stop hooks
+2020-11-09 23:20:27,244 [INFO] from play.api.Play in play-dev-mode-akka.actor.internal-dispatcher-19 - Application started (Dev) (no global state)
+2020-11-09 23:20:27,255 [INFO] from application in application-akka.actor.internal-dispatcher-6 - ApplicationTimer demo: Stopping application at 2020-11-10T04:20:27.254320800Z after 0s.
+2020-11-09 23:20:27,296 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-19 - Running provided shutdown stop hooks
