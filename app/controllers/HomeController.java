@@ -42,8 +42,7 @@ public class HomeController extends Controller {
         this.assetsFinder = assetsFinder;
     }
 
-    @Inject
-    FormFactory formFactory;
+
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -160,13 +159,13 @@ public class HomeController extends Controller {
 
         for(PlaylistItem p : OneChannelVideos){
             String videoName = p.getSnippet().getTitle();
-            System.out.println("videoname：" + videoName);
-            System.out.println("================");
-            System.out.println("================");
+//            System.out.println("videoname：" + videoName);
+//            System.out.println("================");
+//            System.out.println("================");
             String videoID = p.getId();
-            System.out.println("videoid:" + videoID);
-            System.out.println("================");
-            System.out.println("================");
+//            System.out.println("videoid:" + videoID);
+//            System.out.println("================");
+//            System.out.println("================");
 
             String channelTitle = p.getSnippet().getChannelTitle();
             String videoDescription =p.getSnippet().getDescription();
@@ -198,7 +197,7 @@ public class HomeController extends Controller {
      * @throws IOException
      */
     public Result profile(String channelID) throws GeneralSecurityException, IOException {
-        List<Channel> requiredInfo = new ArrayList<>();
+        List<Channel> requiredInfo;
         ProfileImp profileImp = new ProfileImp();
 
 

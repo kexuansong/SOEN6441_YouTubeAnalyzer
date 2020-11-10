@@ -15,19 +15,21 @@ public class TestVideo {
         BigInteger viewCount = BigInteger.ONE;
         String ChannelID = "aaa";
         String sentiment = "bbb";
-        DateTime dateTime = new DateTime(1);
+        String descript = "s";
+        DateTime dateTime = new DateTime("1969-12-31T19:00:01.000-05:00");
 
         Videos videos = new Videos();
 
         Videos videos1 = new Videos(VideoTitle,VideoId,ChannelTitle,ChannelID,viewCount,dateTime,sentiment);
-
-
+        Videos videos2 = new Videos(VideoId,VideoTitle,dateTime,descript);
         Assert.assertEquals("java",videos1.getVideoTitle());
+        Assert.assertEquals("1",videos1.getVideoID());
         Assert.assertEquals("hello",videos1.getChannelTitle());
         Assert.assertEquals(BigInteger.ONE,videos1.getViewCount());
         Assert.assertEquals("aaa",videos1.getChannelID());
         Assert.assertEquals("bbb",videos1.getSentiment());
-        //Assert.assertEquals(1,videos1.getDateTime());
+        Assert.assertEquals("s",videos2.getVideoDescription());
+        //Assert.assertEquals("1969-12-31T19:00:01.000-05:00",videos1.getDateTime());
 
     }
 }

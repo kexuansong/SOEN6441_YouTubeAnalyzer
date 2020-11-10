@@ -28,10 +28,13 @@ lazy val root = (project in file("."))
     libraryDependencies += "com.vdurmont" % "emoji-java" % "5.1.1",
     libraryDependencies += "org.mockito" % "mockito-core" % "3.3.3",
     libraryDependencies += "org.mockito" % "mockito-inline" % "2.7.13" % Test,
+    libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1",
 
 
 
-    javaOptions in Test ++= Seq(
+
+
+      javaOptions in Test ++= Seq(
       "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=9998",
       "-Xms512M",
       "-Xmx1536M",
