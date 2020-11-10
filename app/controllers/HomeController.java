@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -42,6 +43,7 @@ public class HomeController extends Controller {
         this.assetsFinder = assetsFinder;
     }
 
+    AsynProcessor general = new AsynProcessor();
 
 
     /**
@@ -72,11 +74,12 @@ public class HomeController extends Controller {
 //        } */
 
         Optional<String> userSession = request.session().get("Connected");
-        if(!userSession.isPresent()){
-            return redirect("/").addingToSession(request,"Connected","MySession");
+        if (!userSession.isPresent()) {
+            return redirect("/").addingToSession(request, "Connected", "MySession");
 
         } else {
-            return ok(index.render(assetsFinder));}
+            return ok(index.render(assetsFinder));
+        }
     }
 
     /*/**
@@ -111,22 +114,17 @@ public class HomeController extends Controller {
 //    }
 
 
-
-    public CompletionStage<Result> search(String searchKey){
-            General general = new General();
-            return CompletableFuture.supplyAsync(()-> general.processSearchAsync(searchKey)).thenApply(results ->{
-                try{
-                return ok(search.render(searchKey,results.get(),assetsFinder));
+    public CompletionStage<Result> search(String searchKey) {
+        return CompletableFuture.supplyAsync(() -> general.processSearchAsync(searchKey)).thenApply(results -> {
+                    try {
+                        return ok(search.render(searchKey, results.get(), assetsFinder));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return notFound("Error");
+                    }
                 }
-                catch (Exception e){
-                    e.printStackTrace();
-                    return notFound("Error");
-                }
-            }
-            );
-        }
-
-
+        );
+    }
 
 
     //Owner/Channel Videos: Display the info for ten latest videos posted by the same owner/
@@ -142,10 +140,10 @@ public class HomeController extends Controller {
      */
     public Result CVideos(String channelID) throws GeneralSecurityException, IOException {
         List<Channel> requiredInfo = new ArrayList<>();
-        ProfileImp profileImp = new ProfileImp();
+        AsynProcessor asynProcessor = new AsynProcessor();
 
 
-        requiredInfo = profileImp.getChannelInfo(channelID);
+        requiredInfo = asynProcessor.getChannelInfo(channelID);
         Channel channel = requiredInfo.get(0);
 
         String title = channel.getSnippet().getTitle();
@@ -157,7 +155,7 @@ public class HomeController extends Controller {
         List<Videos> channelVideolist = new ArrayList<>();
         VideoImp videoImp = new VideoImp();
 
-        for(PlaylistItem p : OneChannelVideos){
+        for (PlaylistItem p : OneChannelVideos) {
             String videoName = p.getSnippet().getTitle();
 //            System.out.println("videoname：" + videoName);
 //            System.out.println("================");
@@ -168,7 +166,7 @@ public class HomeController extends Controller {
 //            System.out.println("================");
 
             String channelTitle = p.getSnippet().getChannelTitle();
-            String videoDescription =p.getSnippet().getDescription();
+            String videoDescription = p.getSnippet().getDescription();
             //System.out.println("================");
             DateTime dateTime = p.getSnippet().getPublishedAt();
             //System.out.println(dateTime);
@@ -177,46 +175,62 @@ public class HomeController extends Controller {
             //Comments c = new Comments(videoID);
 
             //System.out.println("sentiment： "+ sentiment);
-            Videos video = new Videos(videoID,videoName,dateTime,videoDescription);
+            Videos video = new Videos(videoID, videoName, dateTime, videoDescription);
             channelVideolist.add(video);
         }
 
         // render list
         return ok(
-                channelVideos.render(title,channelID,channelVideolist,assetsFinder)
+                channelVideos.render(title, channelID, channelVideolist, assetsFinder)
         );
     }
 
 
+//    /**
+//     * Perform profile request
+//     * @param channelID channel id for get information of required channel
+//     * @return pass result list to views
+//     * @throws GeneralSecurityException
+//     * @throws IOException
+//     */
+//    public Result profile(String channelID) throws GeneralSecurityException, IOException {
+//        List<Channel> requiredInfo;
+//        AsynProcessor asynProcessor = new AsynProcessor();
+//
+//
+//        requiredInfo = asynProcessor.getChannelInfo(channelID);
+//        Channel channel = requiredInfo.get(0);
+//
+//        String title = channel.getSnippet().getTitle();
+//        String description = channel.getSnippet().getDescription();
+//
+//        BigInteger totalViews = channel.getStatistics().getViewCount();
+//        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
+//        BigInteger totVideos = channel.getStatistics().getVideoCount();
+//
+//        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
+//
+//        // render list
+//        return ok(
+//                profile.render(imp, assetsFinder)
+//        );
 
-    /**
-     * Perform profile request
-     * @param channelID channel id for get information of required channel
-     * @return pass result list to views
-     * @throws GeneralSecurityException
-     * @throws IOException
-     */
-    public Result profile(String channelID) throws GeneralSecurityException, IOException {
-        List<Channel> requiredInfo;
-        ProfileImp profileImp = new ProfileImp();
-
-
-        requiredInfo = profileImp.getChannelInfo(channelID);
-        Channel channel = requiredInfo.get(0);
-
-        String title = channel.getSnippet().getTitle();
-        String description = channel.getSnippet().getDescription();
-
-        BigInteger totalViews = channel.getStatistics().getViewCount();
-        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
-        BigInteger totVideos = channel.getStatistics().getVideoCount();
-
-        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
-
-        // render list
-        return ok(
-                profile.render(imp, assetsFinder)
-        );
+    public CompletionStage<Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
+        return CompletableFuture.supplyAsync(() -> {
+            CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
+            try {
+                profileImp = general.processProfileAsync(ChannelID);
+            } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                return ok(profile.render(profileImp.get(),assetsFinder));
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+            return notFound("Error");
+        });
     }
+
 }
 

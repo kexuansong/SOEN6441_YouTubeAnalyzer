@@ -135,46 +135,36 @@ public class ProfileImp {
         this.uploadId = uploadId;
     }
 
-    /**
-     * Get channel title, channel description, view number, profile number and subscriber number
-     * @param ChannelId channel id
-     */
 
-    public YouTube youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
-        @Override
-        public void initialize(HttpRequest request) throws IOException {
-        }
-    }).setApplicationName("Channel").build();
-
-    public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
-        List<Channel> channelSearchList = null;
-
-        YouTube.Channels.List search =  youTube.channels().list("snippet,contentDetails,statistics");
-        search.setKey(APIKey);
-        search.setId(ChannelId);
-
-        ChannelListResponse channelListResponse = search.execute();
-
-        channelSearchList = channelListResponse.getItems();
-
-
-        /*for(Channel channel : channelSearchList){
-            title = channel.getSnippet().getTitle();
-            description = channel.getSnippet().getDescription();
-            totalViews = channel.getStatistics().getViewCount();
-            totalSubscribers = channel.getStatistics().getSubscriberCount();
-            totVideos = channel.getStatistics().getVideoCount();
-            uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
-            //System.out.println("===========");
-
-            //System.out.println(" upload id is " + uploadId);
-
-            //System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
-        }*/
-
-        return channelSearchList;
-
-    }
+//    public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
+//        List<Channel> channelSearchList = null;
+//
+//        YouTube.Channels.List search =  youTube.channels().list("snippet,contentDetails,statistics");
+//        search.setKey(APIKey);
+//        search.setId(ChannelId);
+//
+//        ChannelListResponse channelListResponse = search.execute();
+//
+//        channelSearchList = channelListResponse.getItems();
+//
+//
+//        /*for(Channel channel : channelSearchList){
+//            title = channel.getSnippet().getTitle();
+//            description = channel.getSnippet().getDescription();
+//            totalViews = channel.getStatistics().getViewCount();
+//            totalSubscribers = channel.getStatistics().getSubscriberCount();
+//            totVideos = channel.getStatistics().getVideoCount();
+//            uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
+//            //System.out.println("===========");
+//
+//            //System.out.println(" upload id is " + uploadId);
+//
+//            //System.out.println(title + " " + description + " " + totVideos + " " + totalSubscribers + " " + totalViews);
+//        }*/
+//
+//        return channelSearchList;
+//
+//    }
 
 
 }

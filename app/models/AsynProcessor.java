@@ -8,17 +8,16 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
 import com.google.api.client.util.Joiner;
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.SearchListResponse;
-import com.google.api.services.youtube.model.SearchResult;
-import com.google.api.services.youtube.model.VideoListResponse;
+import com.google.api.services.youtube.model.*;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class General {
+public class AsynProcessor {
     private static YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
         public void initialize(HttpRequest request) throws IOException {
         }
@@ -27,6 +26,7 @@ public class General {
 
     private static final String APIKey = "AIzaSyAARU7Vm1p4xqzydOh6kCOdOnHanLMWY7A";
     private List<Videos> list = new ArrayList<>();
+    List<Channel> channelSearchList = null;
 
 
 
@@ -101,6 +101,44 @@ public class General {
 
         Videos video = new Videos(videoName,videoId,ChannelTitle,channelID,viewCount,dateTime,sentiment);
         list.add(video);
+    }
+
+    public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
+
+        YouTube.Channels.List search =  youtube.channels().list("snippet,contentDetails,statistics");
+        search.setKey(APIKey);
+        search.setId(ChannelId);
+
+        ChannelListResponse channelListResponse = search.execute();
+
+        channelSearchList = channelListResponse.getItems();
+
+
+        return channelSearchList;
+
+    }
+
+    public CompletableFuture<ProfileImp> processProfileAsync(String ChannelId) throws GeneralSecurityException, IOException {
+        return CompletableFuture.supplyAsync(()->{
+            try {
+                return getChannelInfo(ChannelId);
+            } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
+            }
+            return channelSearchList;
+        }).thenApplyAsync(channelSearchList -> {
+
+            Channel channel = channelSearchList.get(0);
+            String title = channel.getSnippet().getTitle();
+            String description = channel.getSnippet().getDescription();
+
+            BigInteger totalViews = channel.getStatistics().getViewCount();
+            BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
+            BigInteger totVideos = channel.getStatistics().getVideoCount();
+
+            return new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
+        });
+
     }
 
 
