@@ -35,14 +35,23 @@ import java.util.concurrent.ExecutionException;
  * to the application's home page.
  */
 public class HomeController extends Controller {
-
+    /**
+     * initial assetFinder
+     */
     private final AssetsFinder assetsFinder;
 
+    /**
+     * Inject and
+     * @param assetsFinder handle cached & find asstes
+     */
     @Inject
     public HomeController(AssetsFinder assetsFinder) {
         this.assetsFinder = assetsFinder;
     }
 
+    /**
+     * initial AsynProcessor
+     */
     AsynProcessor general = new AsynProcessor();
 
 
@@ -113,7 +122,11 @@ public class HomeController extends Controller {
 //
 //    }
 
-
+    /**
+     * Async search process
+     * @param searchKey query term
+     * @return not found message if error occurred or return search result list to html
+     */
     public CompletionStage<Result> search(String searchKey) {
         return CompletableFuture.supplyAsync(() -> general.processSearchAsync(searchKey)).thenApply(results -> {
                     try {
@@ -214,6 +227,14 @@ public class HomeController extends Controller {
 //        return ok(
 //                profile.render(imp, assetsFinder)
 //        );
+
+    /**
+     * Async process profile action
+     * @param ChannelID channel id
+     * @return not found message if error occurred or return profile object to html
+     * @throws throw GeneralSecurityException
+     * @throws throw IOException
+     */
 
     public CompletionStage<Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
         return CompletableFuture.supplyAsync(() -> {

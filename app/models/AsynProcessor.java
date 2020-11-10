@@ -1,12 +1,10 @@
 package models;
 
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.DateTime;
-import com.google.api.client.util.Joiner;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
 
@@ -18,18 +16,26 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class AsynProcessor {
+    /** * initial youtube object */
     private static YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
         public void initialize(HttpRequest request) throws IOException {
         }
     }).setApplicationName("example").build();
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
+    /** * Api key */
     private static final String APIKey = "AIzaSyAARU7Vm1p4xqzydOh6kCOdOnHanLMWY7A";
+    /** * Video list */
     private List<Videos> list = new ArrayList<>();
+    /** * Channel list */
     List<Channel> channelSearchList = null;
 
 
-
+    /**
+     * Process search with YouTube api
+     * @param queryTerm search key
+     * @return searchResult list
+     */
     public List<SearchResult> searchVideo(String queryTerm) {
 
         List<SearchResult> searchResultList = null;
@@ -70,6 +76,12 @@ public class AsynProcessor {
         return searchResultList;
     }
 
+    /**
+     * Process searching action with Asynchronous
+     * @param searchKey query term
+     * @return video list
+     */
+
     public CompletableFuture<List<Videos>> processSearchAsync(String searchKey){
         return CompletableFuture.supplyAsync(()-> searchVideo(searchKey))
                 .thenApplyAsync( searchResultList -> {
@@ -91,6 +103,17 @@ public class AsynProcessor {
         );
     }
 
+    /**
+     * Get wrapped in Videos model and save into list
+     * @param searchResult YouTube.searchResult object
+     * @param videoName video name
+     * @param videoId video id
+     * @param c comment object
+     * @param videoImp video object
+     * @param list return list
+     * @throws throw IOException
+     */
+
     public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, Comments c, VideoImp videoImp, List<Videos> list) throws IOException {
         String ChannelTitle = searchResult.getSnippet().getChannelTitle();
         String channelID = searchResult.getSnippet().getChannelId();
@@ -102,6 +125,14 @@ public class AsynProcessor {
         Videos video = new Videos(videoName,videoId,ChannelTitle,channelID,viewCount,dateTime,sentiment);
         list.add(video);
     }
+
+    /**
+     * Get Channel information from YouTube API
+     * @param ChannelId channel id
+     * @return Channel list , but only get 1 value
+     * @throws throw GeneralSecurityException
+     * @throws throw IOException
+     */
 
     public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
 
@@ -117,6 +148,14 @@ public class AsynProcessor {
         return channelSearchList;
 
     }
+
+    /**
+     * Profile Async function for HomeController
+     * @param ChannelId channel id
+     * @return Wrapped with Profile Object
+     * @throws throw GeneralSecurityException
+     * @throws throw IOException
+     */
 
     public CompletableFuture<ProfileImp> processProfileAsync(String ChannelId) throws GeneralSecurityException, IOException {
         return CompletableFuture.supplyAsync(()->{
