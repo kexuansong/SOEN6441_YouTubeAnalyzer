@@ -131,10 +131,6 @@ public class ProfileImp {
         return uploadId;
     }
 
-    public void setUploadId(){
-        this.uploadId = uploadId;
-    }
-
 
 //    public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
 //        List<Channel> channelSearchList = null;

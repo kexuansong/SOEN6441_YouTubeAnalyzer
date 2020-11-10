@@ -1,5 +1,5 @@
 import com.google.api.services.youtube.model.SearchResult;
-import models.General;
+import models.AsynProcessor;
 import models.VideoImp;
 import models.Videos;
 import org.fluentlenium.core.search.Search;
@@ -34,7 +34,7 @@ public class TestHomeController {
 
         SearchResult s = Mockito.mock(SearchResult.class);
         VideoImp videoImp = Mockito.mock(VideoImp.class);
-        General general = Mockito.mock(General.class);
+        AsynProcessor general = Mockito.mock(AsynProcessor.class);
 
         results.add(s);
 

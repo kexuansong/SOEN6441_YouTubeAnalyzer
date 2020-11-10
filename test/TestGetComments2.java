@@ -1,23 +1,17 @@
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.CommentThread;
 import com.google.api.services.youtube.model.CommentThreadListResponse;
-import models.Comments;
 import org.json.simple.parser.ParseException;
-import org.junit.Assert;
-import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import com.google.gson.*;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -31,7 +25,7 @@ public class TestGetComments2 {
     private List<CommentThread> results = null;
 
 
-    public List<CommentThread> TestComment(){
+    public void TestComment(){
         JSONParser jsonParser = new JSONParser();
         try {
             Object obj = jsonParser.parse(new FileReader("C:\\Users\\kexua\\Desktop\\SOEN6441_YouTubeAnalyzer\\test\\tesefile.json"));
