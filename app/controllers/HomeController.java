@@ -22,10 +22,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
@@ -83,6 +80,7 @@ public class HomeController extends Controller {
 //        } */
 
         Optional<String> userSession = request.session().get("Connected");
+        //Map<String, String> userSessions = request.session().data();
         if (!userSession.isPresent()) {
             return redirect("/").addingToSession(request, "Connected", "MySession");
 

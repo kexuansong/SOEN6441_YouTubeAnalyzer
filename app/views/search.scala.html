@@ -15,13 +15,12 @@
 @main("Search Result") {
     <br>
     <h2 style="color: #cc0000; text-align: center">Search Key -> @keyword</h2>
-
     <p>
     @for(result <- list){
 
         <div style="text-align: center">
             <br>
-<p style="color: #cc0000">Title : @result.getVideoTitle</p>
+    <p style="color: #cc0000">Title : @result.getVideoTitle</p>
     <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>
     <p style="color: #bf83b0"> Recent Videos Of  <a style="color: #cd32ca" href=@routes.HomeController.CVideos(result.getChannelID)>@result.getChannelTitle</a></p>
     <p style="color: #cc0000">ViewCounts : @result.getViewCount</p>
@@ -33,6 +32,7 @@
 }
 
     </p>
+
 
 
 
