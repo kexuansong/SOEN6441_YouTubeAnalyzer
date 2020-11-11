@@ -22,10 +22,15 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparing;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -149,7 +154,7 @@ public class HomeController extends Controller {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    public Result CVideos(String channelID) throws GeneralSecurityException, IOException {
+    public Result CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException, ParseException {
         List<Channel> requiredInfo = new ArrayList<>();
         AsynProcessor asynProcessor = new AsynProcessor();
 
@@ -168,33 +173,37 @@ public class HomeController extends Controller {
 
         for (PlaylistItem p : OneChannelVideos) {
             String videoName = p.getSnippet().getTitle();
-//            System.out.println("videoname：" + videoName);
-//            System.out.println("================");
-//            System.out.println("================");
-            String videoID = p.getId();
-//            System.out.println("videoid:" + videoID);
-//            System.out.println("================");
-//            System.out.println("================");
-
-            String channelTitle = p.getSnippet().getChannelTitle();
-            String videoDescription = p.getSnippet().getDescription();
-            //System.out.println("================");
-            DateTime dateTime = p.getSnippet().getPublishedAt();
-            //System.out.println(dateTime);
-            //System.out.println(videoID);
-
-            //Comments c = new Comments(videoID);
-
-            //System.out.println("sentiment： "+ sentiment);
-            Videos video = new Videos(videoID, videoName, dateTime, videoDescription);
+            //get date time
+            DateTime datetime = p.getSnippet().getPublishedAt();
+            //get date
+            Date date= new Date(p.getSnippet().getPublishedAt().getValue());
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            //get string date as yyyy-MM-dd
+            String ndate = simpleDateFormat.format(date);
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = sdformat.parse(ndate);
+            Videos video = new Videos(videoName,d,ndate);
+            //System.out.println(video.getIntDate());
             channelVideolist.add(video);
         }
+        channelVideolist.sort((t1,t2) ->
+                t1.getVideoTitle().contains(keyword) ? 1 :
+                        t2.getVideoTitle().contains(keyword) ? 1  : 0);
 
+        //Collections.reverse(channelVideolist);
+        List<Videos> sortedDateList =  channelVideolist.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
+
+
+        Comparator<String> comparator = Comparator.<String, Boolean>comparing(s -> s.contains(keyword)).reversed()
+                .thenComparing(Comparator.naturalOrder());
         // render list
         return ok(
-                channelVideos.render(title, channelID, channelVideolist, assetsFinder)
+                channelVideos.render(title,channelID,sortedDateList,assetsFinder)
         );
     }
+
+
 
 
 //    /**
@@ -234,7 +243,7 @@ public class HomeController extends Controller {
      * @throws throw IOException
      */
 
-    public CompletionStage<Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
+    public CompletionStage <Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
         return CompletableFuture.supplyAsync(() -> {
             CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
             try {
