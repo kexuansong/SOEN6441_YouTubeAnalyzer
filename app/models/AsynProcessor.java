@@ -31,6 +31,7 @@ public class AsynProcessor {
     private List<Videos> list = new ArrayList<>();
     /** * Channel list */
     List<Channel> channelSearchList = null;
+    List<SearchResult> searchResultList = null;
 
 
     /**
@@ -40,7 +41,6 @@ public class AsynProcessor {
      */
     public List<SearchResult> searchVideo(String queryTerm) {
 
-        List<SearchResult> searchResultList = null;
         try {
             // This object is used to make YouTube Data API requests. The last
             // argument is required, but since we don't need anything
@@ -69,6 +69,8 @@ public class AsynProcessor {
             // Call the API and print results.
             SearchListResponse searchResponse = search.execute();
             searchResultList = searchResponse.getItems();
+
+            //save key
 
 
             } catch (IOException e) {
@@ -182,5 +184,7 @@ public class AsynProcessor {
 
     }
 
-
+    public List<Videos> getList() {
+        return list;
+    }
 }

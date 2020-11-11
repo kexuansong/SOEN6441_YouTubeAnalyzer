@@ -79,13 +79,13 @@ public class HomeController extends Controller {
 //            System.out.println(s.getSnippet().getTitle());
 //        } */
 
-        Optional<String> userSession = request.session().get("Connected");
-        //Map<String, String> userSessions = request.session().data();
-        if (!userSession.isPresent()) {
-            return redirect("/").addingToSession(request, "Connected", "MySession");
+        AsynProcessor asynProcessor = new AsynProcessor();
 
+        Optional<String> userSession = request.session().get("Connected");
+        if (userSession.isPresent()) {
+            return redirect("/").addingToSession(request, "Connected", "MySession");
         } else {
-            return ok(index.render(assetsFinder));
+            return ok(index.render(asynProcessor.getList(),assetsFinder));
         }
     }
 
@@ -149,7 +149,7 @@ public class HomeController extends Controller {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    public Result CVideos(String channelID) throws GeneralSecurityException, IOException {
+    public Result CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException {
         List<Channel> requiredInfo = new ArrayList<>();
         AsynProcessor asynProcessor = new AsynProcessor();
 
@@ -192,7 +192,7 @@ public class HomeController extends Controller {
 
         // render list
         return ok(
-                channelVideos.render(title, channelID, channelVideolist, assetsFinder)
+                channelVideos.render(channelID, channelVideolist, assetsFinder)
         );
     }
 
