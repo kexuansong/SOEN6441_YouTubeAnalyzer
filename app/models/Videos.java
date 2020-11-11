@@ -58,8 +58,9 @@ public class Videos {
 
     }
 
-    public Videos(String videoTitle, Date date,  String stringDate){
+    public Videos(String channelTitle,String videoTitle, Date date,  String stringDate){
         // this.videoID = videoID;
+        this.channelTitle = channelTitle;
         this.videoTitle= videoTitle;
         this.date = date;
         this.stringDate = stringDate;

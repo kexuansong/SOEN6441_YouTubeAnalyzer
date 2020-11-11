@@ -183,7 +183,7 @@ public class HomeController extends Controller {
             String ndate = simpleDateFormat.format(date);
             SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
             Date d = sdformat.parse(ndate);
-            Videos video = new Videos(videoName,d,ndate);
+            Videos video = new Videos(title,videoName,d,ndate);
             //System.out.println(video.getIntDate());
             channelVideolist.add(video);
         }
@@ -199,9 +199,38 @@ public class HomeController extends Controller {
                 .thenComparing(Comparator.naturalOrder());
         // render list
         return ok(
-                channelVideos.render(title,channelID,sortedDateList,assetsFinder)
+                channelVideos.render(channelID,sortedDateList,assetsFinder)
         );
     }
+
+    /**
+     * Async search process
+     * @param keyword query term
+     * @param channelID channel id
+     * @return not found message if error occurred or return search result list to html
+     */
+//    public CompletionStage<Result> CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException, ParseException {
+//        return CompletableFuture.supplyAsync(() -> {
+//            CompletableFuture<List<Videos>> channelVideos = new CompletableFuture<List<Videos>>();
+//            try {
+//                channelVideos = general.processPlayListAsync(channelID,keyword);
+//            } catch (GeneralSecurityException | IOException |ParseException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                return ok(channelVideos.render(channelID,channelVideos.get(),assetsFinder));
+//            } catch (InterruptedException | ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//            return notFound("Error");
+//        });
+//    }
+
+
+
+
+
+
 
 
 

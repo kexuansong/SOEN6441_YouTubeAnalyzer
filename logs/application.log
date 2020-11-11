@@ -1,25 +1,9 @@
-2020-11-11 20:27:41,952 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-9 - ApplicationTimer demo: Starting application at 2020-11-11T12:27:41.952109Z
-2020-11-11 20:27:42,005 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-9 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2020-11-11 23:28:26,442 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-13 - ApplicationTimer demo: Starting application at 2020-11-11T15:28:26.441913Z
+2020-11-11 23:28:26,475 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-13 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     filters.ExampleFilter
 
-2020-11-11 20:27:42,243 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - Application started (Dev) (no global state)
-2020-11-11 20:27:42,514 [WARN] from play.api.mvc.DefaultJWTCookieDataCodec in application-akka.actor.default-dispatcher-4 - decode: cookie has invalid signature! message = JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
-2020-11-11 20:27:42,516 [INFO] from play.api.mvc.DefaultJWTCookieDataCodec in application-akka.actor.default-dispatcher-4 - The JWT signature in the cookie does not match the locally computed signature with the server. This usually indicates the browser has a leftover cookie from another Play application, so clearing cookies may resolve this error message.
-2020-11-11 20:30:58,302 [INFO] from application in application-akka.actor.internal-dispatcher-2 - ApplicationTimer demo: Stopping application at 2020-11-11T12:30:58.302Z after 197s.
-2020-11-11 20:30:58,686 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-9 - ApplicationTimer demo: Starting application at 2020-11-11T12:30:58.686381Z
-2020-11-11 20:30:58,692 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-9 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    filters.ExampleFilter
-
-2020-11-11 20:30:58,706 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-9 - Application started (Dev) (no global state)
-2020-11-11 20:32:29,688 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
-2020-11-11 20:32:29,691 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-36 - Terminating server binding for /[0:0:0:0:0:0:0:0]:9000
-2020-11-11 20:32:29,717 [INFO] from application in application-akka.actor.internal-dispatcher-4 - ApplicationTimer demo: Stopping application at 2020-11-11T12:32:29.717324Z after 91s.
-2020-11-11 20:32:29,741 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-36 - Running provided shutdown stop hooks
+2020-11-11 23:28:26,658 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-13 - Application started (Dev) (no global state)
