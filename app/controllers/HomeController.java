@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -78,15 +79,22 @@ public class HomeController extends Controller {
 //        for (SearchResult s : searchResults){
 //            System.out.println(s.getSnippet().getTitle());
 //        } */
-
         Optional<String> userSession = request.session().get("Connected");
-        //Map<String, String> userSessions = request.session().data();
-        if (!userSession.isPresent()) {
-            return redirect("/").addingToSession(request, "Connected", "MySession");
+        // Map<String, String> userSessions = request.session().data();
 
-        } else {
-            return ok(index.render(assetsFinder));
-        }
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String convertedDate = formatter.format(date);
+
+            //String query= asynProcessor.getQuery();
+
+            if (userSession.isPresent()) {
+                return redirect("/").addingToSession(request, "Connected", convertedDate);
+
+            } else {
+                return ok(index.render(new AsynProcessor().getSearchResultList(), assetsFinder));
+            }
+
     }
 
     /*/**

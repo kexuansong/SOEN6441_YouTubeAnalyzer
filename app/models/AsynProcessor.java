@@ -26,11 +26,15 @@ public class AsynProcessor {
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
     /** * Api key */
-    private static final String APIKey = "AIzaSyAARU7Vm1p4xqzydOh6kCOdOnHanLMWY7A";
+    private static final String APIKey = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
     /** * Video list */
     private List<Videos> list = new ArrayList<>();
     /** * Channel list */
     List<Channel> channelSearchList = null;
+
+    List<SearchResult> searchResultList = null;
+
+//    private String query;
 
 
     /**
@@ -40,7 +44,6 @@ public class AsynProcessor {
      */
     public List<SearchResult> searchVideo(String queryTerm) {
 
-        List<SearchResult> searchResultList = null;
         try {
             // This object is used to make YouTube Data API requests. The last
             // argument is required, but since we don't need anything
@@ -88,6 +91,7 @@ public class AsynProcessor {
         return CompletableFuture.supplyAsync(()-> searchVideo(searchKey))
                 .thenApplyAsync( searchResultList -> {
                     searchResultList.forEach(searchResult -> {
+//                        query = searchKey;
                                 String videoName = searchResult.getSnippet().getTitle();
                                 String videoId = searchResult.getId().getVideoId();
                                 VideoImp videoImp = new VideoImp();
@@ -182,5 +186,11 @@ public class AsynProcessor {
 
     }
 
+    public List<Videos> getSearchResultList(){
+        return list;
+    }
 
+//    public String getQuery() {
+//        return query;
+//    }
 }

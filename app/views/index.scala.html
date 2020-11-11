@@ -1,8 +1,19 @@
 
-@(implicit assetsFinder: AssetsFinder)
+@(list: List[Videos])(implicit assetsFinder: AssetsFinder)
 
 @main("YouTubeAnalyzer") {
 
+    <p>
+        @for(result <- list){
+            <p style="color: #cc0000">Title : @result.getVideoTitle</p>
+            <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>
+            <p style="color: #bf83b0"> Recent Videos Of  <a style="color: #cd32ca" href=@routes.HomeController.CVideos(result.getChannelID)>@result.getChannelTitle</a></p>
+            <p style="color: #cc0000">ViewCounts : @result.getViewCount</p>
+            <p style="color: #cc0000">Date : @result.getDateTime</p>
+            <p>Sentiment : @result.getSentiment</p>
+
+        }
+    </p>
 
 }
 
