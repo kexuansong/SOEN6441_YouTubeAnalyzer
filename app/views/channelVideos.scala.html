@@ -5,7 +5,7 @@
 @import java.util.concurrent.CompletableFuture
 @import com.google.api.services.youtube.model.PlaylistItem
 
-@(title:String,channelId :String,list:List[Videos])(implicit assetsFinder: AssetsFinder)
+@(channelId :String,list:List[Videos])(implicit assetsFinder: AssetsFinder)
 
 @*
 * Call the `main` template with two arguments. The first
@@ -17,22 +17,22 @@
 <html lang="en">
     <p></p>
     <body>
-        <h1 style="color: #001bcc; text-align: center">Channel Title: @title</h1>
-        <h1 style="color: #00cc9c; text-align: center">ChannelID : @channelId</h1>
 
-    <p>
-    @for(result <- list){
+        <p></p>
+        <p></p>
+        <p>
+        @for(result <- list){
 
-        <div style="text-align: center; font-size: 30px">
-            <br>
-    <p style="color: #8d6fe0">Date : @result.getDateTime</p>
-    <p style="color: #1fcc00">Title : @result.getVideoTitle</p>
-        <p style="color: #cc9900">Description : @result.getVideoDescription</p>
+            <div style="text-align: center; font-size: 30px">
+                <br>
+
+    <p style="color: #8d6fe0">Date : @result.getStringDate</p>
+        <p style="color: #7319ab">Title : @result.getVideoTitle</p>
 
 
-    <br>
+        <br>
 
-        </body>
+    </body>
 }
 
 

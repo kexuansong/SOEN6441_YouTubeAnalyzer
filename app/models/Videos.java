@@ -20,14 +20,18 @@ public class Videos {
     private String channelTitle;
     /**   view number   */
     private BigInteger viewCount;
-    /**  publish date  */
+    /**  publish date time */
     private DateTime dateTime;
+    /**  publish date */
+    private Date date;
     /**  channel id    */
     private String channelID;
     /**  video sentiment    */
     private String sentiment;
     /**  Description    */
     private String description;
+    /**  String Date Time    */
+    private String stringDate;
 
 
     /**
@@ -54,11 +58,12 @@ public class Videos {
 
     }
 
-    public Videos(String videoID,String videoTitle, DateTime dateTime,String description){
-          this.videoID = videoID;
-          this.videoTitle= videoTitle;
-          this.dateTime = dateTime;
-          this.description = description;
+    public Videos(String channelTitle,String videoTitle, Date date,  String stringDate){
+        // this.videoID = videoID;
+        this.channelTitle = channelTitle;
+        this.videoTitle= videoTitle;
+        this.date = date;
+        this.stringDate = stringDate;
 //          this.sentiment = sentiment;
 //          this.viewCount  = viewCount;
     }
@@ -111,6 +116,20 @@ public class Videos {
         return dateTime;
     }
 
+    /**
+     * Getter
+     * @return get publish date
+     */
+    public Date getDate() {
+        return date;
+    }
+    /**
+     * Getter
+     * @return get video title
+     */
+    public String getStringDate() {
+        return stringDate;
+    }
 
     /**
      * Getter
@@ -128,4 +147,12 @@ public class Videos {
         return sentiment;
     }
 
+    /**
+     * Getter
+     * @return get string date
+     */
+    public int getIntDate() {
+        String intDate = stringDate.substring(0,3)+stringDate.substring(5,7)+stringDate.substring(8);
+        return  Integer.parseInt(intDate);
+    }
 }
