@@ -45,6 +45,8 @@ public class HomeController extends Controller {
     public HomeController(AssetsFinder assetsFinder) {
         this.assetsFinder = assetsFinder;
     }
+    //key <- request token , value
+    Map<String,List<Videos>> data = new HashMap<>();
 
     /**
      * initial AsynProcessor
@@ -81,12 +83,16 @@ public class HomeController extends Controller {
 
         AsynProcessor asynProcessor = new AsynProcessor();
 
-        Optional<String> userSession = request.session().get("Connected");
-        if (userSession.isPresent()) {
-            return redirect("/").addingToSession(request, "Connected", "MySession");
+        //Optional<String> userSession = request.session().get("Connected");
+        Map<String, String> userSession = request.session().data();
+        if (userSession.isEmpty()) {
+            return ok(index.render(asynProcessor.getToken(request),assetsFinder));
         } else {
-            return ok(index.render(asynProcessor.getList(),assetsFinder));
+            //
+            return ok(search.render(asynProcessor.getKey(),asynProcessor.getList(),assetsFinder));
         }
+
+
     }
 
     /*/**

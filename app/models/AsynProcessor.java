@@ -12,10 +12,10 @@ import com.google.api.services.youtube.model.*;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import models.Videos;
+import play.mvc.Http;
 
 public class AsynProcessor {
     /** * initial youtube object */
@@ -32,6 +32,7 @@ public class AsynProcessor {
     /** * Channel list */
     List<Channel> channelSearchList = null;
     List<SearchResult> searchResultList = null;
+    String key = "";
 
 
     /**
@@ -71,6 +72,8 @@ public class AsynProcessor {
             searchResultList = searchResponse.getItems();
 
             //save key
+            key = queryTerm;
+
 
 
             } catch (IOException e) {
@@ -184,7 +187,25 @@ public class AsynProcessor {
 
     }
 
+    public String getToken(Http.Request request){
+       Map<String,String> incoming = request.session().data();
+       String token = incoming.get("Connected");
+       return token;
+    }
+
+    public void takeSession(Http.Request request,List<Videos> list){
+        list = getList();
+        String timeStamp = getToken(request);
+
+        Map<String,List<Videos>> index = new HashMap<>();
+
+        index.put(timeStamp,list);
+    }
     public List<Videos> getList() {
         return list;
+    }
+
+    public String getKey() {
+        return key;
     }
 }
