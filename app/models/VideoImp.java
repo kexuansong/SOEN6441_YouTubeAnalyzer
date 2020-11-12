@@ -17,7 +17,7 @@ public class VideoImp {
     /**  YouTube Model from Google APi    */
     private YouTube youTube;
     /**  APi key from Google APi    */
-    private static final String APIKey = "AIzaSyCACcA2IY8-RTy7Kf3uR6k5EgmfpFglfZg";
+    private static final String APIKey = "AIzaSyCTp1mRri-7p9GN5miXkqV3sDZCDZhH108";
 
     public VideoImp() {
     }

@@ -22,13 +22,14 @@ public class TestVideo {
 
         Videos videos1 = new Videos(VideoTitle,VideoId,ChannelTitle,ChannelID,viewCount,dateTime,sentiment);
         Videos videos2 = new Videos(VideoId,VideoTitle,dateTime,descript);
+        Videos videos3 = new Videos(descript);
         Assert.assertEquals("java",videos1.getVideoTitle());
         Assert.assertEquals("1",videos1.getVideoID());
         Assert.assertEquals("hello",videos1.getChannelTitle());
         Assert.assertEquals(BigInteger.ONE,videos1.getViewCount());
         Assert.assertEquals("aaa",videos1.getChannelID());
         Assert.assertEquals("bbb",videos1.getSentiment());
-        Assert.assertEquals("s",videos2.getVideoDescription());
+        Assert.assertEquals("s",videos3.getVideoDescription());
         //Assert.assertEquals("1969-12-31T19:00:01.000-05:00",videos1.getDateTime());
 
     }
