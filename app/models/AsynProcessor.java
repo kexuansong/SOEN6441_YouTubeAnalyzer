@@ -14,6 +14,8 @@ import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+
+import controllers.HomeController;
 import models.Videos;
 import play.mvc.Http;
 
@@ -26,7 +28,7 @@ public class AsynProcessor {
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
     /** * Api key */
-    private static final String APIKey = "AIzaSyAARU7Vm1p4xqzydOh6kCOdOnHanLMWY7A";
+    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
     /** * Video list */
     private List<Videos> list = new ArrayList<>();
     /** * Channel list */
@@ -104,7 +106,8 @@ public class AsynProcessor {
                                 }
                             }
                             );
-
+                    List<Videos> initList = null;
+                    HomeController.data.put(getMapKey(HomeController.data,initList),list);
                     return list;
                 }
         );
@@ -201,11 +204,22 @@ public class AsynProcessor {
 
         index.put(timeStamp,list);
     }
+
     public List<Videos> getList() {
         return list;
     }
 
     public String getKey() {
+        return key;
+    }
+
+    private String getMapKey(Map<String,List<Videos>> map,List<Videos> value){
+        String key="";
+        for (Map.Entry<String, List<Videos>> entry : map.entrySet()) {
+            if(value.equals(entry.getValue())){
+                key=entry.getKey();
+            }
+        }
         return key;
     }
 }

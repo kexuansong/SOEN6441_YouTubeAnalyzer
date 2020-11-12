@@ -46,7 +46,7 @@ public class HomeController extends Controller {
         this.assetsFinder = assetsFinder;
     }
     //key <- request token , value
-    Map<String,List<Videos>> data = new HashMap<>();
+    public static Map<String,List<Videos>> data = new HashMap<>();
 
     /**
      * initial AsynProcessor
@@ -61,35 +61,20 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index(Http.Request request) throws GeneralSecurityException, IOException {
-//        //Form<Search> searchForm = formFactory.form(Search.class);
-//
-//        //Search search = searchForm.get();
-//
-//        //Display comment
-//        Comments comments = new Comments();
-//        comments.SearchComment("WXVHcdRniWg");
-//
-//        //Display Channel information
-//        //ProfileImp profileImp = new ProfileImp();
-//        //profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
-//        //List<SearchResult> list = null;
-//
-//        /*SearchImp searchImp = new SearchImp();
-//        List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
-//
-//        for (SearchResult s : searchResults){
-//            System.out.println(s.getSnippet().getTitle());
-//        } */
+
 
         AsynProcessor asynProcessor = new AsynProcessor();
+        String token = asynProcessor.getToken(request);
 
         //Optional<String> userSession = request.session().get("Connected");
         Map<String, String> userSession = request.session().data();
         if (userSession.isEmpty()) {
+            List<Videos> initList = null;
+            data.put(token,initList);
             return ok(index.render(asynProcessor.getToken(request),assetsFinder));
         } else {
-            //
-            return ok(search.render(asynProcessor.getKey(),asynProcessor.getList(),assetsFinder));
+            List<Videos> list = data.get(token);
+            return ok(search.render(asynProcessor.getKey(),list,assetsFinder));
         }
 
 
