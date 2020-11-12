@@ -26,7 +26,7 @@ public class Playlist {
 
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
-    private static final String APIKey = "AIzaSyCTp1mRri-7p9GN5miXkqV3sDZCDZhH108";
+    private static final String APIKey = "AIzaSyDqRpznUTUAVtkRBFSXRxhCoEbjL-_2vu4";
 
     private static final String APPLICATION_NAME = "API code samples";
 

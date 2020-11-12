@@ -23,7 +23,7 @@ public class Videos {
     /**  publish date time */
     private DateTime dateTime;
     /**  publish date */
-    private DateTime date;
+    private Date date;
     /**  channel id    */
     private String channelID;
     /**  video sentiment    */
@@ -58,7 +58,7 @@ public class Videos {
 
     }
 
-    public Videos(String channelTitle,String videoTitle, DateTime date,  String stringDate){
+    public Videos(String channelTitle,String videoTitle, Date date,  String stringDate){
         // this.videoID = videoID;
         this.channelTitle = channelTitle;
         this.videoTitle= videoTitle;
@@ -131,7 +131,7 @@ public class Videos {
      * Getter
      * @return get publish date
      */
-    public DateTime getDate() {
+    public Date getDate() {
         return date;
     }
     /**

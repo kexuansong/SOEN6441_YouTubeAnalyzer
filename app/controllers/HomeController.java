@@ -156,52 +156,91 @@ public class HomeController extends Controller {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    public Result CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException {
-        List<Channel> requiredInfo = new ArrayList<>();
-        AsynProcessor asynProcessor = new AsynProcessor();
+//    public Result CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException, ParseException {
+//        List<Channel> requiredInfo = new ArrayList<>();
+//        AsynProcessor asynProcessor = new AsynProcessor();
+//
+//
+//        requiredInfo = asynProcessor.getChannelInfo(channelID);
+//        Channel channel = requiredInfo.get(0);
+//
+//        String title = channel.getSnippet().getTitle();
+//        String description = channel.getSnippet().getDescription();
+//        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
+//
+//        Playlist playlist = new Playlist();
+//        List<PlaylistItem> OneChannelVideos = playlist.getPlaylistItems(uploadId);
+//        List<Videos> channelVideolist = new ArrayList<>();
+//        VideoImp videoImp = new VideoImp();
+//
+//        for (PlaylistItem p : OneChannelVideos) {
+//            String videoName = p.getSnippet().getTitle();
+//            //get date time
+//            DateTime datetime = p.getSnippet().getPublishedAt();
+//            //get date
+//            Date date= new Date(p.getSnippet().getPublishedAt().getValue());
+//            String pattern = "yyyy-MM-dd";
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//            //get string date as yyyy-MM-dd
+//            String ndate = simpleDateFormat.format(date);
+//            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+//            Date d = sdformat.parse(ndate);
+//            Videos video = new Videos(title,videoName,d,ndate);
+//            //System.out.println(video.getIntDate());
+//            channelVideolist.add(video);
+//        }
+////        channelVideolist.sort((t1,t2) ->
+////                t1.getVideoTitle().contains(keyword) ? 1 :
+////                        t2.getVideoTitle().contains(keyword) ? 1  : 0);
+//
+//        Comparator<String> comparator = Comparator.<String, Boolean>comparing(s -> s.contains(keyword)).reversed()
+//                .thenComparing(Comparator.naturalOrder());
+//        //Collections.reverse(channelVideolist);
+//        List<Videos> sortedDateList =  channelVideolist.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
+//
+//        // render list
+//        return ok(
+//                channelVideos.render(channelID,sortedDateList,assetsFinder)
+//        );
+//    }
 
+    /**
+     * Async search process
+     * @param keyword query term
+     * @param channelID channel id
+     * @return not found message if error occurred or return search result list to html
+     */
+    public CompletionStage<Result> CVideos(String channelID,String keyword) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                List<Videos> cv = general.processPlayListAsync(channelID,keyword).get();
+                System.out.println(cv.size());
+                return ok(channelVideos.render( channelID, cv, assetsFinder));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return notFound("Error");
+            }
+        });}
 
-        requiredInfo = asynProcessor.getChannelInfo(channelID);
-        Channel channel = requiredInfo.get(0);
+//    public CompletionStage<Result> CVideos(String channelID,String keyword) {
+//        return CompletableFuture.supplyAsync(() -> {
+//            try {
+//                return general.processPlayListAsync(channelID,keyword);
+//            } catch (GeneralSecurityException|IOException| ParseException e) {
+//                e.printStackTrace();
+//                return notFound("Error");
+//            }
+//        }).thenApply(results -> {
+//                    try {
+//                        return ok(channelVideos.render( channelID, results, assetsFinder));
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        return notFound("Error");
+//                    }
+//                }
+//        );
+//    }
 
-        String title = channel.getSnippet().getTitle();
-        String description = channel.getSnippet().getDescription();
-        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
-
-        Playlist playlist = new Playlist();
-        List<PlaylistItem> OneChannelVideos = playlist.getPlaylistItems(uploadId);
-        List<Videos> channelVideolist = new ArrayList<>();
-        VideoImp videoImp = new VideoImp();
-
-        for (PlaylistItem p : OneChannelVideos) {
-            String videoName = p.getSnippet().getTitle();
-//            System.out.println("videoname：" + videoName);
-//            System.out.println("================");
-//            System.out.println("================");
-            String videoID = p.getId();
-//            System.out.println("videoid:" + videoID);
-//            System.out.println("================");
-//            System.out.println("================");
-
-            String channelTitle = p.getSnippet().getChannelTitle();
-            String videoDescription = p.getSnippet().getDescription();
-            //System.out.println("================");
-            DateTime dateTime = p.getSnippet().getPublishedAt();
-            //System.out.println(dateTime);
-            //System.out.println(videoID);
-
-            //Comments c = new Comments(videoID);
-
-            //System.out.println("sentiment： "+ sentiment);
-            Videos video = new Videos(videoID, videoName, dateTime, videoDescription);
-            channelVideolist.add(video);
-        }
-
-        // render list
-        return ok(
-                channelVideos.render(channelID, channelVideolist, assetsFinder)
-        );
-    }
 
 
 //    /**
