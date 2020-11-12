@@ -15,6 +15,7 @@ import views.html.channelVideos;
 import views.html.index;
 import views.html.profile;
 import views.html.search;
+import views.html.similar;
 
 
 import javax.inject.Inject;
@@ -256,6 +257,16 @@ public class HomeController extends Controller {
             return notFound("Error");
         });
     }
-
+    public CompletionStage<Result> similar(String searchKey) {
+        return CompletableFuture.supplyAsync(() -> general.similarSearchAsync(searchKey)).thenApply(results -> {
+                    try {
+                        return ok(similar.render(searchKey,results.get(), assetsFinder));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return notFound("Error");
+                    }
+                }
+        );
+    }
 }
 
