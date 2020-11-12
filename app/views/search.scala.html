@@ -20,7 +20,7 @@
 
         <div style="text-align: center">
             <br>
-    <p style="color: #cc0000">Title : @result.getVideoTitle</p>
+<p style="color: #cc0000"><a href=@routes.HomeController.similar(result.getVideoID)>Title : @result.getVideoTitle</a></p>
     <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>
     <p style="color: #bf83b0"> Recent Videos Of  <a style="color: #cd32ca" href=@routes.HomeController.CVideos(result.getChannelID,keyword)>@result.getChannelTitle</a></p>
     <p style="color: #cc0000">ViewCounts : @result.getViewCount</p>
