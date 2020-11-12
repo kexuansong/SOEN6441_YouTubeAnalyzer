@@ -44,9 +44,7 @@ public class Comments {
     private static YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
         public void initialize(HttpRequest request) throws IOException {
         }
-    })
-            .setApplicationName(APPLICATION_NAME)
-            .build();
+    }).setApplicationName(APPLICATION_NAME).build();
 
     private static String VideoId;
 
@@ -65,7 +63,7 @@ public class Comments {
 
         YouTube.CommentThreads.List comments = youtube.commentThreads()
                 .list("snippet,replies");
-
+        try {
         CommentThreadListResponse response = comments.setKey(DEVELOPER_KEY)
                 .setVideoId(VideoId)
                 .setMaxResults(NUMBER_OF_COMMENTS_RETURNED)
@@ -78,12 +76,17 @@ public class Comments {
             String comment = c.getSnippet().getTopLevelComment().getSnippet().getTextDisplay();
             commentsList.add(comment);
         }
-        return commentsList;
+            return commentsList;
+
+        } catch (Exception e) {
+            return(commentsList);
+        }
 
     }
 
     public String SearchComment(List<String> commentsList){
-        try {
+        if(commentsList.size() == 0){return "Comment Disabled";}
+        else {
 
             List<String> emojiList = new ArrayList<>();
 
@@ -121,7 +124,6 @@ public class Comments {
             );
 
 
-
             List<String> happy = emojiList.stream()
                     .map(e -> e.replace("[", "").replace("]", ""))
                     .filter(w1 -> happyEmo.stream().anyMatch(w2 -> w1.contains(w2)))
@@ -142,8 +144,6 @@ public class Comments {
             } else {
                 return ("\uD83D\uDE10");
             }
-        } catch (Exception e) {
-            return("CommentDisabled");
         }
     }
 }
