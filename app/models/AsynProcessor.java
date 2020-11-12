@@ -12,12 +12,15 @@ import com.google.api.services.youtube.model.*;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
-import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
-import controllers.HomeController;
-import models.Videos;
-import play.mvc.Http;
+import static java.util.Comparator.comparing;
 
 public class AsynProcessor {
     /** * initial youtube object */
@@ -28,13 +31,16 @@ public class AsynProcessor {
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
 
     /** * Api key */
-    private static final String APIKey = "AIzaSyCDSxqEwVEt6PiATRyGqYm3_dYPFhsHERg";
+    private static final String APIKey = "AIzaSyCACcA2IY8-RTy7Kf3uR6k5EgmfpFglfZg";
     /** * Video list */
     private List<Videos> list = new ArrayList<>();
     /** * Channel list */
     List<Channel> channelSearchList = null;
-    List<SearchResult> searchResultList = null;
-    String key = "";
+    /** * playlist items list */
+    List<PlaylistItem> playlistItems = null;
+    /** * channel Video list */
+    private static List<Videos> channelVideoList = new ArrayList<>();
+
 
 
     /**
@@ -44,6 +50,7 @@ public class AsynProcessor {
      */
     public List<SearchResult> searchVideo(String queryTerm) {
 
+        List<SearchResult> searchResultList = null;
         try {
             // This object is used to make YouTube Data API requests. The last
             // argument is required, but since we don't need anything
@@ -73,10 +80,6 @@ public class AsynProcessor {
             SearchListResponse searchResponse = search.execute();
             searchResultList = searchResponse.getItems();
 
-            //save key
-            key = queryTerm;
-
-
 
             } catch (IOException e) {
             e.printStackTrace();
@@ -84,6 +87,8 @@ public class AsynProcessor {
 
         return searchResultList;
     }
+
+
 
     /**
      * Process searching action with Asynchronous
@@ -106,8 +111,7 @@ public class AsynProcessor {
                                 }
                             }
                             );
-                    List<Videos> initList = null;
-                    HomeController.data.put(getMapKey(HomeController.data,initList),list);
+
                     return list;
                 }
         );
@@ -190,36 +194,91 @@ public class AsynProcessor {
 
     }
 
-    public String getToken(Http.Request request){
-       Map<String,String> incoming = request.session().data();
-       String token = incoming.get("Connected");
-       return token;
+    /**
+     * Get ten videos from upload playlist from YouTube API
+     * @param ChannelId playlist id
+     * @return playlist items list
+     * @throws throw IOException
+     */
+
+    public List<PlaylistItem>getPlaylistItems(String ChannelId) throws IOException, GeneralSecurityException {
+
+        //this.playlistId = playlistId;
+        List<Channel> requiredInfo = new ArrayList<>();
+        requiredInfo = getChannelInfo(ChannelId);
+        Channel channel = channelSearchList.get(0);
+        // Define and execute the API request
+        YouTube.PlaylistItems.List request = youtube.playlistItems()
+                .list("snippet,contentDetails");
+        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
+        request.setPlaylistId(uploadId);
+        request.setKey(APIKey);
+        request.setFields("items(contentDetails/videoId,snippet/channelId,snippet/title,snippet/publishedAt,snippet/description)");
+        PlaylistItemListResponse response = request.setMaxResults(NUMBER_OF_VIDEOS_RETURNED)
+                .execute();
+
+//        System.out.println(response);
+
+        playlistItems = response.getItems();
+        return playlistItems;
+
     }
 
-    public void takeSession(Http.Request request,List<Videos> list){
-        list = getList();
-        String timeStamp = getToken(request);
 
-        Map<String,List<Videos>> index = new HashMap<>();
-
-        index.put(timeStamp,list);
-    }
-
-    public List<Videos> getList() {
-        return list;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    private String getMapKey(Map<String,List<Videos>> map,List<Videos> value){
-        String key="";
-        for (Map.Entry<String, List<Videos>> entry : map.entrySet()) {
-            if(value.equals(entry.getValue())){
-                key=entry.getKey();
+    /**
+     * Process search videos of channel action with Asynchronous
+     * @param ChannelId channel id
+     * @param keyword query term
+     * @return video list
+     */
+    public CompletableFuture<List<Videos>> processPlayListAsync(String ChannelId,String keyword) throws GeneralSecurityException, IOException, ParseException {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return getPlaylistItems(ChannelId);
+            } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
             }
-        }
-        return key;
-    }
+            return playlistItems;
+        }).thenApplyAsync(playlistItems -> {
+            playlistItems.forEach(p -> {
+                String videoName = p.getSnippet().getTitle();
+                DateTime datetime = p.getSnippet().getPublishedAt();
+                Date date = new Date(p.getSnippet().getPublishedAt().getValue());
+                try {
+                    GetVideoInfo(p, videoName, datetime, date, keyword);
+                } catch (IOException | ParseException e) {
+                    e.printStackTrace();
+                }
+            });
+            return channelVideoList;
+        });
 }
+
+    /**
+     * Get wrapped in Videos model and save into list
+     * @param p YouTube.searchResult object
+     * @param videoName video name
+     * @param dateTime DateTime object
+     * @param date Date object
+     * @param keyword String object
+     * @throws throw IOException,ParseException
+     */
+
+    public static void GetVideoInfo(PlaylistItem p, String videoName, DateTime dateTime,Date date,String keyword) throws IOException ,ParseException{
+        String channelTitle = p.getSnippet().getChannelTitle();
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        //get string date as yyyy-MM-dd
+        String ndate = simpleDateFormat.format(date);
+        SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = sdformat.parse(ndate);
+        Videos video = new Videos(channelTitle,videoName,d,ndate);
+        //System.out.println(video.getIntDate());
+        List<Videos> cvList = new ArrayList<>();
+        cvList.add(video);
+        cvList.sort((t1, t2) ->
+                t1.getVideoTitle().contains(keyword) ? 1 :
+                        t2.getVideoTitle().contains(keyword) ? 1  : 0);
+       channelVideoList =  cvList.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
+
+    }}

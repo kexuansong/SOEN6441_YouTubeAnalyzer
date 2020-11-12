@@ -22,10 +22,15 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparing;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -45,8 +50,6 @@ public class HomeController extends Controller {
     public HomeController(AssetsFinder assetsFinder) {
         this.assetsFinder = assetsFinder;
     }
-    //key <- request token , value
-    public static Map<String,List<Videos>> data = new HashMap<>();
 
     /**
      * initial AsynProcessor
@@ -61,23 +64,34 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      */
     public Result index(Http.Request request) throws GeneralSecurityException, IOException {
+//        //Form<Search> searchForm = formFactory.form(Search.class);
+//
+//        //Search search = searchForm.get();
+//
+//        //Display comment
+//        Comments comments = new Comments();
+//        comments.SearchComment("WXVHcdRniWg");
+//
+//        //Display Channel information
+//        //ProfileImp profileImp = new ProfileImp();
+//        //profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
+//        //List<SearchResult> list = null;
+//
+//        /*SearchImp searchImp = new SearchImp();
+//        List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
+//
+//        for (SearchResult s : searchResults){
+//            System.out.println(s.getSnippet().getTitle());
+//        } */
 
+        Optional<String> userSession = request.session().get("Connected");
+        //Map<String, String> userSessions = request.session().data();
+        if (!userSession.isPresent()) {
+            return redirect("/").addingToSession(request, "Connected", "MySession");
 
-        AsynProcessor asynProcessor = new AsynProcessor();
-        String token = asynProcessor.getToken(request);
-
-        //Optional<String> userSession = request.session().get("Connected");
-        Map<String, String> userSession = request.session().data();
-        if (userSession.isEmpty()) {
-            List<Videos> initList = null;
-            data.put(token,initList);
-            return ok(index.render(asynProcessor.getToken(request),assetsFinder));
         } else {
-            List<Videos> list = data.get(token);
-            return ok(search.render(asynProcessor.getKey(),list,assetsFinder));
+            return ok(index.render(assetsFinder));
         }
-
-
     }
 
     /*/**
@@ -140,7 +154,7 @@ public class HomeController extends Controller {
      * @throws GeneralSecurityException
      * @throws IOException
      */
-    public Result CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException {
+    public Result CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException, ParseException {
         List<Channel> requiredInfo = new ArrayList<>();
         AsynProcessor asynProcessor = new AsynProcessor();
 
@@ -159,33 +173,58 @@ public class HomeController extends Controller {
 
         for (PlaylistItem p : OneChannelVideos) {
             String videoName = p.getSnippet().getTitle();
-//            System.out.println("videoname：" + videoName);
-//            System.out.println("================");
-//            System.out.println("================");
-            String videoID = p.getId();
-//            System.out.println("videoid:" + videoID);
-//            System.out.println("================");
-//            System.out.println("================");
-
-            String channelTitle = p.getSnippet().getChannelTitle();
-            String videoDescription = p.getSnippet().getDescription();
-            //System.out.println("================");
-            DateTime dateTime = p.getSnippet().getPublishedAt();
-            //System.out.println(dateTime);
-            //System.out.println(videoID);
-
-            //Comments c = new Comments(videoID);
-
-            //System.out.println("sentiment： "+ sentiment);
-            Videos video = new Videos(videoID, videoName, dateTime, videoDescription);
+            //get date time
+            DateTime datetime = p.getSnippet().getPublishedAt();
+            //get date
+            Date date= new Date(p.getSnippet().getPublishedAt().getValue());
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            //get string date as yyyy-MM-dd
+            String ndate = simpleDateFormat.format(date);
+            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+            Date d = sdformat.parse(ndate);
+            Videos video = new Videos(title,videoName,d,ndate);
+            //System.out.println(video.getIntDate());
             channelVideolist.add(video);
         }
+//        channelVideolist.sort((t1,t2) ->
+//                t1.getVideoTitle().contains(keyword) ? 1 :
+//                        t2.getVideoTitle().contains(keyword) ? 1  : 0);
+
+        Comparator<String> comparator = Comparator.<String, Boolean>comparing(s -> s.contains(keyword)).reversed()
+                .thenComparing(Comparator.naturalOrder());
+        //Collections.reverse(channelVideolist);
+        List<Videos> sortedDateList =  channelVideolist.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
 
         // render list
         return ok(
-                channelVideos.render(channelID, channelVideolist, assetsFinder)
+                channelVideos.render(channelID,sortedDateList,assetsFinder)
         );
     }
+
+    /**
+     * Async search process
+     * @param keyword query term
+     * @param channelID channel id
+     * @return not found message if error occurred or return search result list to html
+     */
+//    public CompletionStage<Result> CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException, ParseException {
+//        return CompletableFuture.supplyAsync(() -> {
+//            CompletableFuture<List<Videos>> channelVideos = new CompletableFuture<List<Videos>>();
+//            try {
+//                channelVideos = general.processPlayListAsync(channelID,keyword);
+//            } catch (GeneralSecurityException | IOException |ParseException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                return ok(channelVideos.render(channelID,channelVideos.get(),assetsFinder));
+//            } catch (InterruptedException | ExecutionException e) {
+//                e.printStackTrace();
+//            }
+//            return notFound("Error");
+//        });
+//    }
+
 
 
 //    /**
@@ -225,7 +264,7 @@ public class HomeController extends Controller {
      * @throws throw IOException
      */
 
-    public CompletionStage<Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
+    public CompletionStage <Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
         return CompletableFuture.supplyAsync(() -> {
             CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
             try {

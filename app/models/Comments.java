@@ -36,7 +36,7 @@ import static java.util.stream.Collectors.toList;
 
 public class Comments {
 
-    private static final String DEVELOPER_KEY = "AIzaSyAOmvZI-v0zZVK8Snqp_Zk5jfCmnLSbaVI";
+    private static final String DEVELOPER_KEY = "AIzaSyCACcA2IY8-RTy7Kf3uR6k5EgmfpFglfZg";
 
     private static final long NUMBER_OF_COMMENTS_RETURNED = 100;
     private static final String APPLICATION_NAME = "API code samples";
