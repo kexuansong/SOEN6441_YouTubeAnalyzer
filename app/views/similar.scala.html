@@ -1,0 +1,9 @@
+@(searchKey:String, similarList:List[Videos])(implicit assetsFinder: AssetsFinder)
+
+    @main("Search Result") {
+        @for(result <- similarList) {
+
+                <p >Title : @result.getVideoTitle</p>
+
+        }
+    }

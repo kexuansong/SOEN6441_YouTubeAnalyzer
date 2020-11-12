@@ -24,11 +24,13 @@ public class AsynProcessor {
         }
     }).setApplicationName("example").build();
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
+    private static final long NUMBER_OF_similarVIDEOS_RETURNED = 100;
 
     /** * Api key */
     private static final String APIKey = "AIzaSyCTp1mRri-7p9GN5miXkqV3sDZCDZhH108";
     /** * Video list */
     private List<Videos> list = new ArrayList<>();
+    private List<Videos> similarList = new ArrayList<>();
     /** * Channel list */
     List<Channel> channelSearchList = null;
     List<SearchResult> searchResultList = null;
@@ -185,6 +187,57 @@ public class AsynProcessor {
             return new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
         });
 
+    }
+    public List<SearchResult> searchSimilar(String videoID) throws IOException{
+        List<SearchResult> searchSimilarResultList = null;
+        try{
+            YouTube.Search.List search = youtube.search().list("id,snippet");
+            search.setType("video");
+            search.setKey(APIKey);
+            search.setRelatedToVideoId(videoID);
+            search.setFields("items(id/videoId,snippet/title)");
+            search.setMaxResults(NUMBER_OF_similarVIDEOS_RETURNED);
+            // Call the API and print results.
+            SearchListResponse searchSimilarResponse = search.execute();
+            searchSimilarResultList = searchSimilarResponse.getItems();
+            int size = searchSimilarResultList.size();
+            System.out.println(size);
+//            List<Videos> sortedSimilarList = similarList.stream()
+//                    .collect(
+//                            Collectors.collectingAndThen(
+//                                    Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(searchKey))), ArrayList::new
+//                            ))
+//                    .sort();
+
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+        return searchSimilarResultList;
+
+    }
+    public CompletableFuture<List<Videos>> similarSearchAsync(String searchKey){
+        return CompletableFuture.supplyAsync(()-> {
+            try {
+                return searchSimilar(searchKey);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        })
+                .thenApplyAsync( searchSimilarResultList -> {
+                            searchSimilarResultList.forEach(searchSimilar -> {
+                                        String videoTitle = searchSimilar.getSnippet().getTitle();
+                                        getSimilar(searchSimilar,videoTitle,similarList);
+                                    }
+                            );
+                            return similarList;
+                        }
+                );
+    }
+    public static void getSimilar(SearchResult searchSimilar,String videoTitle,List<Videos> similarList){
+        Videos similarVideo = new Videos(videoTitle);
+        similarList.add(similarVideo);
     }
 
     public String getToken(Http.Request request){

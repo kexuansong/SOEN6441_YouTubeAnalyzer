@@ -69,11 +69,14 @@ public class Videos {
     }
 
 
-    public Videos(String description){
-        // this.videoID = videoID;
-        this.description = description;
-//          this.sentiment = sentiment;
-//          this.viewCount  = viewCount;
+//    public Videos(String description){
+//        // this.videoID = videoID;
+//        this.description = description;
+////          this.sentiment = sentiment;
+////          this.viewCount  = viewCount;
+//    }
+    public Videos(String videoTitle){
+        this.videoTitle = videoTitle;
     }
 
     /**
