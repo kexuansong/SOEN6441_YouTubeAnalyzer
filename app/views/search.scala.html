@@ -13,27 +13,90 @@
 * argument is an `Html` object containing the body of the page.
 *@
 @main("Search Result") {
-    <br>
-    <h2 style="color: #cc0000; text-align: center">Search Key -> @keyword</h2>
-    <p>
-    @for(result <- list){
+    <head>
+        <style type="text/css">
+                h2{
+                    margin-top: 20px;
+                    color:#c5464a;
+                    font-size: 20px;
+                }
+                body{
+                    text-align: center;
 
-        <div style="text-align: center">
-            <br>
-<p style="color: #cc0000"><a href=@routes.HomeController.similar(result.getVideoID)>Title : @result.getVideoTitle</a></p>
-    <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>
-    <p style="color: #bf83b0"> Recent Videos Of  <a style="color: #cd32ca" href=@routes.HomeController.CVideos(result.getChannelID,keyword)>@result.getChannelTitle</a></p>
-    <p style="color: #cc0000">ViewCounts : @result.getViewCount</p>
-    <p style="color: #cc0000">Date : @result.getDateTime</p>
-    <p>Sentiment : @result.getSentiment</p>
+                }
+                table.gridtable {
+                    font-family: verdana,arial,sans-serif;
+                    font-size:11px;
+                    color:#333333;
+                    border-width: 1px;
+                    border-color: #666666;
+                    border-collapse: collapse;
+                    width:70%;
+                    margin:auto;
+                    margin-bottom: 10%;
+
+                }
+                table.gridtable th {
+                    border-width: 1px;
+                    padding: 8px;
+                    border-style: solid;
+                    border-color: #666666;
+                    background-color: #c5464a;
+                    color: #FFFFFF;
+                    text-align: center;
+                }
+                table.gridtable td {
+                    border-width: 1px;
+                    padding: 8px;
+                    border-style: solid;
+                    border-color: #666666;
+                    background-color: #ffffff;
+                    text-align: center;
+                }
+        </style>
+
+    </head>
+    <body>
+    <div class = "container">
     <br>
+    <h2 style="color: #cc0000; text-align: center">Search results for: @keyword</h2>
+@*   <p>*@
+
+@*   @for(result <- list){*@
+
+@*        <div style="text-align: center">*@
+@*            <br>*@
+@*    <p style="color: #cc0000"><a href=@routes.HomeController.similar(result.getVideoID)>Title : @result.getVideoTitle</a></p>*@
+@*    <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>*@
+@*    <p style="color: #bf83b0"> Recent Videos Of  <a style="color: #cd32ca" href=@routes.HomeController.CVideos(result.getChannelID,keyword)>@result.getChannelTitle</a></p>*@
+@*    <p style="color: #cc0000">ViewCounts : @result.getViewCount</p>*@
+@*    <p style="color: #cc0000">Date : @result.getDateTime</p>*@
+@*    <p>Sentiment : @result.getSentiment</p>*@
+@*    <br>*@
+@*   </div>*@
+@*   </div>*@
+@*//*@
+@*//*@@*    }*@
+@*    </p>*@
+        <table class="gridtable">
+            <tr>
+                <th>Title</th><th>Channel Name</th><th>Recent Videos</th><th>View Counts</th><th>Date</th><th>Sentiment</th>
+            </tr>
+            @for(result <- list){
+                <tr>
+                    <td><a href=@routes.HomeController.similar(result.getVideoID)>@result.getVideoTitle</a></td>
+                    <td><a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></td>
+                    <td><a href=@routes.HomeController.CVideos(result.getChannelID,keyword)>@result.getChannelTitle</a></td>
+                    <td>@result.getViewCount</td>
+                    <td>@result.getDateTime</td>
+                    <td>@result.getSentiment</td>
+                </tr>
+            }
+
+        </table>
+
+
     </div>
-
-}
-
-    </p>
-
-
-
+    </body>
 
 }

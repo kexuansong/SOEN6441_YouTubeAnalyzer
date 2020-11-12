@@ -2,6 +2,7 @@
 * This template takes a two arguments, a String containing a
 * message to display and an AssetsFinder to locate static assets.
 *@
+
 @(imp : ProfileImp)(implicit assetsFinder: AssetsFinder)
 
 @*
@@ -12,13 +13,94 @@
 
     <!DOCTYPE html>
     <html lang="en">
+        <head>
+            <style>
+                    * {
+                        box-sizing: border-box;
+                    }
+
+                    body {
+                        font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial,sans-serif, FreeSans, Arimo;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        min-height: 100vh;
+                        margin: 0;
+                    }
+
+                    .channel {
+                        background-color: #fff;
+                        border-radius: 10px;
+                        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+                        display: flex;
+                        max-width: 100%;
+                        margin: 20px;
+                        width: 700px;
+                        word-break: normal;
+                    }
+
+
+                    .channel h6 {
+                        opacity: 0.6;
+                        margin: 0;
+                        letter-spacing: 1px;
+                        text-transform: uppercase;
+                    }
+
+                    .channel h5 {
+                        margin: 2px;
+                        letter-spacing: 1px;
+                        font-size: medium;
+                    }
+
+                    .channel p {
+                        font-size: large;
+                        font-weight: bold;
+                        letter-spacing: 1px;
+                        margin: 10px 0;
+                    }
+                    .channel-name {
+                        background-color: #c5464a;
+                        color: #fff;
+                        padding: 30px;
+                        max-width: 250px;
+                    }
+
+                    .cahnnel-info {
+                        padding: 30px;
+                        position: relative;
+                        width: 100%;
+                    }
+            </style>
+        </head>
+@*        <body>*@
+@*            <div style="text-align: center; font-size: 30px">*@
+@*                <p style="color: blue">Channel Title : @imp.getTitle</p>*@
+@*                <p style="color: purple">Channel Description : <br>@imp.getDescription</p>*@
+@*                <p style="color: pink">Total Views Number : @imp.getTotalViews</p>*@
+@*                <p style="color: orange">Total Subscribers Number : @imp.getTotalSubscribers</p>*@
+@*                <p style="color: gray">Total Video Number : @imp.getTotVideos</p>*@
+@*            </div>*@
+@*        </body>*@
         <body>
-            <div style="text-align: center; font-size: 30px">
-                <p style="color: blue">Channel Title : @imp.getTitle</p>
-                <p style="color: purple">Channel Description : <br>@imp.getDescription</p>
-                <p style="color: pink">Total Views Number : @imp.getTotalViews</p>
-                <p style="color: orange">Total Subscribers Number : @imp.getTotalSubscribers</p>
-                <p style="color: gray">Total Video Number : @imp.getTotVideos</p>
+        <div class="channel-container">
+            <div class="channel">
+                <div class="channel-name">
+                    <h6>Channel</h6>
+                    <p>@imp.getTitle</p>
+                </div>
+                <div class="channel-info">
+                    <h6>Channel description</h6>
+                        <h5>@imp.getDescription</h5><br>
+                        <h6>Total view count</h6>
+                    <h5>@imp.getTotalViews</h5>
+                        <h6>Subscriber count</h6>
+                    <h5>@imp.getTotalSubscribers</h5>
+                        <h6>Video count</h6>
+                    <h5>@imp.getTotVideos</h5>
+                </div>
+                </div>
             </div>
         </body>
     </html>

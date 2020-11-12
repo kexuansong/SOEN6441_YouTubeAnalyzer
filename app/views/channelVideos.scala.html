@@ -12,26 +12,67 @@
 * argument is a `String` with the title of the page, the second
 * argument is an `Html` object containing the body of the page.
 *@
-
+@main("Search Result") {
 <!DOCTYPE html>
 <html lang="en">
-    <p></p>
+    <head>
+        <style type="text/css">
+                h2{
+                    margin-top: 20px;
+                    color:#c5464a;
+                    font-size: 20px;
+                }
+                body{
+                    text-align: center;
+
+                }
+                table.gridtable {
+                    font-family: verdana,arial,sans-serif;
+                    font-size:11px;
+                    color:#333333;
+                    border-width: 1px;
+                    border-color: #666666;
+                    border-collapse: collapse;
+                    width:70%;
+                    margin:auto;
+                    margin-bottom: 10%;
+
+                }
+                table.gridtable th {
+                    border-width: 1px;
+                    padding: 8px;
+                    border-style: solid;
+                    border-color: #666666;
+                    background-color: #c5464a;
+                    color: #FFFFFF;
+                    text-align: center;
+                }
+                table.gridtable td {
+                    border-width: 1px;
+                    padding: 8px;
+                    border-style: solid;
+                    border-color: #666666;
+                    background-color: #ffffff;
+                    text-align: center;
+                }
+        </style>
+
+    </head>
     <body>
-
-        <p></p>
-        <p></p>
-        <p>
-        @for(result <- list){
-
-            <div style="text-align: center; font-size: 30px">
-                <br>
-
-    <p style="color: #8d6fe0">Date : @result.getStringDate</p>
-        <p style="color: #7319ab">Title : @result.getVideoTitle</p>
-
-
-        <br>
-
+        <body>
+            <div class = "container">
+                <table class="gridtable">
+                    <tr>
+                        <th>Date</th><th>Title</th>
+                    </tr>
+        @for(result <- list) {
+            <tr>
+                <td>@result.getStringDate</td>
+                <td>@result.getVideoTitle</td>
+            </tr>
+        }
+                </table>
+            </div>
     </body>
 }
 

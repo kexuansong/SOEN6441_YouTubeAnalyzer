@@ -1,9 +1,61 @@
 @(searchKey:String, similarList:List[Videos])(implicit assetsFinder: AssetsFinder)
 
     @main("Search Result") {
-        @for(result <- similarList) {
+    <head>
+        <style type="text/css">
+                h2{
+                    margin-top: 20px;
+                    color:#c5464a;
+                    font-size: 20px;
+                }
+                body{
+                    text-align: center;
 
-                <p >Title : @result.getVideoTitle</p>
+                }
+                table.gridtable {
+                    font-family: verdana,arial,sans-serif;
+                    font-size:11px;
+                    color:#333333;
+                    border-width: 1px;
+                    border-color: #666666;
+                    border-collapse: collapse;
+                    width:70%;
+                    margin:auto;
+                    margin-bottom: 10%;
+
+                }
+                table.gridtable th {
+                    border-width: 1px;
+                    padding: 8px;
+                    border-style: solid;
+                    border-color: #666666;
+                    background-color: #c5464a;
+                    color: #FFFFFF;
+                    text-align: center;
+                }
+                table.gridtable td {
+                    border-width: 1px;
+                    padding: 8px;
+                    border-style: solid;
+                    border-color: #666666;
+                    background-color: #ffffff;
+                    text-align: center;
+                }
+        </style>
+
+    </head>
+    <body>
+        <div class = "container">
+            <table class="gridtable">
+                <tr>
+                    <th>Title</th>
+                </tr>
+
+        @for(result <- similarList) {
+            <tr><td>Title : @result.getVideoTitle</td></tr>
 
         }
+            </table>
+        </div>
+    </body>
     }
