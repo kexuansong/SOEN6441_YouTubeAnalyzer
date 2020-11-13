@@ -18,6 +18,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
+import com.google.api.client.util.DateTime;
 import com.google.api.client.util.Joiner;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
@@ -48,6 +49,10 @@ public class ProfileImp {
     /** channel upload id*/
     private String uploadId;
 
+    private String country;
+    private DateTime publish;
+    private String url;
+
     /**
      * Default Constructor
      */
@@ -62,17 +67,32 @@ public class ProfileImp {
      * @param totalSubscribers Subscribers number of Channel
      * @param totVideos Total Video Numbers
      */
-    public ProfileImp(String title, String description, BigInteger totalViews, BigInteger totalSubscribers, BigInteger totVideos) {
+    public ProfileImp(String title, String description, BigInteger totalViews, BigInteger totalSubscribers, BigInteger totVideos,DateTime dateTime, String country, String link) {
         this.title = title;
         this.description = description;
         this.totalViews = totalViews;
         this.totalSubscribers = totalSubscribers;
         this.totVideos = totVideos;
+        this.country = country;
+        this.publish = dateTime;
+        this.url  = link;
     }
 
     public ProfileImp(String title,String uploadId){
         this.title = title;
         this.uploadId  = uploadId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public DateTime getPublish() {
+        return publish;
     }
 
     /**

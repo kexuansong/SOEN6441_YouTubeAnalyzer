@@ -33,7 +33,7 @@ public class AsynProcessor {
     private static final long NUMBER_OF_similarVIDEOS_RETURNED = 100;
 
     /** * Api key */
-    private static final String APIKey = "AIzaSyDqRpznUTUAVtkRBFSXRxhCoEbjL-_2vu4";
+    private static final String APIKey = "AIzaSyBZOLCA02AcmmyEtEmwzldN2XF3NGSgRKU";
     /** * Video list */
     private List<Videos> list = new ArrayList<>();
     private List<Videos> similarList = new ArrayList<>();
@@ -191,11 +191,15 @@ public class AsynProcessor {
             String title = channel.getSnippet().getTitle();
             String description = channel.getSnippet().getDescription();
 
+            DateTime publishedAt = channel.getSnippet().getPublishedAt();
+            String country = channel.getSnippet().getCountry();
+            String url = channel.getSnippet().getThumbnails().getDefault().getUrl();
+
             BigInteger totalViews = channel.getStatistics().getViewCount();
             BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
             BigInteger totVideos = channel.getStatistics().getVideoCount();
 
-            return new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
+            return new ProfileImp(title, description, totalViews, totalSubscribers, totVideos,publishedAt,country,url);
         });
 
     }
