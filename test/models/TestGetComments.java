@@ -1,15 +1,20 @@
+package models;
+
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.CommentThread;
 import com.google.api.services.youtube.model.CommentThreadListResponse;
 import models.Comments;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -81,7 +86,23 @@ public class TestGetComments {
 
         assertEquals(commentlist, comments.getComments("1"));
 
+    }
 
+    @Test
+    public void TestGetComments2() throws IOException {
+        Comments comments = new Comments("vcRFkp8jHJ8");
+
+        List<String> result = Arrays.asList("Hey there, I think you really need to normalize the audio volume, jumps up and down");
+
+        assertEquals(result, comments.getComments("vcRFkp8jHJ8"));
+    }
+
+    @Test
+    public void TestGetComments3() throws IOException {
+        Comments comments = new Comments("NFYkApw5KtM");
+
+        List<String> result = comments.getComments("NFYkApw5KtM");
+        assertEquals(0, result.size());
     }
 
 

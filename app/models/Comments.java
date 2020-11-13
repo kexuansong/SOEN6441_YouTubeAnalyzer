@@ -83,7 +83,7 @@ public class Comments{
      * @return emoji
      */
     public String SearchComment(List<String> commentsList){
-        if(commentsList.size() == 0){return "Comment Disabled";}
+        if(commentsList.size() == 0){return "No Comment";}
         else {
 
             List<String> emojiList = new ArrayList<>();
