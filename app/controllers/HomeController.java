@@ -134,7 +134,7 @@ public class HomeController extends Controller {
             System.out.println(userSession.toString());
             cache.set(userSession.toString(),videosList);
 
-            return ok(search.render("",videosList,assetsFinder));
+            return ok(search.render(searchKey,videosList,assetsFinder));
         });
 
 
@@ -292,6 +292,8 @@ public class HomeController extends Controller {
             return notFound("Error");
         });
     }
+
+
     public CompletionStage<Result> similar(String searchKey) {
         return CompletableFuture.supplyAsync(() -> general.similarSearchAsync(searchKey)).thenApply(results -> {
                     try {
