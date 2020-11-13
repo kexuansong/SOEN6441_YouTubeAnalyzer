@@ -1,3 +1,4 @@
+import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.ChannelListResponse;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -28,14 +30,19 @@ public class TestProfile {
         BigInteger totalSub = BigInteger.TEN;
         BigInteger totalVideo = BigInteger.TEN;
         String upload = "ssss";
+        String url ="http";
+        String country = "cn";
+        DateTime dateTime = new DateTime("2019-03-27T10:00:00Z");
 
 
 
-        ProfileImp profileImp = new ProfileImp(title,description,totalViews,totalVideo,totalSub);
+        ProfileImp profileImp = new ProfileImp(title,description,totalViews,totalSub,totalVideo,dateTime,country,url);
         ProfileImp profileImp1 = new ProfileImp();
         ProfileImp profileImp2 = new ProfileImp(title,upload);
 
-
+        Assert.assertEquals("http",profileImp.getUrl());
+        Assert.assertEquals("cn",profileImp.getCountry());
+        Assert.assertEquals(new DateTime("2019-03-27T10:00:00Z"), profileImp.getPublish());
         Assert.assertEquals("java",profileImp.getTitle());
         Assert.assertEquals("hello",profileImp.getDescription());
         Assert.assertEquals(BigInteger.TEN,profileImp.getTotalViews());
