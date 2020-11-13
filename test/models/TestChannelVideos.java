@@ -1,3 +1,5 @@
+package models;
+
 import models.Comments;
 import models.Videos;
 import org.junit.Before;

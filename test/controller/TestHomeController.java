@@ -1,14 +1,18 @@
+package controller;
+
 import com.google.api.services.youtube.model.SearchResult;
+import controllers.AssetsFinder;
 import models.AsynProcessor;
 import models.VideoImp;
 import models.Videos;
-import org.fluentlenium.core.search.Search;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 
 import org.mockito.Mockito;
 import org.mockito.Mockito.*;
 import org.mockito.Spy;
+import play.api.Application;
+import play.cache.AsyncCacheApi;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -24,22 +28,15 @@ import static org.mockito.Mockito.when;
 
 public class TestHomeController {
 
-    @Spy
-     private List<SearchResult> results = new ArrayList<>();
+
+    private AssetsFinder assetsFinder;
+
+    @InjectMocks
+    AsyncCacheApi cache;
 
 
     @Test
-    public void TestSearch(){
-        List<Videos> list = new ArrayList<>();
-
-        SearchResult s = Mockito.mock(SearchResult.class);
-        VideoImp videoImp = Mockito.mock(VideoImp.class);
-        AsynProcessor general = Mockito.mock(AsynProcessor.class);
-
-        results.add(s);
-
-        when(general.searchVideo(any())).thenReturn(results);
-        assertEquals(results,general.searchVideo(any()));
+    public void TestIndex(){
 
 
 

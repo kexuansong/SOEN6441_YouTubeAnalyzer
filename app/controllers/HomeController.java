@@ -81,36 +81,7 @@ public class HomeController extends Controller {
 
     }
 
-    /*/**
-     * Search video function
-     * @param searchKey query term key
-     * @return pass result list to views
-     * @throws GeneralSecurityException
-     * @throws IOException
-     */
-//    public Result search(String searchKey) throws GeneralSecurityException, IOException {
-//        List<Videos> list = new ArrayList<>();
-//        VideoImp videoImp = new VideoImp();
-//        General general = new General();
-//
-//        List<SearchResult> searchResults =general.searchVideo(searchKey);
-//        System.out.println(searchResults);
-//
-//
-//        for(SearchResult s : searchResults){
-//            String videoName = s.getSnippet().getTitle();
-//            //System.out.println("videoname：" + videoName);
-//            String videoID = s.getId().getVideoId();
-//            //System.out.println("videoid:" + videoID);
-//            Comments c = new Comments(videoID);
-//            General.GetSearchInfo(s, videoName, videoID, c, videoImp, list);
-//        }
-//
-//
-//
-//        return ok(search.render(searchKey,list,assetsFinder));
-//
-//    }
+
 
     /**
      * Async search process
@@ -121,7 +92,7 @@ public class HomeController extends Controller {
     public CompletionStage<Result> search(String searchKey,Http.Request request) {
         AsynProcessor general = new AsynProcessor();
         Optional<String> userSession = request.session().get("Connected");
-        System.out.println("search" + userSession.toString());
+
         CompletableFuture<List<Videos>> searchResult = general.processSearchAsync(searchKey);
 
         CompletionStage<Optional<List<Videos>>> cacheResult = cache.get(userSession.toString());
@@ -143,65 +114,6 @@ public class HomeController extends Controller {
     }
 
 
-    //Owner/Channel Videos: Display the info for ten latest videos posted by the same owner/
-    //channel as the one from the search results (where available, linked through owner field).
-    //The videos must be sorted by upload date followed by the search terms.
-
-    /*/**
-     * Search top ten videos in one channel
-     * @param channelID channel id for get information of required channel
-     * @return pass result list to views
-     * @throws GeneralSecurityException
-     * @throws IOException
-     */
-//    public Result CVideos(String channelID,String keyword) throws GeneralSecurityException, IOException, ParseException {
-//        List<Channel> requiredInfo = new ArrayList<>();
-//        AsynProcessor asynProcessor = new AsynProcessor();
-//
-//
-//        requiredInfo = asynProcessor.getChannelInfo(channelID);
-//        Channel channel = requiredInfo.get(0);
-//
-//        String title = channel.getSnippet().getTitle();
-//        String description = channel.getSnippet().getDescription();
-//        String uploadId = channel.getContentDetails().getRelatedPlaylists().getUploads();
-//
-//        Playlist playlist = new Playlist();
-//        List<PlaylistItem> OneChannelVideos = playlist.getPlaylistItems(uploadId);
-//        List<Videos> channelVideolist = new ArrayList<>();
-//        VideoImp videoImp = new VideoImp();
-//
-//        for (PlaylistItem p : OneChannelVideos) {
-//            String videoName = p.getSnippet().getTitle();
-//            //get date time
-//            DateTime datetime = p.getSnippet().getPublishedAt();
-//            //get date
-//            Date date= new Date(p.getSnippet().getPublishedAt().getValue());
-//            String pattern = "yyyy-MM-dd";
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-//            //get string date as yyyy-MM-dd
-//            String ndate = simpleDateFormat.format(date);
-//            SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-//            Date d = sdformat.parse(ndate);
-//            Videos video = new Videos(title,videoName,d,ndate);
-//            //System.out.println(video.getIntDate());
-//            channelVideolist.add(video);
-//        }
-////        channelVideolist.sort((t1,t2) ->
-////                t1.getVideoTitle().contains(keyword) ? 1 :
-////                        t2.getVideoTitle().contains(keyword) ? 1  : 0);
-//
-//        Comparator<String> comparator = Comparator.<String, Boolean>comparing(s -> s.contains(keyword)).reversed()
-//                .thenComparing(Comparator.naturalOrder());
-//        //Collections.reverse(channelVideolist);
-//        List<Videos> sortedDateList =  channelVideolist.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
-//
-//        // render list
-//        return ok(
-//                channelVideos.render(channelID,sortedDateList,assetsFinder)
-//        );
-//    }
-
     /**
      * Async search process
      * @param keyword query term
@@ -221,55 +133,7 @@ public class HomeController extends Controller {
             }
         });}
 
-//    public CompletionStage<Result> CVideos(String channelID,String keyword) {
-//        return CompletableFuture.supplyAsync(() -> {
-//            try {
-//                return general.processPlayListAsync(channelID,keyword);
-//            } catch (GeneralSecurityException|IOException| ParseException e) {
-//                e.printStackTrace();
-//                return notFound("Error");
-//            }
-//        }).thenApply(results -> {
-//                    try {
-//                        return ok(channelVideos.render( channelID, results, assetsFinder));
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                        return notFound("Error");
-//                    }
-//                }
-//        );
-//    }
 
-
-
-//    /**
-//     * Perform profile request
-//     * @param channelID channel id for get information of required channel
-//     * @return pass result list to views
-//     * @throws GeneralSecurityException
-//     * @throws IOException
-//     */
-//    public Result profile(String channelID) throws GeneralSecurityException, IOException {
-//        List<Channel> requiredInfo;
-//        AsynProcessor asynProcessor = new AsynProcessor();
-//
-//
-//        requiredInfo = asynProcessor.getChannelInfo(channelID);
-//        Channel channel = requiredInfo.get(0);
-//
-//        String title = channel.getSnippet().getTitle();
-//        String description = channel.getSnippet().getDescription();
-//
-//        BigInteger totalViews = channel.getStatistics().getViewCount();
-//        BigInteger totalSubscribers = channel.getStatistics().getSubscriberCount();
-//        BigInteger totVideos = channel.getStatistics().getVideoCount();
-//
-//        ProfileImp imp = new ProfileImp(title, description, totalViews, totalSubscribers, totVideos);
-//
-//        // render list
-//        return ok(
-//                profile.render(imp, assetsFinder)
-//        );
 
     /**
      * Async process profile action

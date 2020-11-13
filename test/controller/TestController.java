@@ -1,3 +1,4 @@
+package controller;
 import controllers.AssetsFinder;
 import controllers.HomeController;
 import org.junit.Assert;
