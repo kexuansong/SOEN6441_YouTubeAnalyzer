@@ -81,7 +81,7 @@
 @*    </p>*@
         <table class="gridtable">
             <tr>
-                <th>Title</th><th>Channel Name</th><th>Recent Videos</th><th>View Counts</th><th>Date</th><th>Sentiment</th>
+                <th>Title</th><th>Channel Name</th><th>Recent Videos</th><th>View Counts</th><th>Time lapsed</th><th>Sentiment</th>
             </tr>
             @for(result <- list){
                 <tr>
@@ -89,7 +89,7 @@
                     <td><a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></td>
                     <td><a href=@routes.HomeController.CVideos(result.getChannelID,keyword)>@result.getChannelTitle</a></td>
                     <td>@result.getViewCount</td>
-                    <td>@result.getDateTime</td>
+                    <td>@result.getDateTime mins</td>
                     <td>@result.getSentiment</td>
                 </tr>
             }

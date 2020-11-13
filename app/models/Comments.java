@@ -17,6 +17,7 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.*;
 import com.vdurmont.emoji.EmojiManager;
 import com.vdurmont.emoji.EmojiParser;
+import services.CommentsInterface;
 
 
 import java.io.IOException;
@@ -34,14 +35,16 @@ import static java.util.stream.Collectors.toList;
 
 
 
-public class Comments {
+public class Comments implements CommentsInterface {
 
-    private static final String DEVELOPER_KEY = "AIzaSyBZOLCA02AcmmyEtEmwzldN2XF3NGSgRKU";
+    private static final String DEVELOPER_KEY = "AIzaSyBVg4RWbp-wiM0YZl6ox4EMlcDhzLQzOVc";
 
     private static final long NUMBER_OF_COMMENTS_RETURNED = 100;
     private static final String APPLICATION_NAME = "API code samples";
 
     private static YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
+
+        @Override
         public void initialize(HttpRequest request) throws IOException {
         }
     }).setApplicationName(APPLICATION_NAME).build();
@@ -57,6 +60,12 @@ public class Comments {
     }
 
 
+    @Override
+    public void initialize(HttpRequest request) {
+
+    }
+
+    @Override
     public List<String> getComments(String VideoId) throws IOException {
 
         List<String> commentsList = new ArrayList<>();
@@ -84,6 +93,7 @@ public class Comments {
 
     }
 
+    @Override
     public String SearchComment(List<String> commentsList){
         if(commentsList.size() == 0){return "Comment Disabled";}
         else {

@@ -33,7 +33,7 @@ public class AsynProcessor {
     private static final long NUMBER_OF_similarVIDEOS_RETURNED = 100;
 
     /** * Api key */
-    private static final String APIKey = "AIzaSyBZOLCA02AcmmyEtEmwzldN2XF3NGSgRKU";
+    private static final String APIKey = "AIzaSyBVg4RWbp-wiM0YZl6ox4EMlcDhzLQzOVc";
     /** * Video list */
     private List<Videos> list = new ArrayList<>();
     private List<Videos> similarList = new ArrayList<>();
@@ -71,6 +71,7 @@ public class AsynProcessor {
             // {{ https://cloud.google.com/console }}
             search.setType("video");
             search.setKey(APIKey);
+            search.setOrder("date");
             search.setQ(queryTerm);
 
             // Restrict the search results to only include videos. See:
@@ -137,7 +138,8 @@ public class AsynProcessor {
     public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, Comments c, VideoImp videoImp, List<Videos> list) throws IOException {
         String ChannelTitle = searchResult.getSnippet().getChannelTitle();
         String channelID = searchResult.getSnippet().getChannelId();
-        DateTime dateTime = searchResult.getSnippet().getPublishedAt();
+        Long date = Calendar.getInstance().getTimeInMillis();
+        Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue())/1000/60;
 
         String sentiment = c.SearchComment(c.getComments(videoId));
         BigInteger viewCount = videoImp.getVideoView(videoId);

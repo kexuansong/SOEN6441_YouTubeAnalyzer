@@ -21,7 +21,7 @@ public class Videos {
     /**   view number   */
     private BigInteger viewCount;
     /**  publish date time */
-    private DateTime dateTime;
+    private Long dateTime;
     /**  publish date */
     private Date date;
     /**  channel id    */
@@ -47,7 +47,7 @@ public class Videos {
      * @param channelID channel id
      * @param dateTime publish date
      */
-    public Videos(String videoTitle, String videoID, String channelTitle, String channelID,BigInteger viewCount ,DateTime dateTime,String sentiment) {
+    public Videos(String videoTitle, String videoID, String channelTitle, String channelID,BigInteger viewCount ,Long dateTime,String sentiment) {
         this.videoTitle = videoTitle;
         this.videoID = videoID;
         this.channelTitle = channelTitle;
@@ -123,7 +123,7 @@ public class Videos {
      * Getter
      * @return get publish date
      */
-    public DateTime getDateTime() {
+    public Long getDateTime() {
         return dateTime;
     }
 
