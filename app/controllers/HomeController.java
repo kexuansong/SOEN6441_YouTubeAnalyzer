@@ -292,7 +292,11 @@ public class HomeController extends Controller {
             return notFound("Error");
         });
     }
-
+    /**
+     * Async process similar videos action
+     * @param searchKey search key
+     * @return not found message if error occurred or return profile object to html
+     */
 
     public CompletionStage<Result> similar(String searchKey) {
         return CompletableFuture.supplyAsync(() -> general.similarSearchAsync(searchKey)).thenApply(results -> {

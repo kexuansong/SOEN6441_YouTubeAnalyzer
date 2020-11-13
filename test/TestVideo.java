@@ -17,7 +17,7 @@ public class TestVideo {
         BigInteger viewCount = BigInteger.ONE;
         String ChannelID = "aaa";
         String sentiment = "bbb";
-        DateTime dateTime = new DateTime("2019-03-27T10:00:00Z");
+        long dateTime=10L;
         String stringDate = "123456789";
         Videos videos = new Videos();
         Date date = new Date();

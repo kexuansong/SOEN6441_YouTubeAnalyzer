@@ -45,7 +45,11 @@ public class Comments{
         this.VideoId = VideoId;
     }
 
-
+    /**
+     * get comments
+     * @param VideoId video is
+     * @return comments list
+     */
     public List<String> getComments(String VideoId) throws IOException {
 
         List<String> commentsList = new ArrayList<>();
@@ -73,7 +77,11 @@ public class Comments{
 
     }
 
-
+    /**
+     * search comments
+     * @param commentsList list of comment
+     * @return emoji
+     */
     public String SearchComment(List<String> commentsList){
         if(commentsList.size() == 0){return "Comment Disabled";}
         else {

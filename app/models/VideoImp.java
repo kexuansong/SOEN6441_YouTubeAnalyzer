@@ -21,9 +21,13 @@ public class VideoImp {
 
     public VideoImp() {
     }
-
+    /**
+     * get views of video
+     * @param videoId video id
+     * @return viewTotal
+     */
     public BigInteger getVideoView(String videoId) throws IOException {
-
+       //videolist
         List<Video> videoList = new ArrayList<>();
         youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
             @Override

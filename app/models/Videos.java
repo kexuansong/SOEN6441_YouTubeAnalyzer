@@ -95,13 +95,13 @@ public class Videos {
         return videoTitle;
     }
 
-    /**
-     * Getter
-     * @return get video description
-     */
-    public String getVideoDescription() {
-        return description;
-    }
+//    /**
+//     * Getter
+//     * @return get video description
+//     */
+//    public String getVideoDescription() {
+//        return description;
+//    }
 
     /**
      * Getter
@@ -136,7 +136,7 @@ public class Videos {
     }
     /**
      * Getter
-     * @return get video title
+     * @return get String date
      */
     public String getStringDate() {
         return stringDate;
@@ -160,7 +160,7 @@ public class Videos {
 
     /**
      * Getter
-     * @return get string date
+     * @return get Int date
      */
     public int getIntDate() {
         String intDate = stringDate.substring(0,3)+stringDate.substring(5,7)+stringDate.substring(8);

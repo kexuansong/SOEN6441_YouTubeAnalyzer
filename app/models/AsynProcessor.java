@@ -29,6 +29,7 @@ public class AsynProcessor {
         public void initialize(HttpRequest request) throws IOException {
         }
     }).setApplicationName("example").build();
+
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
     private static final long NUMBER_OF_similarVIDEOS_RETURNED = 100;
 
@@ -42,8 +43,10 @@ public class AsynProcessor {
     List<SearchResult> searchResultList = null;
     /** * playlist items list */
     List<PlaylistItem> playlistItems = null;
+    /** * key */
     String key = "";
     //private  List<Videos> cvList = new ArrayList<>();
+    /** * channel video list */
     private  List<Videos>channelVideoList = new ArrayList<>();
 
 
@@ -205,6 +208,15 @@ public class AsynProcessor {
         });
 
     }
+
+
+    /**
+     * Get similar videos information from YouTube API
+     * @param videoID video id
+     * @return searchSimilarResultList
+     * @throws throw IOException
+     */
+
     public List<SearchResult> searchSimilar(String videoID) throws IOException{
         List<SearchResult> searchSimilarResultList = null;
         try{
@@ -233,6 +245,11 @@ public class AsynProcessor {
         return searchSimilarResultList;
 
     }
+    /**
+     * Get similar videos information list
+     * @param searchKey search key
+     * @return similarList
+     */
     public CompletableFuture<List<Videos>> similarSearchAsync(String searchKey){
         return CompletableFuture.supplyAsync(()-> {
             try {
@@ -252,6 +269,12 @@ public class AsynProcessor {
                         }
                 );
     }
+    /**
+     * Get similar videos information list
+     * @param searchSimilar search key
+     * @param videoTitle video title
+     * @param similarList similar video list
+     */
     public static void getSimilar(SearchResult searchSimilar,String videoTitle,List<Videos> similarList){
         Videos similarVideo = new Videos(videoTitle);
         similarList.add(similarVideo);
@@ -341,15 +364,22 @@ public class AsynProcessor {
         cvList.add(video);
     }
 
-
-
-
+    /**
+     * get token
+     * @param request http request
+     * @return token
+     */
     public String getToken(Http.Request request){
        Map<String,String> incoming = request.session().data();
        String token = incoming.get("Connected");
        return token;
     }
 
+    /**
+     * session
+     * @param request http request
+     * @param list list of videos
+     */
     public void takeSession(Http.Request request,List<Videos> list){
         list = getList();
         String timeStamp = getToken(request);
@@ -358,10 +388,17 @@ public class AsynProcessor {
 
         index.put(timeStamp,list);
     }
+    /**
+     * Getter
+     * @return list
+     */
     public List<Videos> getList() {
         return list;
     }
-
+    /**
+     * Getter
+     * @return key
+     */
     public String getKey() {
         return key;
     }
