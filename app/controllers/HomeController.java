@@ -1,28 +1,18 @@
 package controllers;
 
-import com.google.api.client.util.DateTime;
-import com.google.api.services.youtube.model.Channel;
-import com.google.api.services.youtube.model.PlaylistItem;
-import com.google.api.services.youtube.model.SearchResult;
-
-import models.*;
-import play.data.Form;
-import play.data.FormFactory;
+import models.AsynProcessor;
+import models.ProfileImp;
+import models.Videos;
+import play.cache.AsyncCacheApi;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import views.html.channelVideos;
-import views.html.index;
-import views.html.profile;
-import views.html.search;
-import views.html.similar;
-
+import views.html.*;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.security.GeneralSecurityException;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -37,17 +27,18 @@ public class HomeController extends Controller {
      * initial assetFinder
      */
     private final AssetsFinder assetsFinder;
+    private AsyncCacheApi cache;
 
     /**
      * Inject and
      * @param assetsFinder handle cached & find asstes
      */
+
     @Inject
-    public HomeController(AssetsFinder assetsFinder) {
+    public HomeController(AssetsFinder assetsFinder, AsyncCacheApi cache) {
         this.assetsFinder = assetsFinder;
+        this.cache = cache;
     }
-    //key <- request token , value
-    Map<String,List<Videos>> data = new HashMap<>();
 
     /**
      * initial AsynProcessor
@@ -61,39 +52,22 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
-    public Result index(Http.Request request) throws GeneralSecurityException, IOException {
-//        //Form<Search> searchForm = formFactory.form(Search.class);
-//
-//        //Search search = searchForm.get();
-//
-//        //Display comment
-//        Comments comments = new Comments();
-//        comments.SearchComment("WXVHcdRniWg");
-//
-//        //Display Channel information
-//        //ProfileImp profileImp = new ProfileImp();
-//        //profileImp.getChannelInfo("UCLsChHb_H87b9nW_RGCb73g");
-//        //List<SearchResult> list = null;
-//
-//        /*SearchImp searchImp = new SearchImp();
-//        List<SearchResult> searchResults = searchImp.SearchVideo("java, python");
-//
-//        for (SearchResult s : searchResults){
-//            System.out.println(s.getSnippet().getTitle());
-//        } */
+    public CompletionStage<Result> index(Http.Request request) throws GeneralSecurityException, IOException {
+        String value = LocalTime.now().toString();
+        Optional<String> userSession = request.session().get("Connected");
 
-        AsynProcessor asynProcessor = new AsynProcessor();
-
-        //Optional<String> userSession = request.session().get("Connected");
-        Map<String, String> userSession = request.session().data();
         if (userSession.isEmpty()) {
-            return ok(index.render(assetsFinder));
-        } else {
-            //
-            return ok(search.render(asynProcessor.getKey(),asynProcessor.getList(),assetsFinder));
+            return CompletableFuture.supplyAsync(() -> (redirect("/").addingToSession(request, "Connected", value)));
         }
+        else{
 
+            CompletionStage<Optional<List<Videos>>> optionalCompletionStage = cache.get("Connected");
 
+            return optionalCompletionStage.thenApply(list -> {
+                list.ifPresent(videos -> ok(search.render("", videos, assetsFinder)));
+                return ok(index.render(assetsFinder));
+            });
+        }
     }
 
     /*/**
@@ -132,16 +106,28 @@ public class HomeController extends Controller {
      * @param searchKey query term
      * @return not found message if error occurred or return search result list to html
      */
-    public CompletionStage<Result> search(String searchKey) {
-        return CompletableFuture.supplyAsync(() -> general.processSearchAsync(searchKey)).thenApply(results -> {
-                    try {
-                        return ok(search.render(searchKey,results.get(), assetsFinder));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return notFound("Error");
-                    }
-                }
-        );
+    public CompletionStage<Result> search(String searchKey,Http.Request request) {
+        AsynProcessor general = new AsynProcessor();
+        Optional<String> userSession = request.session().get("Connected");
+        System.out.println("search" + userSession.toString());
+        CompletableFuture<List<Videos>> searchResult = general.processSearchAsync(searchKey);
+
+        CompletionStage<Optional<List<Videos>>> cacheResult = cache.get(userSession.toString());
+
+        return searchResult.thenCombine(cacheResult,(searchR, cacheR) -> {
+            List<Videos> videosList = new ArrayList<>();
+            if(!cacheR.isEmpty()){
+                videosList = cacheR.get();
+            }
+            videosList.addAll(searchR);
+
+            System.out.println(userSession.toString());
+            cache.set(userSession.toString(),videosList);
+
+            return ok(search.render("",videosList,assetsFinder));
+        });
+
+
     }
 
 
