@@ -56,6 +56,7 @@ public class HomeController extends Controller {
      * The configuration in the <code>routes</code> file means that
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
+     * @author Ke Xuan, Chenwen
      */
     public CompletionStage<Result> index(Http.Request request) throws GeneralSecurityException, IOException {
         String value = LocalTime.now().toString();
@@ -115,6 +116,7 @@ public class HomeController extends Controller {
      * Async search process
      * @param searchKey query term
      * @return not found message if error occurred or return search result list to html
+     * @author Ke Xuan, Chenwen
      */
     public CompletionStage<Result> search(String searchKey,Http.Request request) {
         AsynProcessor general = new AsynProcessor();
@@ -205,6 +207,7 @@ public class HomeController extends Controller {
      * @param keyword query term
      * @param channelID channel id
      * @return not found message if error occurred or return search result list to html
+     * @author Yue Jun
      */
     public CompletionStage<Result> CVideos(String channelID,String keyword) {
         return CompletableFuture.supplyAsync(() -> {
@@ -274,6 +277,7 @@ public class HomeController extends Controller {
      * @return not found message if error occurred or return profile object to html
      * @throws throw GeneralSecurityException
      * @throws throw IOException
+     * @author Chenwen
      */
 
     public CompletionStage<Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
@@ -296,6 +300,7 @@ public class HomeController extends Controller {
      * Async process similar videos action
      * @param searchKey search key
      * @return not found message if error occurred or return profile object to html
+     * @author Geer Jiang
      */
 
     public CompletionStage<Result> similar(String searchKey) {

@@ -33,7 +33,13 @@ public class AsynProcessor {
         }
     }).setApplicationName("example").build();
 
+    /**
+     * Number of video return
+     */
     private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
+    /**
+     * Number of similar video return
+     */
     private static final long NUMBER_OF_similarVIDEOS_RETURNED = 100;
 
     /**
@@ -44,11 +50,17 @@ public class AsynProcessor {
      * Video list
      */
     private List<Videos> list = new ArrayList<>();
+    /**
+     * Video list
+     */
     private List<Videos> similarList = new ArrayList<>();
     /**
      * Channel list
      */
     List<Channel> channelSearchList = null;
+    /**
+     * Search Channel List
+     */
     List<SearchResult> searchResultList = null;
     /**
      * playlist items list
@@ -70,6 +82,7 @@ public class AsynProcessor {
      *
      * @param queryTerm search key
      * @return searchResult list
+     * @author Chenwen
      */
     public List<SearchResult> searchVideo(String queryTerm) {
 
@@ -117,11 +130,10 @@ public class AsynProcessor {
 
     /**
      * Process searching action with Asynchronous
-     *
+     * @author Chenwen
      * @param searchKey query term
      * @return video list
      */
-
     public CompletableFuture<List<Videos>> processSearchAsync(String searchKey) {
         return CompletableFuture.supplyAsync(() -> searchVideo(searchKey))
                 .thenApplyAsync(searchResultList -> {
@@ -153,6 +165,7 @@ public class AsynProcessor {
      * @param videoImp     video object
      * @param list         return list
      * @throws throw IOException
+     * @author Chenwen
      */
 
     public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, Comments c, VideoImp videoImp, List<Videos> list) throws IOException {
@@ -176,6 +189,7 @@ public class AsynProcessor {
      * @return Channel list , but only get 1 value
      * @throws throw GeneralSecurityException
      * @throws throw IOException
+     * @author Chenwen
      */
 
     public List<Channel> getChannelInfo(String ChannelId) throws GeneralSecurityException, IOException {
@@ -200,6 +214,7 @@ public class AsynProcessor {
      * @return Wrapped with Profile Object
      * @throws throw GeneralSecurityException
      * @throws throw IOException
+     * @author Chenwen
      */
 
     public CompletableFuture<ProfileImp> processProfileAsync(String ChannelId) throws GeneralSecurityException, IOException {
@@ -236,6 +251,7 @@ public class AsynProcessor {
      * @param videoID video id
      * @return searchSimilarResultList
      * @throws throw IOException
+     * @author Geer Jiang
      */
 
     public List<SearchResult> searchSimilar(String videoID) throws IOException {
@@ -271,6 +287,7 @@ public class AsynProcessor {
      *
      * @param searchKey search key
      * @return similarList
+     * @author Geer Jiang
      */
     public CompletableFuture<Map<String, Integer>> similarSearchAsync(String searchKey) {
         return CompletableFuture.supplyAsync(() -> {
@@ -293,7 +310,7 @@ public class AsynProcessor {
                     //System.out.println(listString);
                     List<String> similarWordList = Stream.of(similarWords).map(w -> w.split("\\s+")).flatMap(Arrays::stream)
                             .collect(Collectors.toList());
-                    System.out.println(similarWordList);
+                    //System.out.println(similarWordList);
 
                     Map<String, Integer> unsortMap = similarWordList.stream()
                             .collect(Collectors.toMap(w -> w.toLowerCase(), w -> 1, Integer::sum));
@@ -302,7 +319,7 @@ public class AsynProcessor {
                             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                                     (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
-                    System.out.println(sortedMap);
+                    //System.out.println(sortedMap);
                             return sortedMap;
                         }
                 );
@@ -314,6 +331,7 @@ public class AsynProcessor {
      * @param searchSimilar search key
      * @param videoTitle    video title
      * @param similarList   similar video list
+     * @author Geer Jiang
      */
     public static void getSimilar(SearchResult searchSimilar, String videoTitle, List<Videos> similarList) {
         Videos similarVideo = new Videos(videoTitle);
@@ -327,6 +345,7 @@ public class AsynProcessor {
      * @param ChannelId playlist id
      * @return playlist items list
      * @throws throw IOException
+     * @author Chen Yuejun
      */
 
     public List<PlaylistItem> getPlaylistItems(String ChannelId) throws IOException, GeneralSecurityException {
@@ -352,6 +371,7 @@ public class AsynProcessor {
      * @param ChannelId channel id
      * @param keyword   query term
      * @return video list
+     * @author Chen Yueiun
      */
     public CompletableFuture<List<Videos>> processPlayListAsync(String ChannelId, String keyword) throws GeneralSecurityException, IOException, ParseException {
         return CompletableFuture.supplyAsync(() -> {
@@ -394,6 +414,7 @@ public class AsynProcessor {
      * @param date      Date object
      * @param keyword   String object
      * @throws throw IOException,ParseException
+     * @author Chen Yuejun
      */
 
     public static void GetVideoInfo(PlaylistItem p, String videoName, DateTime dateTime, Date date, String keyword, List<Videos> cvList) throws IOException, ParseException {
