@@ -1,9 +1,14 @@
 package controllers;
 
-import models.AsynProcessor;
-import models.ProfileImp;
-import models.Videos;
+import com.google.api.client.util.DateTime;
+import com.google.api.services.youtube.model.Channel;
+import com.google.api.services.youtube.model.PlaylistItem;
+import com.google.api.services.youtube.model.SearchResult;
+
+import models.*;
 import play.cache.AsyncCacheApi;
+import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
@@ -56,6 +61,9 @@ public class HomeController extends Controller {
         String value = LocalTime.now().toString();
         Optional<String> userSession = request.session().get("Connected");
 
+        AsynProcessor asynProcessor = new AsynProcessor();
+
+
         if (userSession.isEmpty()) {
             return CompletableFuture.supplyAsync(() -> (redirect("/").addingToSession(request, "Connected", value)));
         }
@@ -68,6 +76,8 @@ public class HomeController extends Controller {
                 return ok(index.render(assetsFinder));
             });
         }
+
+
     }
 
     /*/**

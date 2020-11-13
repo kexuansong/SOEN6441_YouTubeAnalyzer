@@ -32,7 +32,7 @@ lazy val root = (project in file("."))
     libraryDependencies += "com.google.code.gson" % "gson" % "2.8.6",
 
     libraryDependencies ++= Seq(
-      cacheApi
+      ehcache
     ),
 
 
