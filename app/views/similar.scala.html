@@ -1,4 +1,5 @@
-@(searchKey:String, similarList:List[Videos])(implicit assetsFinder: AssetsFinder)
+@import java.util
+@(searchKey:String, sortedMap: Map[String, Integer])(implicit assetsFinder: AssetsFinder)
 
     @main("Search Result") {
     <head>
@@ -51,8 +52,8 @@
                     <th>Title</th>
                 </tr>
 
-        @for(result <- similarList) {
-            <tr><td>Title : @result.getVideoTitle</td></tr>
+        @for(result <- sortedMap) {
+            <tr><td>Words : @result</td></tr>
 
         }
             </table>

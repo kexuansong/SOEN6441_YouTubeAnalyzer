@@ -301,7 +301,8 @@ public class HomeController extends Controller {
     public CompletionStage<Result> similar(String searchKey) {
         return CompletableFuture.supplyAsync(() -> general.similarSearchAsync(searchKey)).thenApply(results -> {
                     try {
-                        return ok(similar.render(searchKey,results.get(), assetsFinder));
+                        Map<String, Integer> sMap = general.similarSearchAsync(searchKey).get();
+                        return ok(similar.render(searchKey,sMap, assetsFinder));
                     } catch (Exception e) {
                         e.printStackTrace();
                         return notFound("Error");

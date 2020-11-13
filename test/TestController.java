@@ -1,31 +1,27 @@
-import akka.http.scaladsl.model.HttpHeader;
 import controllers.AssetsFinder;
 import controllers.HomeController;
-import models.AsynProcessor;
-import models.ProfileImp;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.junit.Assert;
 import org.junit.Test;
+import play.cache.AsyncCacheApi;
 import play.mvc.Http;
 import play.mvc.Result;
 
 import javax.inject.Inject;
-
-import static play.mvc.Http.Status.OK;
-
-import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.GeneralSecurityException;
-import java.util.Iterator;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
-public class TestController {
+public class TestController{
     private final AssetsFinder assetsFinder;
+    private AsyncCacheApi cacheApi;
+    private Http.Request request;
+
     @Inject
-    public TestController(AssetsFinder assetsFinder) {
+    public TestController(AssetsFinder assetsFinder , AsyncCacheApi asyncCacheApi) {
+        this.cacheApi = asyncCacheApi;
         this.assetsFinder = assetsFinder;
     }
 

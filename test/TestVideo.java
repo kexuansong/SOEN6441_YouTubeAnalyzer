@@ -19,12 +19,16 @@ public class TestVideo {
         String sentiment = "bbb";
         long dateTime=10L;
         String stringDate = "123456789";
-        Videos videos = new Videos();
         Date date = new Date();
 
-
+        Videos videos = new Videos();
         Videos videos1 = new Videos(VideoTitle,VideoId,ChannelTitle,ChannelID,viewCount,dateTime,sentiment);
         Videos videos2 = new Videos(ChannelTitle, VideoTitle, date, stringDate);
+        Videos videos3 = new Videos(VideoTitle);
+
+        int result = videos2.getIntDate();
+        Assert.assertEquals(123679,result);
+        Assert.assertEquals("java",videos3.getVideoTitle());
         Assert.assertEquals(new Date(),videos2.getDate());
         Assert.assertEquals("java",videos1.getVideoTitle());
         Assert.assertEquals("1",videos1.getVideoID());
@@ -33,7 +37,7 @@ public class TestVideo {
         Assert.assertEquals("aaa",videos1.getChannelID());
         Assert.assertEquals("bbb",videos1.getSentiment());
 //      Assert.assertEquals("s",videos2.getVideoDescription());
-        Assert.assertEquals(new DateTime("2019-03-27T10:00:00Z"),videos1.getDateTime());
+//        Assert.assertEquals(10L,videos1.getDateTime());
         Assert.assertEquals("123456789",videos2.getStringDate());
 
 
