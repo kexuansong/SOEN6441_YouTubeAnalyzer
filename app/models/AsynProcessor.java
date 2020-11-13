@@ -251,7 +251,7 @@ public class AsynProcessor {
      * @param searchKey search key
      * @return similarList
      */
-    public CompletableFuture<List<Videos>> similarSearchAsync(String searchKey){
+    public CompletableFuture<Map<String, Integer>> similarSearchAsync(String searchKey){
         return CompletableFuture.supplyAsync(()-> {
             try {
                 return searchSimilar(searchKey);
@@ -282,7 +282,7 @@ public class AsynProcessor {
                                     (oldValue, newValue) -> oldValue, LinkedHashMap::new));
 
                     System.out.println(sortedMap);
-                            return similarList;
+                            return sortedMap;
                         }
                 );
     }
