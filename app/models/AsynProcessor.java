@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import models.Videos;
 import play.mvc.Http;
@@ -265,6 +266,22 @@ public class AsynProcessor {
                                         getSimilar(searchSimilar,videoTitle,similarList);
                                     }
                             );
+                    String listString = similarList.stream().map(Videos::getVideoTitle)
+                            .collect(Collectors.joining(", "));
+                    String[] similarWords = listString.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
+                    //System.out.println(listString);
+                    List <String> similarWordList = Stream.of(similarWords).map(w -> w.split("\\s+")).flatMap(Arrays::stream)
+                            .collect(Collectors.toList());
+                    System.out.println(similarWordList);
+
+                    Map <String, Integer > unsortMap = similarWordList.stream()
+                            .collect(Collectors.toMap(w -> w.toLowerCase(), w -> 1, Integer::sum));
+                    Map<String, Integer> sortedMap = unsortMap.entrySet().stream()
+                            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                                    (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
+                    System.out.println(sortedMap);
                             return similarList;
                         }
                 );
