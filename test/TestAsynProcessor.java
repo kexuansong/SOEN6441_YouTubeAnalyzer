@@ -37,10 +37,10 @@ public class TestAsynProcessor {
         Assert.assertNotNull(result.get());
     }
 
-//    @Test
-//    public void TestSimilarSearch() throws ExecutionException, InterruptedException {
-//        CompletableFuture<Map<String,Integer>> result = asynProcessor.similarSearchAsync("java");
-//        Assert.assertNotNull(result.get());
-//    }
+    @Test
+    public void TestSimilarSearch() throws ExecutionException, InterruptedException {
+        CompletableFuture<Map<String,Integer>> result = asynProcessor.similarSearchAsync("vcRFkp8jHJ8");
+        Assert.assertNotNull(result.get());
+    }
 
 }

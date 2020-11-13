@@ -22,25 +22,46 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * @author Song Ke Xuan
+ */
 
 public class Comments{
-
+    /**
+     * Api key
+     */
     private static final String DEVELOPER_KEY = "AIzaSyBZOLCA02AcmmyEtEmwzldN2XF3NGSgRKU";
-
+    /**
+     *Total Comment Numbers
+     */
     private static final long NUMBER_OF_COMMENTS_RETURNED = 100;
+    /**
+     * App Name
+     */
     private static final String APPLICATION_NAME = "API code samples";
-
+    /**
+     * initial Youtube api object
+     */
     private static YouTube youtube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
         public void initialize(HttpRequest request) throws IOException {
         }
     }).setApplicationName(APPLICATION_NAME).build();
 
+    /**
+     * String VideoId
+     */
     private static String VideoId;
 
+    /**
+     * Comment Thread list
+     */
     List<CommentThread> searchCommentsList = null;
 
 
-
+    /**
+     * Constructor
+     * @param VideoId video id
+     */
     public Comments(String VideoId){
         this.VideoId = VideoId;
     }

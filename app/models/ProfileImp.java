@@ -78,19 +78,37 @@ public class ProfileImp {
         this.url  = link;
     }
 
+    /**
+     * Constructor
+     * @param title channel title
+     * @param uploadId upload id
+     */
+
     public ProfileImp(String title,String uploadId){
         this.title = title;
         this.uploadId  = uploadId;
     }
 
+    /**
+     * get profile picture
+     * @return link
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * get channel location information
+     * @return country name
+     */
     public String getCountry() {
         return country;
     }
 
+    /**
+     * get channel created date
+     * @return date
+     */
     public DateTime getPublish() {
         return publish;
     }

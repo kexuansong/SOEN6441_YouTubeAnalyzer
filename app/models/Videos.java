@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * Video Model class
- * @author Wang Chenwen
+ * @author Wang Chenwen, Chen YueJun , Geer Jiang
  *
  */
 
@@ -58,6 +58,13 @@ public class Videos {
 
     }
 
+    /**
+     * Constructor
+     * @param channelTitle channel title
+     * @param videoTitle video title
+     * @param date date
+     * @param stringDate date
+     */
     public Videos(String channelTitle,String videoTitle, Date date,  String stringDate){
         // this.videoID = videoID;
         this.channelTitle = channelTitle;
@@ -75,6 +82,11 @@ public class Videos {
 ////          this.sentiment = sentiment;
 ////          this.viewCount  = viewCount;
 //    }
+
+    /**
+     * Constructor
+     * @param videoTitle video title
+     */
     public Videos(String videoTitle){
         this.videoTitle = videoTitle;
     }
