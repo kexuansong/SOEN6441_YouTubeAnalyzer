@@ -4,12 +4,22 @@ import models.Videos;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+ * Test Videos class
+ *
+ * @author Chenwen, Yuejun
+ */
 public class TestVideo {
+    /**
+     * Test Videos class
+     *
+     * @author Chenwen, Yuejun
+     */
     @Test
     public void initialVideos(){
         String VideoTitle="java";

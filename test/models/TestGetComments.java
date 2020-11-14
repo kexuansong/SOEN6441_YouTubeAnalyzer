@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 
+
 public class TestGetComments {
     @InjectMocks
     private String VideoId;
@@ -28,6 +29,11 @@ public class TestGetComments {
     @Spy
     private List<CommentThread> results = new ArrayList<>();
 
+    /**
+     * Test getComments method
+     * @throws IOException
+     * @author Kexuan Song
+     */
     @Test
     public void TestGetComments() throws IOException {
         Comments comments = mock(Comments.class);
@@ -88,6 +94,12 @@ public class TestGetComments {
 
     }
 
+
+    /**
+     * Test getComments method
+     * @throws IOException
+     * @author Kexuan Song
+     */
     @Test
     public void TestGetComments2() throws IOException {
         Comments comments = new Comments("vcRFkp8jHJ8");
@@ -97,6 +109,11 @@ public class TestGetComments {
         assertEquals(result, comments.getComments("vcRFkp8jHJ8"));
     }
 
+    /**
+     * Test getComments method
+     * @throws IOException
+     * @author Kexuan Song
+     */
     @Test
     public void TestGetComments3() throws IOException {
         Comments comments = new Comments("NFYkApw5KtM");

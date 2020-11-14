@@ -27,13 +27,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static play.test.Helpers.*;
-
+/**
+ * Test HomeController
+ *
+ * @author Geer Jiang, Chenwen Wang, Kexuan Song
+ */
 public class TestHomeController {
 
     @Spy
@@ -43,19 +48,13 @@ public class TestHomeController {
     Application fakeApp3 = Helpers.fakeApplication();
     Application fakeApp4 = Helpers.fakeApplication();
 
-
+    /**
+     * Test search method in HomeController
+     *
+     * @author Geer Jiang, Chenwen Wang, Kexuan Song
+     */
     @Test
     public void TestSearch(){
-//        List<Videos> list = new ArrayList<>();
-//
-//        SearchResult s = Mockito.mock(SearchResult.class);
-//        VideoImp videoImp = Mockito.mock(VideoImp.class);
-//        AsynProcessor general = Mockito.mock(AsynProcessor.class);
-//
-//        results.add(s);
-//
-//        when(general.searchVideo(any())).thenReturn(results);
-//        assertEquals(results,general.searchVideo(any()));
         Http.RequestBuilder request1 = Helpers.fakeRequest()
                 .method(GET)
                 .uri("/search");
@@ -64,8 +63,13 @@ public class TestHomeController {
 
     }
 
+    /**
+     * Test search method in HomeController
+     *
+     * @author Geer Jiang, Chenwen Wang, Kexuan Song
+     */
     @Test
-    public void TestSimilar() throws IOException {
+    public void TestSimilar(){
 
         Http.RequestBuilder request2 = Helpers.fakeRequest()
                 .method(GET)
@@ -73,12 +77,15 @@ public class TestHomeController {
         Result result = Helpers.route(fakeApp1, request2);
         assertNotNull(result);
     }
+
+
+    /**
+     * Test search method in HomeController
+     *
+     * @author Geer Jiang, Chenwen Wang, Kexuan Song
+     */
     @Test
-    public void TestProfile() throws IOException {
-//        SearchResult s = Mockito.mock(SearchResult.class);
-//        AsynProcessor general = Mockito.mock(AsynProcessor.class);
-//
-//        results.add(s);
+    public void TestProfile(){
 
         Http.RequestBuilder request3 = Helpers.fakeRequest()
                 .method(GET)
@@ -86,12 +93,15 @@ public class TestHomeController {
         Result result = Helpers.route(fakeApp3, request3);
         assertNotNull(result);
     }
+
+
+    /**
+     * Test search method in HomeController
+     *
+     * @author Geer Jiang, Chenwen Wang, Kexuan Song
+     */
     @Test
-    public void TestCVideo() throws IOException {
-//        SearchResult s = Mockito.mock(SearchResult.class);
-//        AsynProcessor general = Mockito.mock(AsynProcessor.class);
-//
-//        results.add(s);
+    public void TestCVideo(){
 
         Http.RequestBuilder request4 = Helpers.fakeRequest()
                 .method(GET)
@@ -99,6 +109,12 @@ public class TestHomeController {
         Result result = Helpers.route(fakeApp4, request4);
         assertNotNull(result);
     }
+
+    /**
+     * Clear cache after each test
+     *
+     * @author Geer Jiang, Chenwen Wang, Kexuan Song
+     */
     @After
     public void shutdown(){
         CacheManager.getInstance().shutdown();

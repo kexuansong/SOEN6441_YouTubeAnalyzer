@@ -20,9 +20,18 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
+/**
+ * Test profile
+ *
+ * @author Chenwen
+ */
 public class TestProfile {
 
+    /**
+     * Test profile initialization
+     *
+     * @author Chenwen
+     */
     @Test
     public void initialAndGetter(){
 
@@ -56,6 +65,12 @@ public class TestProfile {
         Assert.assertEquals("s",profileImp2.getTitle());
 
     }
+
+    /**
+     * Test getChannelInfo method
+     * @throws GeneralSecurityException,IOException
+     * @author Chenwen
+     */
     @Test
     public void TestGetChannelInfo() throws GeneralSecurityException, IOException {
 
