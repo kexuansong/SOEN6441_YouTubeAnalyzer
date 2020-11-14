@@ -371,7 +371,7 @@ public class AsynProcessor {
      * @param ChannelId channel id
      * @param keyword   query term
      * @return video list
-     * @author Chen Yueiun
+     * @author Chen Yuejun
      */
     public CompletableFuture<List<Videos>> processPlayListAsync(String ChannelId, String keyword) throws GeneralSecurityException, IOException, ParseException {
         return CompletableFuture.supplyAsync(() -> {
