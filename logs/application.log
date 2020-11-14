@@ -69,3 +69,23 @@ Caused by: java.lang.NullPointerException: null
 2020-11-13 20:42:43,349 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:42:43.349174800Z
 2020-11-13 20:42:43,536 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:42:43.536673100Z
 2020-11-13 20:42:43,561 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
+2020-11-13 20:56:23,239 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:23.226267700Z
+2020-11-13 20:56:24,111 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:24.111705100Z
+2020-11-13 20:56:24,421 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:24.421908300Z
+2020-11-13 20:56:24,788 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:24.788926600Z
+2020-11-13 20:56:25,142 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
+2020-11-13 20:56:25,803 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:25.803762400Z
+2020-11-13 20:56:26,112 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:26.112936Z
+2020-11-13 20:56:26,349 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:26.349302800Z
+2020-11-13 20:56:26,553 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:26.553756400Z
+2020-11-13 20:56:26,592 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
+2020-11-13 20:56:26,846 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:26.846972800Z
+2020-11-13 20:56:27,027 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:27.027694800Z
+2020-11-13 20:56:27,224 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:27.224072800Z
+2020-11-13 20:56:27,419 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:27.419550Z
+2020-11-13 20:56:27,457 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
+2020-11-13 20:56:27,661 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:27.661900900Z
+2020-11-13 20:56:27,814 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:27.814149500Z
+2020-11-13 20:56:28,008 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:28.008604100Z
+2020-11-13 20:56:28,259 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-11-14T01:56:28.259748800Z
+2020-11-13 20:56:28,290 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost

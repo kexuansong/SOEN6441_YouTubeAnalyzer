@@ -14,10 +14,17 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.spy;
-
+/**
+ * Test searchComment
+ *
+ * @author Kexuan Song
+ */
 public class TestSearchComment {
-
-
+    /**
+     * Test searchComment method
+     *
+     * @author Kexuan Song
+     */
     @Test
     public void SearchCommentTest(){
         Comments comments = new Comments("1");
@@ -47,4 +54,4 @@ public class TestSearchComment {
 
     }
 
-    }
+}

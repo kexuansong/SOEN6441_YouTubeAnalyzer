@@ -22,7 +22,11 @@ import static org.mockito.Mockito.spy;
 
 public class TestChannelVideos {
 
-
+    /**
+     * Test channelVideo initialization
+     * @throws ParseException
+     * @author Chenwen
+     */
     @Test
     public void channelVideosTest1() throws ParseException {
         List<Videos> vl = new ArrayList<>();
@@ -54,14 +58,6 @@ public class TestChannelVideos {
         vl.add(new Videos("hello", "good", d2, "2015-01-01"));
         vl.add(new Videos("hello", "good", d3, "2015-01-01"));
         vl.add(new Videos("hello", "good", d4, "2015-01-01"));
-
-
-
-
-        //assertEquals("hw", result1);
-//                assertEquals("\uD83D\uDC4E", result1);
-       // assertEquals("\uD83D\uDE10", result3);
-//                assertEquals("CommentDisabled", comments.SearchComment(null));
 
 
 
