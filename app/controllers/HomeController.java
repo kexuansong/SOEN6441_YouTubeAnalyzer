@@ -115,18 +115,18 @@ public class HomeController extends Controller {
 
 
     /**
-     * Async search process
+     * Async search recent videos in channel process
      * @param keyword query term
      * @param channelID channel id
      * @return not found message if error occurred or return search result list to html
-     * @author Yue Jun
+     * @author YueJun Chen
      */
     public CompletionStage<Result> CVideos(String channelID,String keyword) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 List<Videos> cv = general.processPlayListAsync(channelID,keyword).get();
                 System.out.println(cv.size());
-                return ok(channelVideos.render( channelID, cv, assetsFinder));
+                return ok(channelVideos.render( cv, assetsFinder));
             } catch (Exception e) {
                 e.printStackTrace();
                 return notFound("Error");
