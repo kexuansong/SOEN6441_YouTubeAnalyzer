@@ -1,3 +1,5 @@
+package models;
+
 import com.google.api.services.youtube.YouTube;
 import models.VideoImp;
 import org.junit.Assert;

@@ -1,40 +1,48 @@
 package models;
 
 import com.google.api.services.youtube.model.SearchResult;
-import com.google.api.services.youtube.model.Video;
 import models.AsynProcessor;
+import models.ProfileImp;
 import models.Videos;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-
-import static org.mockito.Mockito.*;
+import java.util.concurrent.ExecutionException;
 
 public class TestAsynProcessor {
-    @Mock
-    Video video;
 
+    AsynProcessor asynProcessor = new AsynProcessor();
 
     @Test
-    public void TestSearchVideo(){
-        AsynProcessor asynProcessor = mock(AsynProcessor.class);
-        List<SearchResult> searchResults = new ArrayList<>();
-        when(asynProcessor.searchVideo("1")).thenReturn(searchResults);
-        Assert.assertEquals(searchResults,asynProcessor.searchVideo("1"));
+    public void TestProcessAsync() throws ExecutionException, InterruptedException {
+        CompletableFuture<List<Videos>> result = asynProcessor.processSearchAsync("java");
+        Assert.assertEquals(10,result.get().size());
+
     }
 
     @Test
-    public void TestProcessAsync(){
-        AsynProcessor asynProcessor = mock(AsynProcessor.class);
-        CompletableFuture<List<Videos>> list = new CompletableFuture<>();
-        when(asynProcessor.processSearchAsync("1")).thenReturn(list);
-        Assert.assertEquals(list, asynProcessor.processSearchAsync("1"));
+    public void TestProfileAsync() throws GeneralSecurityException, IOException, ExecutionException, InterruptedException {
+        CompletableFuture<ProfileImp> result = asynProcessor.processProfileAsync("UC_x5XG1OV2P6uZZ5FSM9Ttw");
+        Assert.assertNotNull(result.get());
+    }
+
+    @Test
+    public void TestPlayListAsync() throws ParseException, GeneralSecurityException, IOException, ExecutionException, InterruptedException {
+        CompletableFuture<List<Videos>> result = asynProcessor.processPlayListAsync("UC_x5XG1OV2P6uZZ5FSM9Ttw","java");
+        Assert.assertNotNull(result.get());
+    }
+
+    @Test
+    public void TestSimilarSearch() throws ExecutionException, InterruptedException {
+        CompletableFuture<Map<String,Integer>> result = asynProcessor.similarSearchAsync("vcRFkp8jHJ8");
+        Assert.assertNotNull(result.get());
     }
 
 }
