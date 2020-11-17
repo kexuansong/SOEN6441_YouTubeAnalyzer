@@ -45,7 +45,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyBVg4RWbp-wiM0YZl6ox4EMlcDhzLQzOVc";
+    private static final String APIKey = "AIzaSyA2fZyoJ1W-R1z5qPmzJpugZFINg5nxnSI";
     /**
      * Video list
      */
@@ -394,14 +394,20 @@ public class AsynProcessor {
                         }
                     }
             );
-            channelVideoList = cvList.stream().sorted((t1, t2) ->
-                    t1.getVideoTitle().contains(keyword) ? 1 :
-                            t2.getVideoTitle().contains(keyword) ? 1 : 0).sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
-            ;
-//            Comparator<String> comparator = Comparator.<String, Boolean>comparing(s -> s.contains(keyword)).reversed()
-//              .thenComparing(Comparator.naturalOrder());
 
-            return channelVideoList;
+//            channelVideoList = cvList.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
+
+            Map<Integer, List<Videos>> videolistGrouped = cvList.stream()
+                    .collect(Collectors.groupingBy(Videos::getIntDate, Collectors.toList()));
+
+            //then sort groups by date in each of them
+            List<Videos> sorted = videolistGrouped.entrySet().stream()
+                    .sorted(Comparator.comparing(e -> e.getValue().stream().map(Videos::getIntDate).min(Comparator.naturalOrder()).orElse(0)))
+                    //and also sort each group before collecting them in one list
+                    .flatMap(e -> e.getValue().stream().sorted(Comparator.comparing(v -> v.getOccurenceTimesInTitle(keyword)))).collect(Collectors.toList());
+
+            return sorted;
+
         });
     }
 

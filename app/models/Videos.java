@@ -4,6 +4,8 @@ import com.google.api.client.util.DateTime;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Video Model class
@@ -178,4 +180,20 @@ public class Videos {
         String intDate = stringDate.substring(0,3)+stringDate.substring(5,7)+stringDate.substring(8);
         return  Integer.parseInt(intDate);
     }
+    /**
+     * Getter
+     * @return get occurence time of keyword
+     */
+    public int getOccurenceTimesInTitle(String Keyword){
+        //System.out.println("video title is "+ getVideoTitle());
+        int i = 0;
+        Pattern p = Pattern.compile(Keyword,Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher( getVideoTitle() );
+        while (m.find()) {
+            i++;
+        }
+        return -i;
+    }
+
+
 }
