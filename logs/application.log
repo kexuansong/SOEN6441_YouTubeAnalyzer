@@ -1,85 +1,13 @@
-2020-11-16 15:35:28,291 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-4 - ApplicationTimer demo: Starting application at 2020-11-16T07:35:28.290989Z
-2020-11-16 15:35:28,331 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-4 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2020-11-14 08:45:30,844 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-8 - ApplicationTimer demo: Starting application at 2020-11-14T00:45:30.843402Z
+2020-11-14 08:45:30,959 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     filters.ExampleFilter
 
-2020-11-16 15:35:28,568 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-4 - Application started (Dev) (no global state)
-2020-11-16 15:35:37,074 [ERROR] from play.api.http.DefaultHttpErrorHandler in application-akka.actor.default-dispatcher-5 - 
-
-! @7hn6c4a6c - Internal server error, for (GET) [/search?searchkey=java] ->
- 
-play.api.http.HttpErrorHandlerExceptions$$anon$1: Execution exception[[CompletionException: java.lang.NullPointerException]]
-	at play.api.http.HttpErrorHandlerExceptions$.throwableToUsefulException(HttpErrorHandler.scala:359)
-	at play.api.http.DefaultHttpErrorHandler.onServerError(HttpErrorHandler.scala:261)
-	at play.core.server.AkkaHttpServer$$anonfun$2.applyOrElse(AkkaHttpServer.scala:429)
-	at play.core.server.AkkaHttpServer$$anonfun$2.applyOrElse(AkkaHttpServer.scala:421)
-	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:453)
-	at akka.dispatch.BatchingExecutor$AbstractBatch.processBatch(BatchingExecutor.scala:56)
-	at akka.dispatch.BatchingExecutor$BlockableBatch.$anonfun$run$1(BatchingExecutor.scala:93)
-	at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.scala:18)
-	at scala.concurrent.BlockContext$.withBlockContext(BlockContext.scala:94)
-	at akka.dispatch.BatchingExecutor$BlockableBatch.run(BatchingExecutor.scala:93)
-	at akka.dispatch.TaskInvocation.run(AbstractDispatcher.scala:48)
-	at akka.dispatch.ForkJoinExecutorConfigurator$AkkaForkJoinTask.exec(ForkJoinExecutorConfigurator.scala:48)
-	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:290)
-	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1016)
-	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1665)
-	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1598)
-	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:177)
-Caused by: java.util.concurrent.CompletionException: java.lang.NullPointerException
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:314)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:319)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:645)
-	at java.base/java.util.concurrent.CompletableFuture$Completion.exec(CompletableFuture.java:479)
-	... 5 common frames omitted
-Caused by: java.lang.NullPointerException: null
-	at models.AsynProcessor.lambda$processSearchAsync$2(AsynProcessor.java:140)
-	at java.base/java.util.concurrent.CompletableFuture$UniApply.tryFire(CompletableFuture.java:642)
-	... 6 common frames omitted
-2020-11-16 15:43:45,859 [INFO] from application in application-akka.actor.internal-dispatcher-2 - ApplicationTimer demo: Stopping application at 2020-11-16T07:43:45.859324Z after 497s.
-2020-11-16 15:43:46,215 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-8 - ApplicationTimer demo: Starting application at 2020-11-16T07:43:46.214866Z
-2020-11-16 15:43:46,228 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    filters.ExampleFilter
-
-2020-11-16 15:43:46,258 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-8 - Application started (Dev) (no global state)
-2020-11-16 17:46:20,460 [INFO] from application in application-akka.actor.internal-dispatcher-4 - ApplicationTimer demo: Stopping application at 2020-11-16T09:46:20.456525Z after 7354s.
-2020-11-16 17:46:20,725 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-27 - ApplicationTimer demo: Starting application at 2020-11-16T09:46:20.725200Z
-2020-11-16 17:46:20,733 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-27 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    filters.ExampleFilter
-
-2020-11-16 17:46:20,759 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-27 - Application started (Dev) (no global state)
-2020-11-16 17:48:10,442 [INFO] from application in application-akka.actor.internal-dispatcher-2 - ApplicationTimer demo: Stopping application at 2020-11-16T09:48:10.442010Z after 110s.
-2020-11-16 17:48:10,934 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-35 - ApplicationTimer demo: Starting application at 2020-11-16T09:48:10.934096Z
-2020-11-16 17:48:10,946 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-35 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    filters.ExampleFilter
-
-2020-11-16 17:48:10,975 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-35 - Application started (Dev) (no global state)
-2020-11-16 20:25:12,699 [INFO] from application in application-akka.actor.internal-dispatcher-2 - ApplicationTimer demo: Stopping application at 2020-11-16T12:25:12.693081Z after 9422s.
-2020-11-16 20:25:13,816 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-31 - ApplicationTimer demo: Starting application at 2020-11-16T12:25:13.815729Z
-2020-11-16 20:25:13,858 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-31 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
-
-    play.filters.csrf.CSRFFilter
-    play.filters.headers.SecurityHeadersFilter
-    play.filters.hosts.AllowedHostsFilter
-    filters.ExampleFilter
-
-2020-11-16 20:25:13,915 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-31 - Application started (Dev) (no global state)
-2020-11-17 09:53:34,194 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
-2020-11-17 09:53:34,197 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-41 - Terminating server binding for /[0:0:0:0:0:0:0:0]:9000
-2020-11-17 09:53:34,224 [INFO] from application in application-akka.actor.internal-dispatcher-4 - ApplicationTimer demo: Stopping application at 2020-11-17T01:53:34.215248Z after 48501s.
-2020-11-17 09:53:34,244 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-41 - Running provided shutdown stop hooks
+2020-11-14 08:45:31,570 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-8 - Application started (Dev) (no global state)
+2020-11-14 08:48:27,189 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
+2020-11-14 08:48:27,198 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-3 - Terminating server binding for /[0:0:0:0:0:0:0:0]:9000
+2020-11-14 08:48:27,220 [INFO] from application in application-akka.actor.internal-dispatcher-2 - ApplicationTimer demo: Stopping application at 2020-11-14T00:48:27.219848Z after 177s.
+2020-11-14 08:48:27,270 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-14 - Running provided shutdown stop hooks
