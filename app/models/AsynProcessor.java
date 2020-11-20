@@ -23,9 +23,7 @@ import models.Videos;
 import play.mvc.Http;
 
 import static java.util.Comparator.comparing;
-/**
- * AsynProcessor class
- */
+
 public class AsynProcessor {
     /**
      * initial youtube object
@@ -47,7 +45,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyAjw_y6DUXFyN8kBpouzs2d3StB5wchWnQ";
+    private static final String APIKey = "AIzaSyBxwUb9n0jpmEdx2i4Y5qUzvfgE7sDYZUQ";
     /**
      * Video list
      */
@@ -396,14 +394,19 @@ public class AsynProcessor {
                         }
                     }
             );
-            channelVideoList = cvList.stream().sorted((t1, t2) ->
-                    t1.getVideoTitle().contains(keyword) ? 1 :
-                            t2.getVideoTitle().contains(keyword) ? 1 : 0).sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
-            ;
-//            Comparator<String> comparator = Comparator.<String, Boolean>comparing(s -> s.contains(keyword)).reversed()
-//              .thenComparing(Comparator.naturalOrder());
+            //            channelVideoList = cvList.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
 
-            return channelVideoList;
+            Map<Integer, List<Videos>> videolistGrouped = cvList.stream()
+                    .collect(Collectors.groupingBy(Videos::getIntDate, Collectors.toList()));
+
+            //then sort groups by date in each of them
+            List<Videos> sorted = videolistGrouped.entrySet().stream()
+                    .sorted(Comparator.comparing(e -> e.getValue().stream().map(Videos::getIntDate).min(Comparator.naturalOrder()).orElse(0)))
+                    //and also sort each group by search key before collecting them in one list
+                    .flatMap(e -> e.getValue().stream().sorted(Comparator.comparing(v -> v.getOccurenceTimesInTitle(keyword)))).collect(Collectors.toList());
+
+            return sorted;
+
         });
     }
 

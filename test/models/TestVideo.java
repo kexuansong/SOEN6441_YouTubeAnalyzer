@@ -29,7 +29,7 @@ public class TestVideo {
         String ChannelID = "aaa";
         String sentiment = "bbb";
         long dateTime=10L;
-        String stringDate = "123456789";
+        String stringDate = "2017-09-01";
         Date date = new Date();
 
         Videos videos = new Videos();
@@ -49,7 +49,7 @@ public class TestVideo {
         Assert.assertEquals("bbb",videos1.getSentiment());
 //      Assert.assertEquals("s",videos2.getVideoDescription());
 //        Assert.assertEquals(10L,videos1.getDateTime());
-        Assert.assertEquals("123456789",videos2.getStringDate());
+        Assert.assertEquals("2017-09-01",videos2.getStringDate());
 
 
     }
