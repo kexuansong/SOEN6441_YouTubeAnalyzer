@@ -100,14 +100,14 @@ public class TestGetComments {
      * @throws IOException
      * @author Kexuan Song
      */
-    @Test
-    public void TestGetComments2() throws IOException {
-        Comments comments = new Comments("vcRFkp8jHJ8");
-
-        List<String> result = Arrays.asList("Hey there, I think you really need to normalize the audio volume, jumps up and down");
-
-        assertEquals(result, comments.getComments("vcRFkp8jHJ8"));
-    }
+//    @Test
+//    public void TestGetComments2() throws IOException {
+//        Comments comments = new Comments("vcRFkp8jHJ8");
+//
+//        List<String> result = Arrays.asList("Hey there, I think you really need to normalize the audio volume, jumps up and down");
+//
+//        assertEquals(result, comments.getComments("vcRFkp8jHJ8"));
+//    }
 
     /**
      * Test getComments method

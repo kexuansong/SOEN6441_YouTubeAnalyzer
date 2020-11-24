@@ -37,8 +37,10 @@ public class TestVideo {
         Videos videos2 = new Videos(ChannelTitle, VideoTitle, date, stringDate);
         Videos videos3 = new Videos(VideoTitle);
 
-        int result = videos2.getIntDate();
-        Assert.assertEquals(123679,result);
+        //int result = videos2.getIntDate();
+        //Assert.assertEquals(123679,result);
+        Assert.assertEquals(20170901,videos2.getIntDate());
+        Assert.assertEquals(-1,videos1.getOccurenceTimesInTitle("java"));
         Assert.assertEquals("java",videos3.getVideoTitle());
         //Assert.assertEquals(new Date(),videos2.getDate());
         Assert.assertEquals("java",videos1.getVideoTitle());

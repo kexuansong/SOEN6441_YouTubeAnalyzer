@@ -145,20 +145,9 @@ public class HomeController extends Controller {
      */
 
     public CompletionStage<Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
-        return CompletableFuture.supplyAsync(() -> {
-            CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
-            try {
-                profileImp = general.processProfileAsync(ChannelID);
-            } catch (GeneralSecurityException | IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                return ok(profile.render(profileImp.get(),assetsFinder));
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-            return notFound("Error");
-        });
+        CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
+        profileImp = general.processProfileAsync(ChannelID);
+        return profileImp.thenApply(r -> ok(profile.render(r,assetsFinder)));
     }
     /**
      * Async process similar videos action

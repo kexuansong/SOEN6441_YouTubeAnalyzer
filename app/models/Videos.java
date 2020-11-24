@@ -177,7 +177,7 @@ public class Videos {
      * @return get Int date
      */
     public int getIntDate() {
-        String intDate = stringDate.substring(0,3)+stringDate.substring(5,7)+stringDate.substring(8);
+        String intDate = stringDate.substring(0,4)+stringDate.substring(5,7)+stringDate.substring(8);
         return  Integer.parseInt(intDate);
     }
     /**
