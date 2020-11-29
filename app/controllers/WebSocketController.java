@@ -4,24 +4,22 @@ import Actors.Messages;
 import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.stream.javadsl.Flow;
-import akka.util.Timeout;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import play.libs.F;
 import play.mvc.*;
-import scala.concurrent.duration.Duration;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.time.Duration;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.TimeUnit;
-import static akka.pattern.PatternsCS.*;
+import static akka.pattern.Patterns.*;
 
 public class WebSocketController extends Controller {
 
-    private final Timeout t = new Timeout(Duration.create(1, TimeUnit.SECONDS));
+    private final Duration d = java.time.Duration.ofSeconds(2);
     private final Logger logger = org.slf4j.LoggerFactory.getLogger("controllers.WebSocketController");
     private final ActorRef userParentActor;
 
@@ -59,7 +57,7 @@ public class WebSocketController extends Controller {
         long id = request.asScala().id();
         Messages.UserParentActorCreate create = new Messages.UserParentActorCreate(Long.toString(id));
 
-        return ask(userParentActor, create, t).thenApply((Object flow) -> {
+        return ask(userParentActor, create, d).thenApply((Object flow) -> {
             final Flow<JsonNode, JsonNode, NotUsed> f = (Flow<JsonNode, JsonNode, NotUsed>) flow;
             return f.named("websocket");
         });

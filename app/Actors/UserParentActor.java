@@ -2,18 +2,20 @@ package Actors;
 
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
-import akka.util.Timeout;
 import play.libs.akka.InjectedActorSupport;
 
 import javax.inject.Inject;
+import java.time.Duration;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.TimeUnit;
-import static akka.pattern.PatternsCS.*;
+
+import static akka.pattern.Patterns.ask;
+import static akka.pattern.Patterns.pipe;
 
 
 public class UserParentActor extends AbstractActor implements InjectedActorSupport {
 
-    private final Timeout timeout = new Timeout(2, TimeUnit.SECONDS);
+    private final Duration duration = Duration.ofSeconds(2L);
+
     private final String query;
 
     private final UserActor.Factory childFactory;
@@ -40,7 +42,7 @@ public class UserParentActor extends AbstractActor implements InjectedActorSuppo
         return receiveBuilder()
                 .match(Messages.UserParentActorCreate.class, create -> {
                     ActorRef child = injectedChild(() -> childFactory.create(create.id), "userActor-" + create.id);
-                    CompletionStage<Object> future = ask(child, new Messages.WatchSearchResults(query), timeout);
+                    CompletionStage<Object> future = ask(child, new Messages.WatchSearchResults(query), duration);
                     pipe(future, context().dispatcher()).to(sender());
                 }).build();
     }

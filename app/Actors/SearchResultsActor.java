@@ -40,7 +40,7 @@ public class SearchResultsActor extends AbstractActorWithTimers {
      */
     @Override
     public void preStart() {
-        getTimers().startPeriodicTimer("Timer", new Tick(),
+        getTimers().startTimerWithFixedDelay("Timer", new Tick(),
                 Duration.create(5, TimeUnit.SECONDS));
     }
 
