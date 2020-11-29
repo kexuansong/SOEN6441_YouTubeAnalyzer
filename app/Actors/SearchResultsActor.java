@@ -4,6 +4,7 @@ import akka.actor.AbstractActorWithTimers;
 import akka.actor.ActorRef;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
+import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchResult;
 import models.AsynProcessor;
 import scala.concurrent.duration.Duration;
@@ -27,7 +28,7 @@ public class SearchResultsActor extends AbstractActorWithTimers {
 
     private final LoggingAdapter logger = Logging.getLogger(getContext().system(), this);
 
-    private List<SearchResult> results;
+    private Set<SearchResult> results;
 
     /**
      * Dummy inner class used for the timer
@@ -55,7 +56,7 @@ public class SearchResultsActor extends AbstractActorWithTimers {
     public SearchResultsActor() {
         this.userActor = null;
         this.query = null;
-        this.results = new ArrayList<>();
+        this.results = new HashSet<>();
     }
 
     /**
@@ -117,21 +118,21 @@ public class SearchResultsActor extends AbstractActorWithTimers {
 //        // Every 5 seconds, check for new tweets if we have a query
 //        return twitterService.getTweets(query).thenAcceptAsync(searchResults -> {
 //            // Copy the current state of results in a temporary variable
-//            List<Status> oldresults = new HashSet<>(results);
+//            Set<SearchResult> oldresults = new HashSet<>(results);
 //
 //            // Add all the results to the list, now filtered to only add the new ones
 //            results.addAll(searchResults.getresults());
 //
 //            // Copy the current state of results after addition in a temporary variable
-//            Set<Status> newresults = new HashSet<>(results);
+//            Set<SearchResult> newresults = new HashSet<>(results);
 //
 //            // Get the new results only by doing new - old = what we have to display
 //            newresults.removeAll(oldresults);
 //
 //            newresults.forEach(status -> status.setQuery(query));
 //
-//            Messages.resultsMessage resultsMessage =
-//                    new Messages.resultsMessage(newresults, query);
+//            Messages.SearchingResults resultsMessage =
+//                    new Messages.SearchingResults(newresults, query);
 //
 //            userActor.tell(resultsMessage, self());
 //        });
