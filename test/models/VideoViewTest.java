@@ -1,7 +1,6 @@
 package models;
 
-import com.google.api.services.youtube.YouTube;
-import models.VideoImp;
+import services.VideoImp;
 import org.junit.Assert;
 import org.junit.Test;
 

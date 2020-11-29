@@ -1,4 +1,4 @@
-package models;
+package services;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -33,7 +33,7 @@ public class VideoImp{
      * @return viewTotal
      */
     public BigInteger getVideoView(String videoId) throws IOException {
-       //videolist
+       //videoList
         List<Video> videoList = new ArrayList<>();
         youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
             @Override

@@ -4,13 +4,12 @@ import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.util.Timeout;
 import play.libs.akka.InjectedActorSupport;
-import scala.concurrent.duration.Duration;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
-import static akka.pattern.PatternsCS.ask;
-import static akka.pattern.PatternsCS.pipe;
+import static akka.pattern.PatternsCS.*;
+
 
 public class UserParentActor extends AbstractActor implements InjectedActorSupport {
 
@@ -36,6 +35,7 @@ public class UserParentActor extends AbstractActor implements InjectedActorSuppo
      * @return Receive receive
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Receive createReceive() {
         return receiveBuilder()
                 .match(Messages.UserParentActorCreate.class, create -> {

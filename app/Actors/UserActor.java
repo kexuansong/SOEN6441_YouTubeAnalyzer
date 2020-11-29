@@ -17,6 +17,7 @@ import akka.stream.javadsl.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.inject.Injector;
+import models.Videos;
 import play.libs.Json;
 
 import javax.inject.Inject;
@@ -161,7 +162,7 @@ public class UserActor extends AbstractActor {
      * @param message StatusesMessage message contaning the query and the statuses
      */
     public void addStatuses(Messages.SearchingResults message) {
-        Set<SearchResult> statuses = message.results;
+        Set<Videos> statuses = message.results;
         String query = message.searchKey;
 
         logger.info("Adding statuses {} for query {}", statuses, query);

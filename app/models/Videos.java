@@ -36,6 +36,8 @@ public class Videos {
     private String stringDate;
 
 
+    private String query;
+
     /**
      * Default Constructor
      */
@@ -195,5 +197,11 @@ public class Videos {
         return -i;
     }
 
+    public String getQuery() {
+        return query;
+    }
 
+    public void setQuery(String query) {
+        this.query = query;
+    }
 }

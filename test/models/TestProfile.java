@@ -4,9 +4,7 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Channel;
 import com.google.api.services.youtube.model.ChannelListResponse;
-import com.google.api.services.youtube.model.CommentThreadListResponse;
-import models.AsynProcessor;
-import models.ProfileImp;
+import services.AsynProcessor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.MockitoAnnotations;
@@ -15,7 +13,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;

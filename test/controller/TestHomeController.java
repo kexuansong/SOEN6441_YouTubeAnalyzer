@@ -1,38 +1,22 @@
 package controller;
 
 import com.google.api.services.youtube.model.SearchResult;
-import models.AsynProcessor;
-import models.VideoImp;
-import models.Videos;
 import net.sf.ehcache.CacheManager;
-import org.checkerframework.checker.units.qual.A;
-import org.fluentlenium.core.search.Search;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Test;
-import org.mockito.InjectMocks;
 
-import org.mockito.Mockito;
-import org.mockito.Mockito.*;
 import org.mockito.Spy;
 import play.Application;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.test.Helpers;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 import static play.test.Helpers.*;
 /**
  * Test HomeController

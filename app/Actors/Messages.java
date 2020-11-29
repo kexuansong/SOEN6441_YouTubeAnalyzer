@@ -1,5 +1,6 @@
 package Actors;
 import com.google.api.services.youtube.model.SearchResult;
+import models.Videos;
 
 import java.util.Set;
 
@@ -47,10 +48,10 @@ public final class Messages {
     }
 
     public static final class SearchingResults {
-        public final Set<SearchResult> results;
+        public final Set<Videos> results;
         public final String searchKey;
 
-        public SearchingResults(Set<SearchResult> results, String searchKey) {
+        public SearchingResults(Set<Videos> results, String searchKey) {
             this.results = requireNonNull(results);
             this.searchKey = requireNonNull(searchKey);
         }

@@ -1,11 +1,7 @@
 package models;
 
-import com.google.api.services.youtube.model.SearchResult;
-import models.AsynProcessor;
-import models.ProfileImp;
-import models.Videos;
+import services.AsynProcessor;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
