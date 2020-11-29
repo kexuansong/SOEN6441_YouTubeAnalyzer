@@ -197,9 +197,9 @@ public class AsynProcessor {
         YouTube.Channels.List search = youtube.channels().list("snippet,contentDetails,statistics");
         search.setKey(APIKey);
         search.setId(ChannelId);
-
         ChannelListResponse channelListResponse = search.execute();
 
+        //System.out.println(channelListResponse);
         channelSearchList = channelListResponse.getItems();
 
 

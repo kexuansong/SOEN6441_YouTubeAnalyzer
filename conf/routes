@@ -8,6 +8,8 @@ GET     /profile:channelID          controllers.HomeController.profile(channelID
 GET     /CVideos                    controllers.HomeController.CVideos(channelID: String,keyword :String)
 GET     /similar                    controllers.HomeController.similar(searchkey: String)
 
+GET     /ws                         controllers.HomeController.webSocket
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(file)
 

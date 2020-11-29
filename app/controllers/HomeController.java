@@ -1,17 +1,15 @@
 package controllers;
 
-import com.google.api.client.util.DateTime;
-import com.google.api.services.youtube.model.Channel;
-import com.google.api.services.youtube.model.PlaylistItem;
-import com.google.api.services.youtube.model.SearchResult;
+import akka.actor.ActorSystem;
+import akka.stream.Materializer;
 
 import models.*;
 import play.cache.AsyncCacheApi;
-import play.data.Form;
-import play.data.FormFactory;
+import play.libs.streams.ActorFlow;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.WebSocket;
 import views.html.*;
 
 import javax.inject.Inject;
@@ -21,7 +19,6 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ExecutionException;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -33,22 +30,29 @@ public class HomeController extends Controller {
      */
     private final AssetsFinder assetsFinder;
     private AsyncCacheApi cache;
+    private ActorSystem actorSystem;
+    private final Materializer materializer;
 
     /**
      * Inject and
      * @param assetsFinder handle cached & find asstes
+     * @param actorSystem actor system
+     * @param materializer materializer
      */
 
     @Inject
-    public HomeController(AssetsFinder assetsFinder, AsyncCacheApi cache) {
+    public HomeController(AssetsFinder assetsFinder, AsyncCacheApi cache, ActorSystem actorSystem, Materializer materializer) {
         this.assetsFinder = assetsFinder;
         this.cache = cache;
+        this.actorSystem = actorSystem;
+        this.materializer = materializer;
     }
 
     /**
      * initial AsynProcessor
      */
     AsynProcessor general = new AsynProcessor();
+
 
 
     /**
@@ -148,6 +152,7 @@ public class HomeController extends Controller {
         CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
         profileImp = general.processProfileAsync(ChannelID);
         return profileImp.thenApply(r -> ok(profile.render(r,assetsFinder)));
+
     }
     /**
      * Async process similar videos action
