@@ -97,20 +97,18 @@
             </h1>
             <br>
             <br>
-@*        </div>*@
-@*        <div class="container">*@
-@*            <form action="search" method="GET" id="search" name="search">*@
-@*                <input type="text" name="searchkey" id="searchkey" placeholer ="search">*@
-@*                <input type="submit" value="Search">*@
-@*            </form>*@
-@*        </div>*@
 
-            <div class="search bar6">
-                <form action="search" method="GET" id="search" name="search">
-                    <input type="text" name="searchkey" id="searchkey" placeholder="Search">
-                    <button type="submit" value="Search"></button>
+            <div class="search bar6" id="search">
+            <div id="search">
+                <form id="searchForm">
+                    <input id="searchkey" type="text" placeholder="Search" name="searchkey">
+                    <button type="submit" class="btn" value="Search"></button>
                 </form>
+
+                <div id="videos"></div>
             </div>
+            </div>
+
         </div>
                 @* And here's where we render the `Html` object containing
          * the page content. *@
@@ -118,5 +116,5 @@
     </body>
 
     <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>;
-    <script type='text/javascript' src='@assetsFinder.path("../../public/javascripts/hello.coffee")'></script>
+    <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
 </html>
