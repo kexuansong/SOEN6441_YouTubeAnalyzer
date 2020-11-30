@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -116,6 +117,8 @@ public class AsynProcessor {
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
             // Call the API and print results.
             SearchListResponse searchResponse = search.execute();
+
+
             searchResultList = searchResponse.getItems();
 
             //save key
@@ -200,7 +203,7 @@ public class AsynProcessor {
         search.setId(ChannelId);
         ChannelListResponse channelListResponse = search.execute();
 
-        //System.out.println(channelListResponse);
+        //System.out.println(youtube.getServicePath());
         channelSearchList = channelListResponse.getItems();
 
 

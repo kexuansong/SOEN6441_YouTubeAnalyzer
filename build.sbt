@@ -30,8 +30,11 @@ lazy val root = (project in file("."))
     libraryDependencies += "org.mockito" % "mockito-inline" % "2.7.13" % Test,
     libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1",
     libraryDependencies += "com.google.code.gson" % "gson" % "2.8.6",
+    libraryDependencies += "org.webjars" % "jquery" % "3.3.1",
 
-    libraryDependencies ++= Seq(
+
+      libraryDependencies ++= Seq(
+        ws,
       ehcache
     ),
 
