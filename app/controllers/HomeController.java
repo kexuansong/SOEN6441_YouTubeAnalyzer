@@ -124,17 +124,17 @@ public class HomeController extends Controller {
      * @return not found message if error occurred or return search result list to html
      * @author YueJun Chen
      */
-    public CompletionStage<Result> CVideos(String channelID,String keyword) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                List<Videos> cv = general.processPlayListAsync(channelID,keyword).get();
-                System.out.println(cv.size());
-                return ok(channelVideos.render( cv, assetsFinder));
-            } catch (Exception e) {
-                e.printStackTrace();
-                return notFound("Error");
-            }
-        });}
+//    public CompletionStage<Result> CVideos(String channelID,String keyword) {
+//        return CompletableFuture.supplyAsync(() -> {
+//            try {
+//                List<Videos> cv = general.processPlayListAsync(channelID,keyword).get();
+//                System.out.println(cv.size());
+//                return ok(channelVideos.render( cv, assetsFinder));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return notFound("Error");
+//            }
+//        });}
 
 
 
