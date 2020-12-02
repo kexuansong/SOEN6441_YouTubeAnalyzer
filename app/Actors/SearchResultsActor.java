@@ -42,7 +42,7 @@ public class SearchResultsActor extends AbstractActorWithTimers {
     @Override
     public void preStart() {
         getTimers().startTimerWithFixedDelay("Timer", new Tick(),
-                Duration.create(10, TimeUnit.SECONDS));
+                Duration.create(20, TimeUnit.SECONDS));  // time
     }
 
     /**

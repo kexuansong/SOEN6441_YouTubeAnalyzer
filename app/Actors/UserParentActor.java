@@ -14,7 +14,7 @@ import static akka.pattern.Patterns.pipe;
 
 public class UserParentActor extends AbstractActor implements InjectedActorSupport {
 
-    private final Duration duration = Duration.ofSeconds(2L);
+    private final Duration duration = Duration.ofSeconds(10L);
 
     private final String query;
 
@@ -27,9 +27,9 @@ public class UserParentActor extends AbstractActor implements InjectedActorSuppo
      * @param childFactory factory to create a UserActor
      */
     @Inject
-    public UserParentActor(UserActor.Factory childFactory, String query) {
+    public UserParentActor(UserActor.Factory childFactory) {
         this.childFactory = childFactory;
-        this.query = query; // default keyword
+        this.query = "北京"; // default keyword
     }
 
     /**
