@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 
 import models.Comments;
 import models.ProfileImp;
+import models.SearchingResults;
 import models.Videos;
 import play.libs.ws.WSResponse;
 
@@ -48,7 +49,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyBnFesKfnnjPzKlx_7np00ShxKTCLhpRnk";
+    private static final String APIKey = "AIzaSyCayYhQ8BszKXRFKeedBMFr2iNSv6mI9s8";
     /**
      * Video list
      */
@@ -77,7 +78,7 @@ public class AsynProcessor {
     /**
      * channel video list
      */
-    private List<Videos> channelVideoList = new ArrayList<>();
+    private List<SearchingResults> VideoList = new ArrayList<>();
 
 
 //    public CompletionStage<WSResponse> webSocketSearch(String query) throws IOException {
@@ -145,6 +146,32 @@ public class AsynProcessor {
         return searchResultList;
     }
 
+    public CompletableFuture<List<SearchingResults>> webSocketSearch(String key){
+        return CompletableFuture.supplyAsync(() -> searchVideo(key))
+                .thenApply(searchResultList ->{
+                    searchResultList.forEach(searchResult -> {
+                        String videoId = searchResult.getId().getVideoId();
+                        String channelId = searchResult.getSnippet().getChannelId();
+
+                        try {
+                            Comments comments = new Comments(videoId);
+                            String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
+                            String sentiment = comments.SearchComment(comments.getComments(videoId));
+                            String videoTitle = searchResult.getSnippet().getTitle();
+                            Long date = Calendar.getInstance().getTimeInMillis();
+                            Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
+                            SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment);
+
+                            VideoList.add(searchingResults);
+                        } catch (GeneralSecurityException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    return VideoList;
+                }
+        );
+
+    }
     /**
      * Process searching action with Asynchronous
      * @author Chenwen

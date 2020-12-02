@@ -19,7 +19,7 @@ import static akka.pattern.Patterns.*;
 
 public class WebSocketController extends Controller {
 
-    private final Duration d = java.time.Duration.ofSeconds(2);
+    private final Duration d = java.time.Duration.ofSeconds(10);
     private final Logger logger = org.slf4j.LoggerFactory.getLogger("controllers.WebSocketController");
     private final ActorRef userParentActor;
 

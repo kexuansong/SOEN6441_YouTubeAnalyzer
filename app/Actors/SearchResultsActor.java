@@ -6,6 +6,7 @@ import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.Video;
+import models.SearchingResults;
 import models.Videos;
 import services.AsynProcessor;
 import scala.concurrent.duration.Duration;
@@ -27,7 +28,7 @@ public class SearchResultsActor extends AbstractActorWithTimers {
 
     private final LoggingAdapter logger = Logging.getLogger(getContext().system(), this);
 
-    private Set<Videos> results;
+    private Set<SearchingResults> results;
 
     /**
      * Dummy inner class used for the timer
@@ -41,7 +42,7 @@ public class SearchResultsActor extends AbstractActorWithTimers {
     @Override
     public void preStart() {
         getTimers().startTimerWithFixedDelay("Timer", new Tick(),
-                Duration.create(5, TimeUnit.SECONDS));
+                Duration.create(10, TimeUnit.SECONDS));
     }
 
     /**
@@ -89,7 +90,7 @@ public class SearchResultsActor extends AbstractActorWithTimers {
         // Set the query
         query = message.searchKey;
 
-        return asynProcessor.processSearchAsync(query).thenAcceptAsync(searchResults -> {
+        return asynProcessor.webSocketSearch(query).thenAcceptAsync(searchResults -> {
             // This is the first time we want to watch a (new) query: reset the list
             this.results = new HashSet<>();
 
@@ -111,15 +112,15 @@ public class SearchResultsActor extends AbstractActorWithTimers {
      */
     public CompletionStage<Void> tickMessage() {
         // Every 5 seconds, check for new tweets if we have a query
-        return asynProcessor.processSearchAsync(query).thenAcceptAsync(searchResults -> {
+        return asynProcessor.webSocketSearch(query).thenAcceptAsync(searchResults -> {
             // Copy the current state of results in a temporary variable
-            Set<Videos> oldResults = new HashSet<>(results);
+            Set<SearchingResults> oldResults = new HashSet<>(results);
 
             // Add all the results to the list, now filtered to only add the new ones
             results.addAll(searchResults);
 
             // Copy the current state of results after addition in a temporary variable
-            Set<Videos> newResults = new HashSet<>(results);
+            Set<SearchingResults> newResults = new HashSet<>(results);
 
             // Get the new results only by doing new - old = what we have to display
             newResults.removeAll(oldResults);

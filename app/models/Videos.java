@@ -201,7 +201,4 @@ public class Videos {
         return query;
     }
 
-    public void setQuery(String query) {
-        this.query = query;
-    }
 }
