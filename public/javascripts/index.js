@@ -1,30 +1,24 @@
 (function() {
     var parseTweets;
-    // var idSet = [];
-    $(function() {
 
+    $(function() {
         //give you a jQuery object representing that node.
         if($("#search").length === 1) {
             var ws;
             console.log("Waiting for WebSocket");
+
+            let idList = [];
             ws = new WebSocket($("body").data("ws-url"));
             ws.onmessage = function (event) {
                 var message;
                 message = JSON.parse(event.data);
-                //idSet.add(message.videoId);
-                // idSet.push(message.videoTitle);
-                //
-                // var unique = idSet.filter(onlyUnique);
-                // switch (message.type) {
-                //     case "Videos":
-                 //console.log(message);
-                 //console.log(idSet)
-                //console.log(unique);
-
-                return parseTweets(message);
-                //     default:
-                //         return console.log(message);
-                // }
+                if(message.query !== "test"){
+                    if(idList.includes(message.videoId)){console.log(message)}
+                    else{
+                        idList.push(message.videoId);
+                        return parseVideos(message);
+                    }
+                }
 
             };
             return $("#searchForm").submit(function (event) {
@@ -40,18 +34,12 @@
         }
     });
 
-    // function onlyUnique(value, index, self) {
-    //     return self.indexOf(value) === index;
-    // }
 
-// usage example:
-//     var a = ['a', 1, 'a', 2, '1'];
 
-    parseTweets = function(message) {
-        // var query = message.query.replace(/ /g,'');
-        // videosListQuery = $("#videosList"+query);
-        //
-        //
+    parseVideos = function(message) {
+        var query = message.query.replace(/ /g,'');
+        videosListQuery = $("#videosList"+query);
+
         $("#videos").prepend('<div class="results"><p><a href=@routes.HomeController.similar(message.videoId)>' + message.videoTitle + '</a></p></div>');
 
         // videosListQuery.prepend('<li><a href="http://localhost:9000/profile/'+message.user.name+'">'
