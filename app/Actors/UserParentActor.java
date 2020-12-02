@@ -27,9 +27,9 @@ public class UserParentActor extends AbstractActor implements InjectedActorSuppo
      * @param childFactory factory to create a UserActor
      */
     @Inject
-    public UserParentActor(UserActor.Factory childFactory) {
+    public UserParentActor(UserActor.Factory childFactory, String query) {
         this.childFactory = childFactory;
-        this.query = "test"; // default keyword
+        this.query = query; // default keyword
     }
 
     /**
