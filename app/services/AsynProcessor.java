@@ -49,7 +49,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyCayYhQ8BszKXRFKeedBMFr2iNSv6mI9s8";
+    private static final String APIKey = "AIzaSyCCOBZfwbPGs0DCC6JASluq3j6fejvCPoE";
     /**
      * Video list
      */
@@ -160,7 +160,7 @@ public class AsynProcessor {
                             String videoTitle = searchResult.getSnippet().getTitle();
                             Long date = Calendar.getInstance().getTimeInMillis();
                             Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-                            SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment);
+                            SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment,videoId);
 
                             VideoList.add(searchingResults);
                         } catch (GeneralSecurityException | IOException e) {
