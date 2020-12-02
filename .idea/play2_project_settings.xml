@@ -14,7 +14,7 @@
           <value>
             <ProjectSettingsEntry>
               <option name="sourceDir" value="C:\Users\kexua\Desktop\SOEN6441_YouTubeAnalyzer\app" />
-              <option name="confDir" value="C:\Users\kexua\Desktop\SOEN6441_YouTubeAnalyzer\app" />
+              <option name="confDir" value="C:\Users\felix\IdeaProjects\SOEN6441\app" />
               <option name="templateImports">
                 <list>
                   <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
@@ -44,7 +44,7 @@
                   <option value="play.libs.F" />
                 </list>
               </option>
-              <option name="uri" value="/C:/Users/kexua/Desktop/SOEN6441_YouTubeAnalyzer" />
+              <option name="uri" value="/C:/Users/felix/IdeaProjects/SOEN6441" />
             </ProjectSettingsEntry>
           </value>
         </entry>
