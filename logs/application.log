@@ -1,33 +1,13 @@
-2020-12-03 09:57:16,515 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-7 - ApplicationTimer demo: Starting application at 2020-12-03T01:57:16.514727Z
-2020-12-03 09:57:16,557 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-7 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2020-12-03 14:59:18,822 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-5 - ApplicationTimer demo: Starting application at 2020-12-03T06:59:18.821961Z
+2020-12-03 14:59:18,863 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     filters.ExampleFilter
 
-2020-12-03 09:57:16,713 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-7 - Application started (Dev) (no global state)
-2020-12-03 09:57:34,710 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
-2020-12-03 09:57:34,721 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-2 - Terminating server binding for /[0:0:0:0:0:0:0:0]:9000
-2020-12-03 09:57:34,748 [INFO] from application in application-akka.actor.internal-dispatcher-2 - ApplicationTimer demo: Stopping application at 2020-12-03T01:57:34.746410Z after 18s.
-2020-12-03 09:57:34,800 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
-2020-12-03 10:56:28,152 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:28.147372Z
-2020-12-03 10:56:30,087 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:30.087543Z
-2020-12-03 10:56:30,577 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:30.577325Z
-2020-12-03 10:56:31,433 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:31.432933Z
-2020-12-03 10:56:31,969 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-03 10:56:32,484 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:32.484641Z
-2020-12-03 10:56:32,710 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:32.710895Z
-2020-12-03 10:56:33,093 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:33.093775Z
-2020-12-03 10:56:33,385 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:33.385388Z
-2020-12-03 10:56:33,450 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-03 10:56:33,740 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:33.740646Z
-2020-12-03 10:56:34,145 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:34.145154Z
-2020-12-03 10:56:34,353 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:34.353915Z
-2020-12-03 10:56:34,571 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:34.571379Z
-2020-12-03 10:56:34,610 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-03 10:56:34,970 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:34.970689Z
-2020-12-03 10:56:35,138 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:35.138243Z
-2020-12-03 10:56:35,350 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:35.350332Z
-2020-12-03 10:56:35,599 [INFO] from application in pool-1-thread-1 - ApplicationTimer demo: Starting application at 2020-12-03T02:56:35.599907Z
-2020-12-03 10:56:35,618 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
+2020-12-03 14:59:19,030 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev) (no global state)
+2020-12-03 15:02:16,029 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
+2020-12-03 15:02:16,037 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-19 - Terminating server binding for /[0:0:0:0:0:0:0:0]:9000
+2020-12-03 15:02:16,079 [INFO] from application in application-akka.actor.internal-dispatcher-3 - ApplicationTimer demo: Stopping application at 2020-12-03T07:02:16.078702Z after 178s.
+2020-12-03 15:02:16,214 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-18 - Running provided shutdown stop hooks
