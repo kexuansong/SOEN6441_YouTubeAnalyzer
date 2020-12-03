@@ -40,7 +40,8 @@
         var query = message.query.replace(/ /g,'');
         videosListQuery = $("#videosList"+query);
 
-        $("#videos").prepend('<div class="results"><p><a href=@routes.HomeController.similar(message.videoId)>' + message.videoTitle + '</a></p></div>');
+        $("#videoTitle").prepend('<p><a href="http://localhost:9000/profile'+message.channelId+'">' + message.videoTitle + '</a></p>');
+        $("#sentiment").prepend('<p><a href="http://localhost:9000/profile'+message.channelId+'">' + message.sentiment + '</a></p>');
 
         // videosListQuery.prepend('<li><a href="http://localhost:9000/profile/'+message.user.name+'">'
         //     +message.user.name+'</a> wrote: '+message.user+'</li>');
