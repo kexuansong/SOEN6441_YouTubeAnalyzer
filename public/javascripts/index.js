@@ -12,7 +12,6 @@
             ws.onmessage = function (event) {
                 var message;
                 message = JSON.parse(event.data);
-                console.log(message)
                 if(message.query !== "test"){
                     if(idList.includes(message.videoId)){console.log(message)}
                     else{
@@ -38,10 +37,11 @@
 
 
     parseVideos = function(message) {
-        var query = message.query.replace('');
+        var query = message.query.replace(/ /g,'');
         videosListQuery = $("#videosList"+query);
 
-        $("#videos").prepend('<td class="results">' + message.videoTitle + '</td>');
+        $("#videoTitle").prepend('<p><a href="http://localhost:9000/profile'+message.channelId+'">' + message.videoTitle + '</a></p>');
+        $("#sentiment").prepend('<p><a href="http://localhost:9000/profile'+message.channelId+'">' + message.sentiment + '</a></p>');
 
         // videosListQuery.prepend('<li><a href="http://localhost:9000/profile/'+message.user.name+'">'
         //     +message.user.name+'</a> wrote: '+message.user+'</li>');
