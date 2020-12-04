@@ -1,13 +1,17 @@
 package controllers;
 
+import Actors.SearchActor;
+import Actors.UserActor;
 import akka.actor.ActorSystem;
 import akka.stream.Materializer;
 
 import models.*;
 import play.cache.AsyncCacheApi;
+import play.libs.streams.ActorFlow;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+import play.mvc.WebSocket;
 import services.AsynProcessor;
 import views.html.*;
 
@@ -29,8 +33,10 @@ public class HomeController extends Controller {
      */
     private final AssetsFinder assetsFinder;
     private AsyncCacheApi cache;
-    private ActorSystem actorSystem;
-    private final Materializer materializer;
+    @Inject private ActorSystem actorSystem;
+    @Inject private Materializer materializer;
+
+    private String key;
 
     /**
      * Inject and
@@ -43,8 +49,7 @@ public class HomeController extends Controller {
     public HomeController(AssetsFinder assetsFinder, AsyncCacheApi cache, ActorSystem actorSystem, Materializer materializer) {
         this.assetsFinder = assetsFinder;
         this.cache = cache;
-        this.actorSystem = actorSystem;
-        this.materializer = materializer;
+        actorSystem.actorOf(SearchActor.getProps(), "SearchActor");
     }
 
     /**
@@ -66,7 +71,8 @@ public class HomeController extends Controller {
         Optional<String> userSession = request.session().get("Connected");
 
         AsynProcessor asynProcessor = new AsynProcessor();
-
+        List<SearchingResults> searchingResults = asynProcessor.webSocketSearch("java");
+        System.out.println(searchingResults.size());
 
         if (userSession.isEmpty()) {
             return CompletableFuture.supplyAsync(() -> (redirect("/").addingToSession(request, "Connected", value)));
@@ -95,7 +101,6 @@ public class HomeController extends Controller {
     public CompletionStage<Result> search(String searchKey,Http.Request request) {
         AsynProcessor general = new AsynProcessor();
         Optional<String> userSession = request.session().get("Connected");
-
         CompletableFuture<List<Videos>> searchResult = general.processSearchAsync(searchKey);
 
         CompletionStage<Optional<List<Videos>>> cacheResult = cache.get(userSession.toString());
@@ -172,5 +177,9 @@ public class HomeController extends Controller {
                 }
         );
     }
-}
+
+    public WebSocket ws(){
+        System.out.println("WebSocket Started");
+        return WebSocket.Json.accept(request -> ActorFlow.actorRef(UserActor::props,actorSystem,materializer));
+    }}
 

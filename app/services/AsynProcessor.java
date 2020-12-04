@@ -40,7 +40,7 @@ public class AsynProcessor {
     /**
      * Number of video return
      */
-    private static final long NUMBER_OF_VIDEOS_RETURNED = 10;
+    private static final long NUMBER_OF_VIDEOS_RETURNED = 2;
     /**
      * Number of similar video return
      */
@@ -49,7 +49,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyB2K1B2P4i8WAPhOG6OvsvQxTeVv-KgHzI";
+    private static final String APIKey = "AIzaSyC4lpE9drzUhD_-cFGRka3gjz5O_MPZxH8";
     /**
      * Video list
      */
@@ -146,14 +146,11 @@ public class AsynProcessor {
         return searchResultList;
     }
 
-    public CompletableFuture<List<SearchingResults>> webSocketSearch(String key){
-        return CompletableFuture.supplyAsync(() -> searchVideo(key))
-                .thenApply(searchResultList ->{
-                    searchResultList.forEach(searchResult -> {
-                        String videoId = searchResult.getId().getVideoId();
-                        String channelId = searchResult.getSnippet().getChannelId();
-
-                        try {
+    public List<SearchingResults> webSocketSearch(String key) throws GeneralSecurityException, IOException {
+        List<SearchResult> list  = searchVideo(key);
+                for (SearchResult searchResult : list ){
+                            String videoId = searchResult.getId().getVideoId();
+                            String channelId = searchResult.getSnippet().getChannelId();
                             Comments comments = new Comments(videoId);
                             String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
                             String sentiment = comments.SearchComment(comments.getComments(videoId));
@@ -163,15 +160,10 @@ public class AsynProcessor {
                             SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment,videoId);
 
                             VideoList.add(searchingResults);
-                        } catch (GeneralSecurityException | IOException e) {
-                            e.printStackTrace();
                         }
-                    });
-                    return VideoList;
-                }
-        );
-
+                return VideoList;
     }
+
     /**
      * Process searching action with Asynchronous
      * @author Chenwen

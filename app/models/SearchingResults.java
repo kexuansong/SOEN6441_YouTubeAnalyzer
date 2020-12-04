@@ -10,11 +10,11 @@ public class SearchingResults {
     private String query;
     private String videoId;
 
-    public SearchingResults(String videoTitle, String channelTitle,Long publishDate, String sentiment, String videoId) {
+    public SearchingResults(String videoTitle, String title,Long publishDate, String Sentiment, String videoId) {
         this.videoTitle = videoTitle;
-        this.channelTitle = channelTitle;
+        this.channelTitle = title;
         this.timeAgo = publishDate;
-        this.sentiment = sentiment;
+        this.sentiment = Sentiment;
         this.videoId = videoId;
     }
 
@@ -22,5 +22,23 @@ public class SearchingResults {
         this.query = query;
     }
 
+    public String getVideoTitle() {
+        return videoTitle;
+    }
 
+    public String getChannelTitle() {
+        return channelTitle;
+    }
+
+    public String getSentiment() {
+        return sentiment;
+    }
+
+    public Long getTimeAgo() {
+        return timeAgo;
+    }
+
+    public String getQuery() {
+        return query;
+    }
 }
