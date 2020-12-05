@@ -20,11 +20,11 @@ import java.util.concurrent.TimeUnit;
 
 public class SearchActor extends AbstractActorWithTimers {
     @Inject
-    AsynProcessor asynProcessor;
+    private AsynProcessor asynProcessor;
 
     private Set<ActorRef> userActors;
 
-//    private String Key = "test";
+    private String Key;
 
     private Set<SearchingResults> output;
 
@@ -38,6 +38,8 @@ public class SearchActor extends AbstractActorWithTimers {
 
     public SearchActor() {
         this.userActors = new HashSet<>();
+        this.Key = null;
+        this.output = new HashSet<>();
     }
 
     @Override
@@ -52,6 +54,7 @@ public class SearchActor extends AbstractActorWithTimers {
         return receiveBuilder()
                 .match(RegisterMsg.class, msg -> {
                     userActors.add(sender());
+                    getSender().tell("UserActor registered", getSelf());
                 })
 //                .match(UserActor.firstSearchMsg.class, firstSearchMsg ->
 //                        firstSearch(firstSearchMsg.key))
@@ -102,34 +105,34 @@ public class SearchActor extends AbstractActorWithTimers {
 //            newResult.removeAll(current);
 //    UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(newResult,Key);
 
-//    private CompletionStage<Void> TickMessage() {
-//        return asynProcessor.processSearchAsync("test").thenAcceptAsync(searchResults -> {
-//            // Copy the current state of results in a temporary variable
-//            Set<SearchingResults> oldResults = new HashSet<>(output);
-//
-//            // Add all the results to the list, now filtered to only add the new ones
-//            output.addAll(searchResults);
-//
-//            // Copy the current state of results after addition in a temporary variable
-//            Set<SearchingResults> newResults = new HashSet<>(output);
-//
-//            // Get the new results only by doing new - old = what we have to display
-//            newResults.removeAll(oldResults);
-//
-//            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(newResults,"JAVA");
-//
-//            userActors.forEach(actorRef -> actorRef.tell(searchMessage,self()));
-//        });
-//
-//    }
+    public CompletionStage<Void> TickMessage() {
+        return asynProcessor.processSearchAsync(Key).thenAcceptAsync(searchResults -> {
+            // Copy the current state of results in a temporary variable
+            Set<SearchingResults> oldResults = new HashSet<>(output);
 
-    private void TickMessage(){
-        String currentTime = LocalDateTime.now().toString();
-        UserActor.Time time = new UserActor.Time(currentTime);
+            // Add all the results to the list, now filtered to only add the new ones
+            output.addAll(searchResults);
 
-        userActors.forEach(actorRef -> actorRef.tell(time,self()));
+            // Copy the current state of results after addition in a temporary variable
+            Set<SearchingResults> newResults = new HashSet<>(output);
+
+            // Get the new results only by doing new - old = what we have to display
+            newResults.removeAll(oldResults);
+
+            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(newResults,Key);
+
+            userActors.forEach(actorRef -> actorRef.tell(searchMessage,self()));
+        });
 
     }
+
+//    private void TickMessage(){
+//        String currentTime = LocalDateTime.now().toString();
+//        UserActor.Time time = new UserActor.Time(currentTime);
+//
+//        userActors.forEach(actorRef -> actorRef.tell(time,self()));
+//
+//    }
 }
 
 
