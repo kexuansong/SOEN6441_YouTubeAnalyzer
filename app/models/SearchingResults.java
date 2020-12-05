@@ -8,14 +8,14 @@ public class SearchingResults {
     private String sentiment;
     private Long timeAgo;
     private String query;
-    private String videoId;
+    private String VideoId;
 
     public SearchingResults(String videoTitle, String title,Long publishDate, String Sentiment, String videoId) {
         this.videoTitle = videoTitle;
         this.channelTitle = title;
         this.timeAgo = publishDate;
         this.sentiment = Sentiment;
-        this.videoId = videoId;
+        this.VideoId = videoId;
     }
 
     public void setQuery(String query) {

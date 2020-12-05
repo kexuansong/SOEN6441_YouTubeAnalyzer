@@ -22,6 +22,7 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -49,7 +50,6 @@ public class HomeController extends Controller {
     public HomeController(AssetsFinder assetsFinder, AsyncCacheApi cache, ActorSystem actorSystem, Materializer materializer) {
         this.assetsFinder = assetsFinder;
         this.cache = cache;
-        actorSystem.actorOf(SearchActor.getProps(), "SearchActor");
     }
 
     /**
@@ -66,20 +66,18 @@ public class HomeController extends Controller {
      * <code>GET</code> request with a path of <code>/</code>.
      * @author Ke Xuan, Chenwen
      */
-    public CompletionStage<Result> index(Http.Request request) throws GeneralSecurityException, IOException {
+    public CompletionStage<Result> index(Http.Request request) throws GeneralSecurityException, IOException, ExecutionException, InterruptedException {
         String value = LocalTime.now().toString();
         Optional<String> userSession = request.session().get("Connected");
 
         AsynProcessor asynProcessor = new AsynProcessor();
-        List<SearchingResults> searchingResults = asynProcessor.webSocketSearch("java");
-        System.out.println(searchingResults.size());
 
         if (userSession.isEmpty()) {
             return CompletableFuture.supplyAsync(() -> (redirect("/").addingToSession(request, "Connected", value)));
         }
         else{
 
-            CompletionStage<Optional<List<Videos>>> optionalCompletionStage = cache.get("Connected");
+            CompletionStage<Optional<List<SearchingResults>>> optionalCompletionStage = cache.get("Connected");
 
             return optionalCompletionStage.thenApply(list -> {
                 list.ifPresent(videos -> ok(search.render("", videos, assetsFinder)));
@@ -98,15 +96,17 @@ public class HomeController extends Controller {
      * @return not found message if error occurred or return search result list to html
      * @author Ke Xuan, Chenwen
      */
-    public CompletionStage<Result> search(String searchKey,Http.Request request) {
+    public CompletionStage<Result> search(String searchKey,Http.Request request) throws ExecutionException, InterruptedException {
         AsynProcessor general = new AsynProcessor();
         Optional<String> userSession = request.session().get("Connected");
-        CompletableFuture<List<Videos>> searchResult = general.processSearchAsync(searchKey);
+        CompletableFuture<List<SearchingResults>> searchResult = general.processSearchAsync(searchKey);
+        System.out.println(searchResult.get().size());
+        actorSystem.actorOf(SearchActor.getProps(), "SearchActor");
 
-        CompletionStage<Optional<List<Videos>>> cacheResult = cache.get(userSession.toString());
+        CompletionStage<Optional<List<SearchingResults>>> cacheResult = cache.get(userSession.toString());
 
         return searchResult.thenCombine(cacheResult,(searchR, cacheR) -> {
-            List<Videos> videosList = new ArrayList<>();
+            List<SearchingResults> videosList = new ArrayList<>();
             if(!cacheR.isEmpty()){
                 videosList = cacheR.get();
             }

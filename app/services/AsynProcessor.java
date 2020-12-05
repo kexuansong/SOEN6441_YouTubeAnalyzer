@@ -146,23 +146,28 @@ public class AsynProcessor {
         return searchResultList;
     }
 
-    public List<SearchingResults> webSocketSearch(String key) throws GeneralSecurityException, IOException {
-        List<SearchResult> list  = searchVideo(key);
-                for (SearchResult searchResult : list ){
-                            String videoId = searchResult.getId().getVideoId();
-                            String channelId = searchResult.getSnippet().getChannelId();
-                            Comments comments = new Comments(videoId);
-                            String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
-                            String sentiment = comments.SearchComment(comments.getComments(videoId));
-                            String videoTitle = searchResult.getSnippet().getTitle();
-                            Long date = Calendar.getInstance().getTimeInMillis();
-                            Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-                            SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment,videoId);
-
-                            VideoList.add(searchingResults);
-                        }
-                return VideoList;
-    }
+//    public CompletionStage<List<SearchingResults>> webSocketSearch(String key) {
+//        return CompletableFuture.supplyAsync(()-> searchVideo(key)).thenApplyAsync(searchResultList ->{
+//            searchResultList.forEach(searchResults ->{
+//                String videoId = searchResults.getId().getVideoId();
+//                String channelId = searchResults.getSnippet().getChannelId();
+//                Comments comments = new Comments(videoId);
+//                try {
+//                   String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
+//                    String sentiment = comments.SearchComment(comments.getComments(videoId));
+//                    String videoTitle = searchResults.getSnippet().getTitle();
+//                    Long date = Calendar.getInstance().getTimeInMillis();
+//                    Long dateTime = (date - searchResults.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
+//                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment,videoId);
+//                    VideoList.add(searchingResults);
+//                } catch (GeneralSecurityException | IOException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//
+//            return VideoList;
+//        });
+//    }
 
     /**
      * Process searching action with Asynchronous
@@ -170,25 +175,29 @@ public class AsynProcessor {
      * @param searchKey query term
      * @return video list
      */
-    public CompletableFuture<List<Videos>> processSearchAsync(String searchKey) {
+    public CompletableFuture<List<SearchingResults>> processSearchAsync(String searchKey) {
         return CompletableFuture.supplyAsync(() -> searchVideo(searchKey))
-                .thenApplyAsync(searchResultList -> {
-                            searchResultList.forEach(searchResult -> {
-                                        String videoName = searchResult.getSnippet().getTitle();
-                                        String videoId = searchResult.getId().getVideoId();
-                                        VideoImp videoImp = new VideoImp();
-                                        Comments comments = new Comments(videoId);
-                                        try {
-                                            GetSearchInfo(searchResult, videoName, videoId, comments, videoImp, list);
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                            );
+                .thenApplyAsync(list ->{
+                            list.forEach(searchResults ->{
+                                String videoId = searchResults.getId().getVideoId();
+                                String channelId = searchResults.getSnippet().getChannelId();
+                                Comments comments = new Comments(videoId);
+                                try {
+                                    String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
+                                    String sentiment = comments.SearchComment(comments.getComments(videoId));
+                                    String videoTitle = searchResults.getSnippet().getTitle();
+                                    Long date = Calendar.getInstance().getTimeInMillis();
+                                    Long dateTime = (date - searchResults.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
+                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment,videoId);
+                                    VideoList.add(searchingResults);
+                                } catch (GeneralSecurityException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
 
-                            return list;
-                        }
-                );
+                            return VideoList;
+                });
+
     }
 
     /**

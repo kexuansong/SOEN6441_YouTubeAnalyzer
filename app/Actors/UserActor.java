@@ -21,17 +21,19 @@ public class UserActor extends AbstractActor {
     }
 
     public static Props props(final ActorRef wsOut){
+        System.out.println("User Actor Started");
         return Props.create(UserActor.class,wsOut);
 
     }
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(SearchMessage.class, this::parseToJson).build();
+        return receiveBuilder().match(Time.class, this::Send).build();
     }
 
     @Override
     public void preStart(){
+        System.out.println("Sending Register Message from User Actor");
         context().actorSelection("/user/SearchActor/").tell(new SearchActor.RegisterMsg(),self());
     }
 
@@ -42,6 +44,14 @@ public class UserActor extends AbstractActor {
         public SearchMessage(Set<SearchingResults> results,String key) {
             this.results = results;
             this.searchKey = key;
+        }
+    }
+
+    static public class Time{
+        private String time;
+
+        public Time(String time) {
+            this.time = time;
         }
     }
 
@@ -62,9 +72,10 @@ public class UserActor extends AbstractActor {
             ws.tell(response, self());
 
         }
-
-
-
-
     }
-}
+
+    public void Send(Time time){
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode response = mapper.valueToTree(time.time);
+        ws.tell(response,self());
+    }}

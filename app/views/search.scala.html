@@ -4,7 +4,7 @@
 *@
 @import com.google.api.services.youtube.model.SearchResult
 @import java.util.concurrent.CompletableFuture
-@(keyword: String ,list : List[Videos])(implicit assetsFinder: AssetsFinder)
+@(keyword: String ,list : List[SearchingResults])(implicit assetsFinder: AssetsFinder)
 
 
 @*
@@ -61,6 +61,10 @@
     <div class = "container">
     <br>
     <h2 style="color: #cc0000; text-align: center">Search results for: @keyword</h2>
+
+        <div>@for(result <- list){
+            <p>@result.getChannelTitle</p>
+        }</div>
 @*   <p>*@
 
 @*   @for(result <- list){*@
