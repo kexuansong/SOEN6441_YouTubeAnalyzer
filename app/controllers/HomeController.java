@@ -50,6 +50,8 @@ public class HomeController extends Controller {
     public HomeController(AssetsFinder assetsFinder, AsyncCacheApi cache, ActorSystem actorSystem, Materializer materializer) {
         this.assetsFinder = assetsFinder;
         this.cache = cache;
+        this.actorSystem = actorSystem;
+        this.materializer = materializer;
     }
 
     /**

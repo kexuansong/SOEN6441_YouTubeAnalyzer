@@ -28,7 +28,8 @@ public class UserActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(Time.class, this::Send).build();
+        return receiveBuilder().match(SearchMessage.class, this::parseToJson).build();
+
     }
 
     @Override

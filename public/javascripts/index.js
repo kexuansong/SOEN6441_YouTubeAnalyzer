@@ -12,14 +12,14 @@
             ws.onmessage = function (event) {
                 var message;
                 message = JSON.parse(event.data);
-                // console.log(message)
-                if(message.query !== "test"){
-                    if(idList.includes(message.videoId)){console.log(message)}
-                    else{
-                        idList.push(message.videoId);
-                        return parseVideos(message);
-                    }
-                }
+                console.log(message)
+                // if(message.query !== "test"){
+                //     if(idList.includes(message.videoId)){console.log(message)}
+                //     else{
+                //         idList.push(message.videoId);
+                //         return parseVideos(message);
+                //     }
+                // }
 
             };
             return $("#searchForm").submit(function (event) {
