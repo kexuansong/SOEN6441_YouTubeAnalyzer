@@ -200,32 +200,32 @@ public class AsynProcessor {
 
     }
 
-    /**
-     * Get wrapped in Videos model and save into list
-     *
-     * @param searchResult YouTube.searchResult object
-     * @param videoName    video name
-     * @param videoId      video id
-     * @param c            comment object
-     * @param videoImp     video object
-     * @param list         return list
-     * @throws throw IOException
-     * @author Chenwen
-     */
-
-    public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, Comments c, VideoImp videoImp, List<Videos> list) throws IOException {
-        String ChannelTitle = searchResult.getSnippet().getChannelTitle();
-        String channelID = searchResult.getSnippet().getChannelId();
-        Long date = Calendar.getInstance().getTimeInMillis();
-        Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-
-
-        String sentiment = c.SearchComment(c.getComments(videoId));
-        BigInteger viewCount = videoImp.getVideoView(videoId);
-
-        Videos video = new Videos(videoName, videoId, ChannelTitle, channelID, viewCount, dateTime, sentiment);
-        list.add(video);
-    }
+//    /**
+//     * Get wrapped in Videos model and save into list
+//     *
+//     * @param searchResult YouTube.searchResult object
+//     * @param videoName    video name
+//     * @param videoId      video id
+//     * @param c            comment object
+//     * @param videoImp     video object
+//     * @param list         return list
+//     * @throws throw IOException
+//     * @author Chenwen
+//     */
+//
+//    public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, Comments c, VideoImp videoImp, List<Videos> list) throws IOException {
+//        String ChannelTitle = searchResult.getSnippet().getChannelTitle();
+//        String channelID = searchResult.getSnippet().getChannelId();
+//        Long date = Calendar.getInstance().getTimeInMillis();
+//        Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
+//
+//
+//        String sentiment = c.SearchComment(c.getComments(videoId));
+//        BigInteger viewCount = videoImp.getVideoView(videoId);
+//
+//        Videos video = new Videos(videoName, videoId, ChannelTitle, channelID, viewCount, dateTime, sentiment);
+//        list.add(video);
+//    }
 
     /**
      * Get Channel information from YouTube API
@@ -477,6 +477,31 @@ public class AsynProcessor {
         Date d = sdformat.parse(ndate);
         Videos video = new Videos(channelTitle, videoName, d, ndate);
         cvList.add(video);
+    }
+
+    /**
+     * get views of video
+     * @param videoId video id
+     * @return viewTotal
+     */
+    public BigInteger getVideoView(String videoId) throws IOException {
+        //videoList
+        List<Video> videoList = new ArrayList<>();
+        YouTube youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
+            @Override
+            public void initialize(HttpRequest request) throws IOException {
+            }
+        }).setApplicationName("Channel").build();
+
+        YouTube.Videos.List search = youTube.videos().list("statistics");
+        search.setKey(APIKey);
+
+        VideoListResponse videoListResponse = search.setId(videoId).execute();
+        videoList = videoListResponse.getItems();
+
+        BigInteger viewTotal = videoList.get(0).getStatistics().getViewCount();
+
+        return viewTotal;
     }
 
 }

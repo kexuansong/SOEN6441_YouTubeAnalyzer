@@ -164,7 +164,7 @@ public class HomeController extends Controller {
 //        CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
 //        profileImp = general.processProfileAsync(ChannelID);
 //        return profileImp.thenApply(r -> ok(profile.render(r,assetsFinder)));
-        ActorRef actorRef = actorSystem.actorOf(ProfileActor.props(),"ProfileActor");
+        ActorRef actorRef = actorSystem.actorOf(ProfileActor.props());
         CompletionStage<Object> profile = FutureConverters.toJava(
                 ask(actorRef,new ProfileActor.ProfileRequest(ChannelID),10000)
         );
