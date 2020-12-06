@@ -30,7 +30,7 @@ public class Comments{
     /**
      * Api key
      */
-    private static final String DEVELOPER_KEY = "AIzaSyB2K1B2P4i8WAPhOG6OvsvQxTeVv-KgHzI";
+    private static final String DEVELOPER_KEY = "AIzaSyA9ImllP4mm1CuULPjVLQUTlRuyIjfMW-8";
     /**
      *Total Comment Numbers
      */

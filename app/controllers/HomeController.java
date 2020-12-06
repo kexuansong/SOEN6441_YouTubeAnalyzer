@@ -1,7 +1,9 @@
 package controllers;
 
+import Actors.ProfileActor;
 import Actors.SearchActor;
 import Actors.UserActor;
+import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.stream.Materializer;
 
@@ -12,9 +14,12 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.mvc.WebSocket;
+import scala.compat.java8.FutureConverters;
 import services.AsynProcessor;
 import views.html.*;
 
+import static akka.pattern.Patterns.ask;
+import Actors.ProfileActor;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -34,10 +39,10 @@ public class HomeController extends Controller {
      */
     private final AssetsFinder assetsFinder;
     private AsyncCacheApi cache;
-    @Inject private ActorSystem actorSystem;
-    @Inject private Materializer materializer;
-
-    private String key;
+    @Inject
+    private ActorSystem actorSystem;
+    @Inject
+    private Materializer materializer;
 
     /**
      * Inject and
@@ -52,6 +57,7 @@ public class HomeController extends Controller {
         this.cache = cache;
         this.actorSystem = actorSystem;
         this.materializer = materializer;
+
     }
 
     /**
@@ -155,10 +161,15 @@ public class HomeController extends Controller {
      */
 
     public CompletionStage<Result> profile(String ChannelID) throws GeneralSecurityException, IOException {
-        CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
-        profileImp = general.processProfileAsync(ChannelID);
-        return profileImp.thenApply(r -> ok(profile.render(r,assetsFinder)));
+//        CompletableFuture<ProfileImp> profileImp = new CompletableFuture<ProfileImp>();
+//        profileImp = general.processProfileAsync(ChannelID);
+//        return profileImp.thenApply(r -> ok(profile.render(r,assetsFinder)));
+        ActorRef actorRef = actorSystem.actorOf(ProfileActor.props(),"ProfileActor");
+        CompletionStage<Object> profile = FutureConverters.toJava(
+                ask(actorRef,new ProfileActor.ProfileRequest(ChannelID),10000)
+        );
 
+        return profile.thenApply(result -> ok(views.html.profile.render((ProfileImp) result,assetsFinder)));
     }
     /**
      * Async process similar videos action

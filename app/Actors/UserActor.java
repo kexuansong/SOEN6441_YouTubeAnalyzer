@@ -5,11 +5,13 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import models.SearchingResults;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import services.AsynProcessor;
 
 import java.util.Set;
 
@@ -28,7 +30,14 @@ public class UserActor extends AbstractActor {
 
     @Override
     public Receive createReceive() {
-        return receiveBuilder().match(SearchMessage.class, this::parseToJson).build();
+        return receiveBuilder()
+                .match(ObjectNode.class, jsonNodes -> {
+                    if (jsonNodes.get("#searchkey") != null){
+                        System.out.println("We get");
+                    }
+                })
+                .match(SearchMessage.class, this::parseToJson)
+                .build();
 
     }
 
@@ -63,6 +72,8 @@ public class UserActor extends AbstractActor {
             this.key = key;
         }
     }
+
+
 
     public void parseToJson(SearchMessage searchMessage){
         Set<SearchingResults> results = searchMessage.results;

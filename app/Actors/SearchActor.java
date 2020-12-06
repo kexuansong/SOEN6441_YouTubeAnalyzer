@@ -25,7 +25,7 @@ public class SearchActor extends AbstractActorWithTimers {
 
     private ActorRef userActor;
 
-    private String query = "test";
+    private String query = "北京";
 
     private Set<SearchingResults> output;
 
