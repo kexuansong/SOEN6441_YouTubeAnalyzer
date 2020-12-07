@@ -1,8 +1,6 @@
 package controllers;
 
-import Actors.ProfileActor;
-import Actors.SearchActor;
-import Actors.UserActor;
+import Actors.*;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.stream.Materializer;
@@ -138,16 +136,28 @@ public class HomeController extends Controller {
      * @author YueJun Chen
      */
     public CompletionStage<Result> CVideos(String channelID,String keyword) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                List<Videos> cv = general.processPlayListAsync(channelID,keyword).get();
-                System.out.println(cv.size());
-                return ok(channelVideos.render( cv, assetsFinder));
-            } catch (Exception e) {
-                e.printStackTrace();
-                return notFound("Error");
-            }
-        });}
+//        return CompletableFuture.supplyAsync(() -> {
+//            try {
+//                List<Videos> cv = general.processPlayListAsync(channelID,keyword).get();
+//                System.out.println(cv.size());
+//                return ok(channelVideos.render( cv, assetsFinder));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return notFound("Error");
+//            }
+//        });
+        ActorRef actorRef = actorSystem.actorOf(VideosActor.props());
+        CompletionStage<Object> Videos = FutureConverters.toJava(
+                ask(actorRef,new VideosActor.VideosRequest(channelID,keyword),10000)
+        );
+        return Videos.thenApply(result ->{
+                    List<Videos> cv = new ArrayList<Videos>();
+                    if (result instanceof ArrayList<?>) {
+                        for (Object o : (List<?>) result) {
+                           cv.add(Videos.class.cast(o));
+                        }}
+            return ok(views.html.channelVideos.render(cv,assetsFinder));});
+        }
 
 
 

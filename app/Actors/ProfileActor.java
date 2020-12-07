@@ -28,9 +28,7 @@ public class ProfileActor extends AbstractActor {
     }
 
     @Override
-    public void postStop(){
-        System.out.println("Profile Actor Stopped");
-    }
+    public void postStop(){ System.out.println("Profile Actor Stopped"); }
 
 
     static public class ProfileRequest{

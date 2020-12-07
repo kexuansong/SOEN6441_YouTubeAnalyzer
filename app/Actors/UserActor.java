@@ -16,6 +16,7 @@ import services.AsynProcessor;
 import java.util.Set;
 
 public class UserActor extends AbstractActor {
+
     private final ActorRef ws;
 
     public UserActor(final ActorRef wsOut){
@@ -25,7 +26,6 @@ public class UserActor extends AbstractActor {
     public static Props props(final ActorRef wsOut){
         System.out.println("User Actor Started");
         return Props.create(UserActor.class,wsOut);
-
     }
 
     @Override
@@ -38,7 +38,6 @@ public class UserActor extends AbstractActor {
                 })
                 .match(SearchMessage.class, this::parseToJson)
                 .build();
-
     }
 
     @Override
@@ -48,12 +47,15 @@ public class UserActor extends AbstractActor {
     }
 
     static public class SearchMessage{
+
         private Set<SearchingResults> results;
         private String searchKey;
 
         public SearchMessage(Set<SearchingResults> results,String key) {
+
             this.results = results;
             this.searchKey = key;
+
         }
     }
 
@@ -73,9 +75,8 @@ public class UserActor extends AbstractActor {
         }
     }
 
-
-
     public void parseToJson(SearchMessage searchMessage){
+
         Set<SearchingResults> results = searchMessage.results;
         for (SearchingResults r: results ) {
 
@@ -87,7 +88,9 @@ public class UserActor extends AbstractActor {
     }
 
     public void Send(Time time){
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode response = mapper.valueToTree(time.time);
         ws.tell(response,self());
+
     }}

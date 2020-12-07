@@ -52,5 +52,12 @@ lazy val root = (project in file("."))
 
 
     // Make verbose tests
-    testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
-  )
+    testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v")))
+
+    // build.sbt
+    val jacocoVersion = "0.8.5"
+
+    dependencyOverrides ++= Seq(
+        "org.jacoco" % "org.jacoco.core" % jacocoVersion % Test,
+        "org.jacoco" % "org.jacoco.report" % jacocoVersion % Test,
+         "org.jacoco" % "org.jacoco.agent" % jacocoVersion % Test)
