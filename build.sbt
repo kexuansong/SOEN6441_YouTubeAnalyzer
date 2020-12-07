@@ -30,11 +30,9 @@ lazy val root = (project in file("."))
     libraryDependencies += "org.mockito" % "mockito-inline" % "2.7.13" % Test,
     libraryDependencies += "com.googlecode.json-simple" % "json-simple" % "1.1.1",
     libraryDependencies += "com.google.code.gson" % "gson" % "2.8.6",
-    libraryDependencies += "org.webjars" % "jquery" % "3.3.1",
+    libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.4" % Test,
 
-
-      libraryDependencies ++= Seq(
-        ws,
+    libraryDependencies ++= Seq(
       ehcache
     ),
 
@@ -52,5 +50,12 @@ lazy val root = (project in file("."))
 
 
     // Make verbose tests
-    testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
-  )
+    testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v")))
+
+// build.sbt
+val jacocoVersion = "0.8.5"
+
+dependencyOverrides ++= Seq(
+  "org.jacoco" % "org.jacoco.core" % jacocoVersion % Test,
+  "org.jacoco" % "org.jacoco.report" % jacocoVersion % Test,
+  "org.jacoco" % "org.jacoco.agent" % jacocoVersion % Test)

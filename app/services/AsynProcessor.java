@@ -37,7 +37,7 @@ public class AsynProcessor {
     /**
      * Number of video return
      */
-    private static final long NUMBER_OF_VIDEOS_RETURNED = 2;
+    private static final long NUMBER_OF_VIDEOS_RETURNED = 1;
     /**
      * Number of similar video return
      */
@@ -46,7 +46,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyDr0oHX7YBSdkWsjk3YKuirx0nhax5FSTY";
+    private static final String APIKey = "AIzaSyCCOBZfwbPGs0DCC6JASluq3j6fejvCPoE";
     /**
      * Video list
      */

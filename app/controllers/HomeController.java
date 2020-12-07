@@ -44,7 +44,7 @@ public class HomeController extends Controller {
     private ActorSystem actorSystem;
     @Inject
     private Materializer materializer;
-    private ActorRef actorRef;
+    private ActorRef searchActor;
 
     /**
      * Inject and
@@ -59,6 +59,7 @@ public class HomeController extends Controller {
         this.cache = cache;
         this.actorSystem = actorSystem;
         this.materializer = materializer;
+        this.searchActor = actorSystem.actorOf(SearchActor.getProps(),"SearchActor");
     }
 
     /**
@@ -111,7 +112,9 @@ public class HomeController extends Controller {
         CompletableFuture<List<SearchingResults>> searchResult = general.processSearchAsync(searchKey);
         System.out.println(searchResult.get().size());
 
-        actorSystem.actorOf(SearchActor.getProps(),"SearchActor");
+        SearchActor.SearchRequest SearchRequest = new SearchActor.SearchRequest(searchKey);
+
+        searchActor.tell(SearchRequest,ActorRef.noSender());
 
 
         CompletionStage<Optional<List<SearchingResults>>> cacheResult = cache.get(userSession.toString());
