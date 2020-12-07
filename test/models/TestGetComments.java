@@ -1,9 +1,9 @@
 package models;
 
+import Actors.CommentsActor;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.CommentThread;
 import com.google.api.services.youtube.model.CommentThreadListResponse;
-import models.Comments;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,7 +36,7 @@ public class TestGetComments {
      */
     @Test
     public void TestGetComments() throws IOException {
-        Comments comments = mock(Comments.class);
+        CommentsActor comments = mock(CommentsActor.class);
         MockitoAnnotations.initMocks(this);
 
 
@@ -114,13 +114,13 @@ public class TestGetComments {
      * @throws IOException
      * @author Kexuan Song
      */
-    @Test
-    public void TestGetComments3() throws IOException {
-        Comments comments = new Comments("NFYkApw5KtM");
-
-        List<String> result = comments.getComments("NFYkApw5KtM");
-        assertEquals(0, result.size());
-    }
+//    @Test
+//    public void TestGetComments3() throws IOException {
+//        CommentsActor comments = new CommentsActor("NFYkApw5KtM");
+//
+//        List<String> result = comments.getComments("NFYkApw5KtM");
+//        assertEquals(0, result.size());
+//    }
 
 
 }

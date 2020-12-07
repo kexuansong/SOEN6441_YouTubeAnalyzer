@@ -58,6 +58,7 @@ public class HomeController extends Controller {
         this.actorSystem = actorSystem;
         this.materializer = materializer;
         this.searchActor = actorSystem.actorOf(SearchActor.getProps(),"SearchActor");
+        actorSystem.actorOf(Supervisor.props(),"SupervisorActor");
     }
 
     /**
