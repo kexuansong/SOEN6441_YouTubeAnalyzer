@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import services.AsynProcessor;
 
+import java.util.List;
 import java.util.Set;
 
 public class UserActor extends AbstractActor {
@@ -31,11 +32,6 @@ public class UserActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(ObjectNode.class, jsonNodes -> {
-                    if (jsonNodes.get("#searchkey") != null){
-                        System.out.println("We get");
-                    }
-                })
                 .match(SearchMessage.class, this::parseToJson)
                 .build();
     }
