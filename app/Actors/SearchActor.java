@@ -25,7 +25,7 @@ public class SearchActor extends AbstractActorWithTimers {
 
     private ActorRef userActor;
 
-    private String query = "北京";
+    private String query;
 
     private Set<SearchingResults> output;
 
@@ -56,8 +56,8 @@ public class SearchActor extends AbstractActorWithTimers {
                 .match(RegisterMsg.class, msg -> {
                     userActor = sender();
                 })
-//                .match(UserActor.firstSearchMsg.class, firstSearchMsg ->
-//                        firstSearch(firstSearchMsg.key))
+                .match(UserActor.firstSearchMsg.class, firstSearchMsg ->
+                        firstSearch(firstSearchMsg.key))
                 .match(Tick.class, msg -> {
                     TickMessage();
                 }).build();
@@ -67,13 +67,18 @@ public class SearchActor extends AbstractActorWithTimers {
     static public class RegisterMsg {
     }
 
-//    private void firstSearch(String key) throws GeneralSecurityException, IOException {
-//        this.output = new HashSet<>();
-//        List<SearchingResults> searchingResults = asynProcessor.webSocketSearch(key);
-//        output.addAll(searchingResults);
-//        UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(output, Key);
-//        userActors.forEach(actorRef -> actorRef.tell(searchMessage, self()));
-//    }
+    private CompletionStage<Void> firstSearch(String key) throws GeneralSecurityException, IOException {
+        return asynProcessor.processSearchAsync(key).thenAcceptAsync(searchResults -> {
+
+            // Copy the current state of results in a temporary variable
+            Set<SearchingResults> Results = new HashSet<>(searchResults);
+
+            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(Results,key);
+
+            userActor.tell(searchMessage,self());
+        });
+
+    }
 
 //    public CompletionStage<Void> tickMessage() {
 //        // Every 5 seconds, check for new tweets if we have a query
