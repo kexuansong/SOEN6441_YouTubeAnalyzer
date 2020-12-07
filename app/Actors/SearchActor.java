@@ -147,21 +147,18 @@ public class SearchActor extends AbstractActorWithTimers {
         System.out.println("Key = " + query);
 
         return asynProcessor.processSearchAsync(query).thenAcceptAsync(searchResults -> {
-//            ActorRef actorRef = actorSystem.actorOf(commentsActor.getProps());
+
             for(SearchingResults i : searchResults){
-                System.out.println(i.getVideoId());
                 SearchActor.commentMessage commentMessage = new SearchActor.commentMessage(i.getVideoId());
                 commentsActor.tell(commentMessage,self());
                 CompletionStage<Object> sentiment = FutureConverters.toJava(ask(commentsActor,new commentMessage(i.getVideoId()),10000));
                 CompletionStage<String> stringCompletionStage = sentiment.thenApply(String::valueOf);
                 CompletableFuture<String> future = stringCompletionStage.toCompletableFuture();
                 try {
-                    System.out.println(future.get());
                     i.setSentiment(future.get());
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
-                System.out.println("comment message sent");
             }
 
             // Copy the current state of results in a temporary variable

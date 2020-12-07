@@ -210,13 +210,10 @@ public class CommentsActor extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(SearchActor.commentMessage.class, msg -> {
-                    System.out.println("comment message received");
+
                     CompletableFuture<String> sentiment = future(msg.getVideoId());
                     actorRef = getSender();
                     pipe(sentiment,getContext().dispatcher()).to(actorRef);
-//                    commentResponse commentResponse = new commentResponse(sentiment);
-//                    self().tell(commentResponse,self());
-                    System.out.println("comment response sent");
 
         }).build();
     }

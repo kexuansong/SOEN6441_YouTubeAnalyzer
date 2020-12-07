@@ -1,43 +1,56 @@
-
 (function() {
-  var parseTweets;
-  $(function() {
-    if($("#search").length === 1) {
-      var ws;
-      console.log("Waiting for WebSocket");
-      ws = new WebSocket($("body").data("ws-url"));
-      ws.onmessage = function (event) {
-        var message;
-        message = JSON.parse(event.data);
-        switch (message.type) {
-          case "status":
-            return parseTweets(message);
-          default:
-            return console.log(message);
+    var parseTweets;
+
+    $(function() {
+        //give you a jQuery object representing that node.
+        if($("#search").length === 1) {
+            var ws;
+            console.log("Waiting for WebSocket");
+
+            let idList = [];
+            ws = new WebSocket($("body").data("ws-url"));
+            ws.onmessage = function (event) {
+                var message;
+                message = JSON.parse(event.data);
+                console.log(message)
+                // if(message.query !== "test"){
+                //     if(idList.includes(message.videoId)){console.log(message)}
+                //     else{
+                //         idList.push(message.videoId);
+                //         return parseVideos(message);
+                //     }
+                // }
+
+            };
+            return $("#searchForm").submit(function (event) {
+                event.preventDefault();
+                if ($("#query").val() !== '') {
+                    console.log("Sending WS with value " + $("#query").val());
+                    ws.send(JSON.stringify({
+                        query: $("#query").val()
+                    }));
+                    return $("#query").val("");
+                }
+            });
         }
-      };
-      return $("#searchTweetsForm").submit(function (event) {
-        event.preventDefault();
-        if ($("#query").val() !== '') {
-          console.log("Sending WS with value " + $("#query").val());
-          ws.send(JSON.stringify({
-            query: $("#query").val()
-          }));
-          return $("#query").val("");
-        }
-      });
-    }
-  });
+    });
 
-  parseTweets = function(message) {
-    var query = message.query.replace(/ /g,'');
-    tweetsListQuery = $("#tweetsList"+query);
-    if (tweetsListQuery.length === 0) {
-      $("#tweets").prepend('<div class="results"><p>Tweets for '+message.query+'</p><ul id="tweetsList'+query+'"></ul></div>');
-    }
-    tweetsListQuery.prepend('<li><a href="http://localhost:9000/profile/'+message.user.screen_name+'">'
-        +message.user.screen_name+'</a> wrote: '+message.full_text+'</li>');
 
-  }
 
-}).call(this);
+    parseVideos = function(message) {
+        var query = message.query.replace(/ /g,'');
+        videosListQuery = $("#videosList"+query);
+
+        $("#videos").prepend('<div class="results"><p><a href=@routes.HomeController.similar(message.videoId)>' + message.videoTitle + '</a></p></div>');
+
+        // videosListQuery.prepend('<li><a href="http://localhost:9000/profile/'+message.user.name+'">'
+        //     +message.user.name+'</a> wrote: '+message.user+'</li>');
+
+
+        // for (let i in input){
+        //     var today  = new Date();
+        //     var time = today.getMinutes() + ":" + today.getSeconds();
+        //     $("#videos").prepend('<div class="results"><p>' + input[i] +'<br>' +time + '</p><br>' + '</div>');
+        // }
+
+}}).call(this);
