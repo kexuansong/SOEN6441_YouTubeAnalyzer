@@ -49,7 +49,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyA9ImllP4mm1CuULPjVLQUTlRuyIjfMW-8";
+    private static final String APIKey = "AIzaSyDlH7HkBKB_SEcdRxaBuH9SFaaTPGiHpoY";
     /**
      * Video list
      */
@@ -418,42 +418,42 @@ public class AsynProcessor {
      * @return video list
      * @author Chen Yuejun
      */
-//    public CompletableFuture<List<Videos>> processPlayListAsync(String ChannelId, String keyword) throws GeneralSecurityException, IOException, ParseException {
-//        return CompletableFuture.supplyAsync(() -> {
-//            try {
-//                return getPlaylistItems(ChannelId);
-//            } catch (GeneralSecurityException | IOException e) {
-//                e.printStackTrace();
-//            }
-//            return playlistItems;
-//        }).thenApplyAsync(playlistItems -> {
-//            List<Videos> cvList = new ArrayList<>();
-//            playlistItems.forEach(p -> {
-//                        String videoName = p.getSnippet().getTitle();
-//                        DateTime datetime = p.getSnippet().getPublishedAt();
-//                        Date date = new Date(p.getSnippet().getPublishedAt().getValue());
-//                        try {
-//                            GetVideoInfo(p, videoName, datetime, date, keyword, cvList);
-//                        } catch (IOException | ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//            );
-//            //            channelVideoList = cvList.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
-//
-//            Map<Integer, List<Videos>> videolistGrouped = cvList.stream()
-//                    .collect(Collectors.groupingBy(Videos::getIntDate, Collectors.toList()));
-//
-//            //then sort groups by date in each of them
-//            List<Videos> sorted = videolistGrouped.entrySet().stream()
-//                    .sorted(Comparator.comparing(e -> e.getValue().stream().map(Videos::getIntDate).min(Comparator.naturalOrder()).orElse(0)))
-//                    //and also sort each group by search key before collecting them in one list
-//                    .flatMap(e -> e.getValue().stream().sorted(Comparator.comparing(v -> v.getOccurenceTimesInTitle(keyword)))).collect(Collectors.toList());
-//
-//            return sorted;
-//
-//        });
-//    }
+    public CompletableFuture<List<Videos>> processPlayListAsync(String ChannelId, String keyword) throws GeneralSecurityException, IOException, ParseException {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return getPlaylistItems(ChannelId);
+            } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
+            }
+            return playlistItems;
+        }).thenApplyAsync(playlistItems -> {
+            List<Videos> cvList = new ArrayList<>();
+            playlistItems.forEach(p -> {
+                        String videoName = p.getSnippet().getTitle();
+                        DateTime datetime = p.getSnippet().getPublishedAt();
+                        Date date = new Date(p.getSnippet().getPublishedAt().getValue());
+                        try {
+                            GetVideoInfo(p, videoName, datetime, date, keyword, cvList);
+                        } catch (IOException | ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
+            //            channelVideoList = cvList.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
+
+            Map<Integer, List<Videos>> videolistGrouped = cvList.stream()
+                    .collect(Collectors.groupingBy(Videos::getIntDate, Collectors.toList()));
+
+            //then sort groups by date in each of them
+            List<Videos> sorted = videolistGrouped.entrySet().stream()
+                    .sorted(Comparator.comparing(e -> e.getValue().stream().map(Videos::getIntDate).min(Comparator.naturalOrder()).orElse(0)))
+                    //and also sort each group by search key before collecting them in one list
+                    .flatMap(e -> e.getValue().stream().sorted(Comparator.comparing(v -> v.getOccurenceTimesInTitle(keyword)))).collect(Collectors.toList());
+
+            return sorted;
+
+        });
+    }
 
     /**
      * Get wrapped in Videos model and save into list
