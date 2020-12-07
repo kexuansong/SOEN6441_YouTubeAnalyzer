@@ -36,7 +36,7 @@ public class CommentsActor extends AbstractActor {
     /**
      * Api key
      */
-    private static final String DEVELOPER_KEY = "AIzaSyBzpcWPM71AVqGgCAlXVKTAUp5zz38LpA4";
+    private static final String DEVELOPER_KEY = "AIzaSyCDZmvlZq4uCjCLJYEgVId72yHu8M7foxQ";
     /**
      *Total Comment Numbers
      */

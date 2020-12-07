@@ -88,6 +88,45 @@
                 }
 
         </Style>
+        <script type="text/javascript">
+            let idList =[];
+            let videoList = [];
+            var websocket;
+            websocket = new WebSocket("ws://localhost:9000/ws");
+            websocket.onmessage = function processMessage(message){
+                var message = JSON.parse(message.data);
+                if(idList.includes(message.videoId)){console.log()}
+                else {
+                    idList.push(message.videoId);
+                    console.log(message);
+                    parseVideos(message);
+                }
+            }
+            function sendMessage(){
+                websocket.send(query.value);
+                console.log(query.value);
+            }
+
+            function parseVideos(message){
+                var tr=document.createElement("tr");
+                var vtitle=document.createElement("td");
+                var ctitle=document.createElement("td");
+                var time=document.createElement("td");
+                var sentiment=document.createElement("td");
+                vtitle.innerHTML=message.videoTitle;
+                ctitle.innerHTML=message.channelTitle;
+                time.innerHTML=message.timeAgo;
+                sentiment.innerHTML=message.sentiment;
+
+                var tab=document.getElementById("table");
+                tab.appendChild(tr);
+                tr.appendChild(vtitle);
+                tr.appendChild(ctitle);
+                tr.appendChild(time);
+                tr.appendChild(sentiment);
+
+            }
+        </script>
     </head>
     <body  data-ws-url="ws://localhost:9000/ws">
 
@@ -97,19 +136,13 @@
             </h1>
             <br>
             <br>
-@*        </div>*@
-@*        <div class="container">*@
-@*            <form action="search" method="GET" id="search" name="search">*@
-@*                <input type="text" name="searchkey" id="searchkey" placeholer ="search">*@
-@*                <input type="submit" value="Search">*@
-@*            </form>*@
-@*        </div>*@
+
 
             <div class="search bar6">
                 <div id="search">
                     <form action="search" method="GET" id="searchForm" name="search">
                     <input type="text" name="searchkey" id="query" placeholder="Search">
-                    <button type="submit" value="Search"></button>
+                    <button type="submit" value="Search" onclick="sendMessage()"></button>
                     </form>
                 </div>
             </div>
