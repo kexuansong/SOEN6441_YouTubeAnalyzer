@@ -8,7 +8,8 @@
             console.log("Waiting for WebSocket");
 
             let idList = [];
-            ws = new WebSocket($("body").data("ws-url"));
+            ws = new WebSocket("ws://localhost:9000/ws");
+
             ws.onmessage = function (event) {
                 var message;
                 message = JSON.parse(event.data);
@@ -22,13 +23,13 @@
                 // }
 
             };
+
             return $("#searchForm").submit(function (event) {
                 event.preventDefault();
                 if ($("#query").val() !== '') {
                     console.log("Sending WS with value " + $("#query").val());
-                    ws.send(JSON.stringify({
-                        query: $("#query").val()
-                    }));
+                    ws.send($("#query").val());
+                    console.log("sentquery" + $("#query").val());
                     return $("#query").val("");
                 }
             });

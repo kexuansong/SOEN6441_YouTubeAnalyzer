@@ -15,6 +15,9 @@ import services.AsynProcessor;
 
 import java.util.List;
 import java.util.Set;
+import javax.inject.Singleton;
+import javax.websocket.OnMessage;
+import javax.websocket.server.ServerEndpoint;
 
 public class UserActor extends AbstractActor {
 

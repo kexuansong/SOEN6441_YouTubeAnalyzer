@@ -20,7 +20,6 @@ import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import models.Comments;
 import models.ProfileImp;
 import models.SearchingResults;
 import models.Videos;
@@ -49,7 +48,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyDlH7HkBKB_SEcdRxaBuH9SFaaTPGiHpoY";
+    private static final String APIKey = "AIzaSyBzpcWPM71AVqGgCAlXVKTAUp5zz38LpA4";
     /**
      * Video list
      */
@@ -181,14 +180,12 @@ public class AsynProcessor {
                             list.forEach(searchResults ->{
                                 String videoId = searchResults.getId().getVideoId();
                                 String channelId = searchResults.getSnippet().getChannelId();
-                                Comments comments = new Comments(videoId);
                                 try {
                                     String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
-                                    String sentiment = comments.SearchComment(comments.getComments(videoId));
                                     String videoTitle = searchResults.getSnippet().getTitle();
                                     Long date = Calendar.getInstance().getTimeInMillis();
                                     Long dateTime = (date - searchResults.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment);
+                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,videoId);
                                     VideoList.add(searchingResults);
                                 } catch (GeneralSecurityException | IOException e) {
                                     e.printStackTrace();
