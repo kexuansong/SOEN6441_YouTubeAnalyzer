@@ -6,7 +6,6 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.stream.Materializer;
 import models.SearchingResults;
-import models.commentsActor;
 import scala.compat.java8.FutureConverters;
 import scala.concurrent.duration.Duration;
 import services.AsynProcessor;
@@ -15,9 +14,7 @@ import services.AsynProcessor;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -63,7 +60,7 @@ public class SearchActor extends AbstractActorWithTimers {
     public void preStart() {
         //getTimers().startPeriodicTimer("Timer", new Tick(), Duration.create(2, TimeUnit.SECONDS));
         getTimers().startTimerWithFixedDelay("Timer", new Tick(), Duration.create(10, TimeUnit.SECONDS));
-        this.commentsActor = getContext().actorOf(models.commentsActor.getProps());
+        this.commentsActor = getContext().actorOf(CommentsActor.getProps());
     }
 
     @Override
@@ -155,15 +152,16 @@ public class SearchActor extends AbstractActorWithTimers {
                 System.out.println(i.getVideoId());
                 SearchActor.commentMessage commentMessage = new SearchActor.commentMessage(i.getVideoId());
                 commentsActor.tell(commentMessage,self());
-                CompletionStage<Object> sentiment = FutureConverters.toJava(
-                        ask(commentsActor,new commentMessage(i.getVideoId()),10000)
-                );
+                CompletionStage<Object> sentiment = FutureConverters.toJava(ask(commentsActor,new commentMessage(i.getVideoId()),10000));
+                CompletionStage<String> stringCompletionStage = sentiment.thenApply(String::valueOf);
+                CompletableFuture<String> future = stringCompletionStage.toCompletableFuture();
+                try {
+                    System.out.println(future.get());
+                    i.setSentiment(future.get());
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
                 System.out.println("comment message sent");
-
-
-//                i.setSentiment();
-
-
             }
 
             // Copy the current state of results in a temporary variable

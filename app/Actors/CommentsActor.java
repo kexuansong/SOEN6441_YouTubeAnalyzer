@@ -1,11 +1,10 @@
-package models;
+package Actors;
 /**
  * Sample Java code for youtube.comments.list
  * See instructions for running these code samples locally:
  * https://developers.google.com/explorer-help/guides/code_samples#java
  */
 
-import Actors.SearchActor;
 import akka.actor.AbstractActor;
 import akka.actor.ActorRef;
 import akka.actor.Props;
@@ -24,7 +23,6 @@ import java.util.*;
 import static akka.pattern.Patterns.pipe;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 
 import static java.util.stream.Collectors.toList;
 
@@ -32,13 +30,13 @@ import static java.util.stream.Collectors.toList;
  * @author Song Ke Xuan
  */
 
-public class commentsActor extends AbstractActor {
+public class CommentsActor extends AbstractActor {
 
     private ActorRef actorRef;
     /**
      * Api key
      */
-    private static final String DEVELOPER_KEY = "AIzaSyCDZmvlZq4uCjCLJYEgVId72yHu8M7foxQ";
+    private static final String DEVELOPER_KEY = "AIzaSyDr0oHX7YBSdkWsjk3YKuirx0nhax5FSTY";
     /**
      *Total Comment Numbers
      */
@@ -70,13 +68,13 @@ public class commentsActor extends AbstractActor {
 
     public static Props getProps() {
         System.out.println("CommentActor Start");
-        return Props.create(commentsActor.class);
+        return Props.create(CommentsActor.class);
     }
 
     /**
      * Constructor
      */
-    public commentsActor(){
+    public CommentsActor(){
     }
 
     static public class commentResponse{
@@ -129,7 +127,8 @@ public class commentsActor extends AbstractActor {
      * @return emoji
      */
     public String SearchComment(List<String> commentsList){
-        if(commentsList.size() == 0){return "No Comment";}
+        String error = "No Comment";
+        if(commentsList.size() == 0){return error;}
         else {
 
             List<String> emojiList = new ArrayList<>();
