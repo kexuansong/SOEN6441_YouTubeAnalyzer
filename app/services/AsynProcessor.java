@@ -47,7 +47,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyCDZmvlZq4uCjCLJYEgVId72yHu8M7foxQ";
+    private static final String APIKey = "AIzaSyA9ImllP4mm1CuULPjVLQUTlRuyIjfMW-8";
     /**
      * Video list
      */
@@ -210,6 +210,32 @@ public class AsynProcessor {
      */
 
 //    public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, commentsActor c, VideoImp videoImp, List<Videos> list) throws IOException {
+//        String ChannelTitle = searchResult.getSnippet().getChannelTitle();
+//        String channelID = searchResult.getSnippet().getChannelId();
+//        Long date = Calendar.getInstance().getTimeInMillis();
+//        Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
+//
+//
+//        String sentiment = c.SearchComment(c.getComments(videoId));
+//        BigInteger viewCount = videoImp.getVideoView(videoId);
+//
+//        Videos video = new Videos(videoName, videoId, ChannelTitle, channelID, viewCount, dateTime, sentiment);
+//        list.add(video);
+//    }
+//    /**
+//     * Get wrapped in Videos model and save into list
+//     *
+//     * @param searchResult YouTube.searchResult object
+//     * @param videoName    video name
+//     * @param videoId      video id
+//     * @param c            comment object
+//     * @param videoImp     video object
+//     * @param list         return list
+//     * @throws throw IOException
+//     * @author Chenwen
+//     */
+//
+//    public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, Comments c, VideoImp videoImp, List<Videos> list) throws IOException {
 //        String ChannelTitle = searchResult.getSnippet().getChannelTitle();
 //        String channelID = searchResult.getSnippet().getChannelId();
 //        Long date = Calendar.getInstance().getTimeInMillis();
@@ -414,42 +440,42 @@ public class AsynProcessor {
      * @return video list
      * @author Chen Yuejun
      */
-//    public CompletableFuture<List<Videos>> processPlayListAsync(String ChannelId, String keyword) throws GeneralSecurityException, IOException, ParseException {
-//        return CompletableFuture.supplyAsync(() -> {
-//            try {
-//                return getPlaylistItems(ChannelId);
-//            } catch (GeneralSecurityException | IOException e) {
-//                e.printStackTrace();
-//            }
-//            return playlistItems;
-//        }).thenApplyAsync(playlistItems -> {
-//            List<Videos> cvList = new ArrayList<>();
-//            playlistItems.forEach(p -> {
-//                        String videoName = p.getSnippet().getTitle();
-//                        DateTime datetime = p.getSnippet().getPublishedAt();
-//                        Date date = new Date(p.getSnippet().getPublishedAt().getValue());
-//                        try {
-//                            GetVideoInfo(p, videoName, datetime, date, keyword, cvList);
-//                        } catch (IOException | ParseException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//            );
-//            //            channelVideoList = cvList.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
-//
-//            Map<Integer, List<Videos>> videolistGrouped = cvList.stream()
-//                    .collect(Collectors.groupingBy(Videos::getIntDate, Collectors.toList()));
-//
-//            //then sort groups by date in each of them
-//            List<Videos> sorted = videolistGrouped.entrySet().stream()
-//                    .sorted(Comparator.comparing(e -> e.getValue().stream().map(Videos::getIntDate).min(Comparator.naturalOrder()).orElse(0)))
-//                    //and also sort each group by search key before collecting them in one list
-//                    .flatMap(e -> e.getValue().stream().sorted(Comparator.comparing(v -> v.getOccurenceTimesInTitle(keyword)))).collect(Collectors.toList());
-//
-//            return sorted;
-//
-//        });
-//    }
+    public CompletableFuture<List<Videos>> processPlayListAsync(String ChannelId, String keyword) throws GeneralSecurityException, IOException, ParseException {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return getPlaylistItems(ChannelId);
+            } catch (GeneralSecurityException | IOException e) {
+                e.printStackTrace();
+            }
+            return playlistItems;
+        }).thenApplyAsync(playlistItems -> {
+            List<Videos> cvList = new ArrayList<>();
+            playlistItems.forEach(p -> {
+                        String videoName = p.getSnippet().getTitle();
+                        DateTime datetime = p.getSnippet().getPublishedAt();
+                        Date date = new Date(p.getSnippet().getPublishedAt().getValue());
+                        try {
+                            GetVideoInfo(p, videoName, datetime, date, keyword, cvList);
+                        } catch (IOException | ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+            );
+            //            channelVideoList = cvList.stream().sorted(comparing(Videos::getIntDate)).collect(Collectors.toList());
+
+            Map<Integer, List<Videos>> videolistGrouped = cvList.stream()
+                    .collect(Collectors.groupingBy(Videos::getIntDate, Collectors.toList()));
+
+            //then sort groups by date in each of them
+            List<Videos> sorted = videolistGrouped.entrySet().stream()
+                    .sorted(Comparator.comparing(e -> e.getValue().stream().map(Videos::getIntDate).min(Comparator.naturalOrder()).orElse(0)))
+                    //and also sort each group by search key before collecting them in one list
+                    .flatMap(e -> e.getValue().stream().sorted(Comparator.comparing(v -> v.getOccurenceTimesInTitle(keyword)))).collect(Collectors.toList());
+
+            return sorted;
+
+        });
+    }
 
     /**
      * Get wrapped in Videos model and save into list
@@ -473,6 +499,31 @@ public class AsynProcessor {
         Date d = sdformat.parse(ndate);
         Videos video = new Videos(channelTitle, videoName, d, ndate);
         cvList.add(video);
+    }
+
+    /**
+     * get views of video
+     * @param videoId video id
+     * @return viewTotal
+     */
+    public BigInteger getVideoView(String videoId) throws IOException {
+        //videoList
+        List<Video> videoList = new ArrayList<>();
+        YouTube youTube = new YouTube.Builder(new NetHttpTransport(), new JacksonFactory(), new HttpRequestInitializer() {
+            @Override
+            public void initialize(HttpRequest request) throws IOException {
+            }
+        }).setApplicationName("Channel").build();
+
+        YouTube.Videos.List search = youTube.videos().list("statistics");
+        search.setKey(APIKey);
+
+        VideoListResponse videoListResponse = search.setId(videoId).execute();
+        videoList = videoListResponse.getItems();
+
+        BigInteger viewTotal = videoList.get(0).getStatistics().getViewCount();
+
+        return viewTotal;
     }
 
 }
