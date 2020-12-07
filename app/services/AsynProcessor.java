@@ -48,7 +48,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyCDZmvlZq4uCjCLJYEgVId72yHu8M7foxQ";
+    private static final String APIKey = "AIzaSyC4lpE9drzUhD_-cFGRka3gjz5O_MPZxH8";
     /**
      * Video list
      */
@@ -185,7 +185,7 @@ public class AsynProcessor {
                                     String videoTitle = searchResults.getSnippet().getTitle();
                                     Long date = Calendar.getInstance().getTimeInMillis();
                                     Long dateTime = (date - searchResults.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,videoId);
+                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,videoId,channelId);
                                     VideoList.add(searchingResults);
                                 } catch (GeneralSecurityException | IOException e) {
                                     e.printStackTrace();
@@ -272,9 +272,11 @@ public class AsynProcessor {
             Channel channel = channelSearchList.get(0);
             String title = channel.getSnippet().getTitle();
             String description = channel.getSnippet().getDescription();
-
+            if (description ==null){ description = "Disable to get Description"; }
             DateTime publishedAt = channel.getSnippet().getPublishedAt();
             String country = channel.getSnippet().getCountry();
+            if (country == null){ country = "Disable to get Location";}
+
             String url = channel.getSnippet().getThumbnails().getDefault().getUrl();
 
             BigInteger totalViews = channel.getStatistics().getViewCount();

@@ -95,7 +95,7 @@
             websocket = new WebSocket("ws://localhost:9000/ws");
             websocket.onmessage = function processMessage(message){
                 var message = JSON.parse(message.data);
-                if(idList.includes(message.videoId)){console.log()}
+                if(idList.includes(message.videoId)){console.log(message)}
                 else {
                     idList.push(message.videoId);
                     console.log(message);
@@ -113,12 +113,13 @@
                 var ctitle=document.createElement("td");
                 var time=document.createElement("td");
                 var sentiment=document.createElement("td");
-                vtitle.innerHTML=message.videoTitle;
-                ctitle.innerHTML=message.channelTitle;
-                time.innerHTML=message.timeAgo;
-                sentiment.innerHTML=message.sentiment;
 
-                var tab=document.getElementById("table");
+                vtitle.innerHTML= message.videoTitle
+                ctitle.innerHTML='<a href="http://localhost:9000/profile/'+ message.channelID +'">' + message.channelTitle + '</a>';
+                time.innerHTML= message.timeAgo;
+                sentiment.innerHTML= message.sentiment;
+
+                var tab= document.getElementById("table");
                 tab.appendChild(tr);
                 tr.appendChild(vtitle);
                 tr.appendChild(ctitle);

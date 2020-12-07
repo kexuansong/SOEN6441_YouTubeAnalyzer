@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -114,22 +115,35 @@ public class SearchActor extends AbstractActorWithTimers {
 //        userActors.forEach(actorRef -> actorRef.tell(searchMessage, self()));
 //    }
 
-//    private CompletionStage<Void> firstSearch(String key) throws GeneralSecurityException, IOException {
-//        return asynProcessor.processSearchAsync(key).thenAcceptAsync(searchResults -> {
-//
-//            // Copy the current state of results in a temporary variable
-//            Set<SearchingResults> Results = new HashSet<>(searchResults);
-//
-//            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(Results,key);
-//
-//            userActor.tell(searchMessage,self());
-//        });
-//
-//    }
+    private CompletionStage<Void> firstSearch(String key) throws GeneralSecurityException, IOException {
+        return asynProcessor.processSearchAsync(key).thenAcceptAsync(searchResults -> {
 
-    public void firstSearch(String key){
-        System.out.println("From first Search Method " + key);
+            // Copy the current state of results in a temporary variable
+            Set<SearchingResults> Results = new HashSet<>(searchResults);
+
+            SendWithCommentActor(searchResults);
+
+            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(Results,key);
+
+            userActor.tell(searchMessage,self());
+        });
+
     }
+
+    private void SendWithCommentActor(List<SearchingResults> searchResults) {
+        for(SearchingResults i : searchResults){
+            commentMessage commentMessage = new commentMessage(i.getVideoId());
+            commentsActor.tell(commentMessage,self());
+            CompletableFuture<Object> sentiment = ask(commentsActor,new commentMessage(i.getVideoId()),java.time.Duration.ofMillis(10000)).toCompletableFuture();
+            String s = (String)sentiment.join();
+            i.setSentiment(s);
+
+        }
+    }
+
+//    public void firstSearch(String key){
+//        System.out.println("From first Search Method " + key);
+//    }
 
 
 //    public CompletionStage<Void> tickMessage() {
@@ -168,16 +182,7 @@ public class SearchActor extends AbstractActorWithTimers {
         return asynProcessor.processSearchAsync(query).thenAcceptAsync(searchResults -> {
 
 
-
-
-            for(SearchingResults i : searchResults){
-                commentMessage commentMessage = new commentMessage(i.getVideoId());
-                commentsActor.tell(commentMessage,self());
-                CompletableFuture<Object> sentiment = ask(commentsActor,new commentMessage(i.getVideoId()),java.time.Duration.ofMillis(10000)).toCompletableFuture();
-                String s = (String)sentiment.join();
-                i.setSentiment(s);
-
-            }
+            SendWithCommentActor(searchResults);
 
             // Copy the current state of results in a temporary variable
             Set<SearchingResults> oldResults = new HashSet<>(output);
