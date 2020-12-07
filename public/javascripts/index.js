@@ -24,12 +24,12 @@
             };
             return $("#searchForm").submit(function (event) {
                 event.preventDefault();
-                if ($("#searchkey").val() !== '') {
-                    console.log("Sending WS with value " + $("#searchkey").val());
+                if ($("#query").val() !== '') {
+                    console.log("Sending WS with value " + $("#query").val());
                     ws.send(JSON.stringify({
-                        query: $("#searchkey").val()
+                        query: $("#query").val()
                     }));
-                    return $("#searchkey").val("");
+                    return $("#query").val("");
                 }
             });
         }

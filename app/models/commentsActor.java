@@ -5,6 +5,10 @@ package models;
  * https://developers.google.com/explorer-help/guides/code_samples#java
  */
 
+import Actors.SearchActor;
+import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
+import akka.actor.Props;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -16,9 +20,11 @@ import com.vdurmont.emoji.EmojiManager;
 import com.vdurmont.emoji.EmojiParser;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import static akka.pattern.Patterns.pipe;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 import static java.util.stream.Collectors.toList;
 
@@ -26,11 +32,13 @@ import static java.util.stream.Collectors.toList;
  * @author Song Ke Xuan
  */
 
-public class Comments{
+public class commentsActor extends AbstractActor {
+
+    private ActorRef actorRef;
     /**
      * Api key
      */
-    private static final String DEVELOPER_KEY = "AIzaSyA9ImllP4mm1CuULPjVLQUTlRuyIjfMW-8";
+    private static final String DEVELOPER_KEY = "AIzaSyCDZmvlZq4uCjCLJYEgVId72yHu8M7foxQ";
     /**
      *Total Comment Numbers
      */
@@ -52,18 +60,36 @@ public class Comments{
      */
     private static String VideoId;
 
+    private List<String> commentsList = new ArrayList<>();
+
+
     /**
      * Comment Thread list
      */
     List<CommentThread> searchCommentsList = null;
 
+    public static Props getProps() {
+        System.out.println("CommentActor Start");
+        return Props.create(commentsActor.class);
+    }
 
     /**
      * Constructor
-     * @param VideoId video id
      */
-    public Comments(String VideoId){
-        this.VideoId = VideoId;
+    public commentsActor(){
+    }
+
+    static public class commentResponse{
+        private String sentiment;
+
+        public commentResponse(String sentiment) {
+            this.sentiment = sentiment;
+        }
+
+        public String getSentiment() {
+            return sentiment;
+        }
+
     }
 
     /**
@@ -73,7 +99,6 @@ public class Comments{
      */
     public List<String> getComments(String VideoId) throws IOException {
 
-        List<String> commentsList = new ArrayList<>();
 
         YouTube.CommentThreads.List comments = youtube.commentThreads()
                 .list("snippet,replies");
@@ -164,5 +189,36 @@ public class Comments{
                 return ("\uD83D\uDE10");
             }
         }
+    }
+
+    public CompletableFuture<String> future(String videoId){
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                return getComments(videoId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return commentsList;
+        }).thenApplyAsync(commentsList -> {
+           String sentiment = SearchComment(commentsList);
+           return sentiment;
+        });
+
+
+    }
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(SearchActor.commentMessage.class, msg -> {
+                    System.out.println("comment message received");
+                    CompletableFuture<String> sentiment = future(msg.getVideoId());
+                    actorRef = getSender();
+                    pipe(sentiment,getContext().dispatcher()).to(actorRef);
+//                    commentResponse commentResponse = new commentResponse(sentiment);
+//                    self().tell(commentResponse,self());
+                    System.out.println("comment response sent");
+
+        }).build();
     }
 }

@@ -16,15 +16,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import models.Comments;
+import models.commentsActor;
 import models.ProfileImp;
 import models.SearchingResults;
 import models.Videos;
-import play.libs.ws.WSResponse;
 
 import static java.util.Comparator.comparing;
 
@@ -49,7 +47,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyA9ImllP4mm1CuULPjVLQUTlRuyIjfMW-8";
+    private static final String APIKey = "AIzaSyCDZmvlZq4uCjCLJYEgVId72yHu8M7foxQ";
     /**
      * Video list
      */
@@ -181,14 +179,12 @@ public class AsynProcessor {
                             list.forEach(searchResults ->{
                                 String videoId = searchResults.getId().getVideoId();
                                 String channelId = searchResults.getSnippet().getChannelId();
-                                Comments comments = new Comments(videoId);
                                 try {
                                     String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
-                                    String sentiment = comments.SearchComment(comments.getComments(videoId));
                                     String videoTitle = searchResults.getSnippet().getTitle();
                                     Long date = Calendar.getInstance().getTimeInMillis();
                                     Long dateTime = (date - searchResults.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,sentiment);
+                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,videoId);
                                     VideoList.add(searchingResults);
                                 } catch (GeneralSecurityException | IOException e) {
                                     e.printStackTrace();
@@ -213,19 +209,19 @@ public class AsynProcessor {
      * @author Chenwen
      */
 
-    public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, Comments c, VideoImp videoImp, List<Videos> list) throws IOException {
-        String ChannelTitle = searchResult.getSnippet().getChannelTitle();
-        String channelID = searchResult.getSnippet().getChannelId();
-        Long date = Calendar.getInstance().getTimeInMillis();
-        Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-
-
-        String sentiment = c.SearchComment(c.getComments(videoId));
-        BigInteger viewCount = videoImp.getVideoView(videoId);
-
-        Videos video = new Videos(videoName, videoId, ChannelTitle, channelID, viewCount, dateTime, sentiment);
-        list.add(video);
-    }
+//    public static void GetSearchInfo(SearchResult searchResult, String videoName, String videoId, commentsActor c, VideoImp videoImp, List<Videos> list) throws IOException {
+//        String ChannelTitle = searchResult.getSnippet().getChannelTitle();
+//        String channelID = searchResult.getSnippet().getChannelId();
+//        Long date = Calendar.getInstance().getTimeInMillis();
+//        Long dateTime = (date - searchResult.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
+//
+//
+//        String sentiment = c.SearchComment(c.getComments(videoId));
+//        BigInteger viewCount = videoImp.getVideoView(videoId);
+//
+//        Videos video = new Videos(videoName, videoId, ChannelTitle, channelID, viewCount, dateTime, sentiment);
+//        list.add(video);
+//    }
 
     /**
      * Get Channel information from YouTube API

@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import services.AsynProcessor;
 
+import java.util.List;
 import java.util.Set;
 
 public class UserActor extends AbstractActor {
