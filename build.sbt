@@ -32,6 +32,7 @@ lazy val root = (project in file("."))
     libraryDependencies += "com.google.code.gson" % "gson" % "2.8.6",
     libraryDependencies += "org.webjars" % "jquery" % "3.3.1",
     libraryDependencies += "javax.websocket" % "javax.websocket-api" % "1.1",
+    libraryDependencies += "javax.json" % "javax.json-api" % "1.1.4",
 
 
       libraryDependencies ++= Seq(

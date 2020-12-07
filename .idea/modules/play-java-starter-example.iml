@@ -116,6 +116,7 @@
     <orderEntry type="library" name="sbt: javax.cache:cache-api:1.1.1:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.inject:javax.inject:1:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.jdo:jdo2-api:2.3-eb:jar" level="project" />
+    <orderEntry type="library" name="sbt: javax.json:javax.json-api:1.1.4:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.servlet:servlet-api:2.5:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.transaction:transaction-api:1.1:jar" level="project" />
     <orderEntry type="library" name="sbt: javax.websocket:javax.websocket-api:1.1:jar" level="project" />

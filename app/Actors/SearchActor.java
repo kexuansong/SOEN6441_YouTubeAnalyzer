@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.Patterns.ask;
 
+
 public class SearchActor extends AbstractActorWithTimers {
 
     @Inject
@@ -41,6 +42,7 @@ public class SearchActor extends AbstractActorWithTimers {
     private ActorSystem actorSystem;
     @Inject
     private Materializer materializer;
+
 
 
     public static Props getProps() {
@@ -165,17 +167,16 @@ public class SearchActor extends AbstractActorWithTimers {
 
         return asynProcessor.processSearchAsync(query).thenAcceptAsync(searchResults -> {
 
+
+
+
             for(SearchingResults i : searchResults){
-                SearchActor.commentMessage commentMessage = new SearchActor.commentMessage(i.getVideoId());
+                commentMessage commentMessage = new commentMessage(i.getVideoId());
                 commentsActor.tell(commentMessage,self());
-                CompletionStage<Object> sentiment = FutureConverters.toJava(ask(commentsActor,new commentMessage(i.getVideoId()),10000));
-                CompletionStage<String> stringCompletionStage = sentiment.thenApply(String::valueOf);
-                CompletableFuture<String> future = stringCompletionStage.toCompletableFuture();
-                try {
-                    i.setSentiment(future.get());
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                CompletableFuture<Object> sentiment = ask(commentsActor,new commentMessage(i.getVideoId()),java.time.Duration.ofMillis(10000)).toCompletableFuture();
+                String s = (String)sentiment.join();
+                i.setSentiment(s);
+
             }
 
             // Copy the current state of results in a temporary variable

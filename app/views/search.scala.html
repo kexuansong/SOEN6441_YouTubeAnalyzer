@@ -62,46 +62,28 @@
     <br>
     <h2 style="color: #cc0000; text-align: center">Search results for: @keyword</h2>
 
-@*        <div>@for(result <- list){*@
-@*            <p>@result.getChannelTitle</p>*@
-@*        }</div>*@
-@*   <p>*@
 
-@*   @for(result <- list){*@
 
-@*        <div style="text-align: center">*@
-@*            <br>*@
-@*    <p style="color: #cc0000"><a href=@routes.HomeController.similar(result.getVideoID)>Title : @result.getVideoTitle</a></p>*@
-@*    <p style="color: purple">Channel : <a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></p>*@
-@*    <p style="color: #bf83b0"> Recent Videos Of  <a style="color: #cd32ca" href=@routes.HomeController.CVideos(result.getChannelID,keyword)>@result.getChannelTitle</a></p>*@
-@*    <p style="color: #cc0000">ViewCounts : @result.getViewCount</p>*@
-@*    <p style="color: #cc0000">Date : @result.getDateTime</p>*@
-@*    <p>Sentiment : @result.getSentiment</p>*@
-@*    <br>*@
-@*   </div>*@
-@*   </div>*@
-@*//*@
-@*//*@@*    }*@
-@*    </p>*@
-        <table class="gridtable">
+        <table class="gridtable" id="table">
             <tr>
                 <th>Title</th>
-@*                <th>Channel Name</th>*@
+                <th>Channel Name</th>
 @*                <th>Recent Videos</th>*@
 @*                <th>View Counts</th>*@
-@*                <th>Time lapsed</th>*@
+                <th>Time lapsed</th>
                 <th>Sentiment</th>
             </tr>
-                <tr>
-                    <td id="videoTitle"></td>
+
+
+@*                    <td id="videoTitle"></td>*@
 @*                    <td><a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></td>*@
 @*                    <td><a href=@routes.HomeController.CVideos(result.getChannelID,keyword)>@result.getChannelTitle</a></td>*@
 @*                    <td>@result.getViewCount</td>*@
 @*                    <td>@result.getDateTime mins</td>*@
-                    <td id="sentiment"></td>
-                </tr>
+@*                    <td id="sentiment"></td>*@
 
-            <div id="videos"></div>
+
+@*            <div id="videos"></div>*@
         </table>
 
         <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
