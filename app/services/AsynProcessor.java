@@ -1,6 +1,7 @@
 package services;
 
 
+import akka.actor.ActorRef;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -82,6 +83,8 @@ public class AsynProcessor {
      * channel video list
      */
     private List<SearchingResults> VideoList = new ArrayList<>();
+
+    private ActorRef supervisor;
 
 
 //    public CompletionStage<WSResponse> webSocketSearch(String query) throws IOException {
@@ -192,6 +195,7 @@ public class AsynProcessor {
                                     SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,videoId,channelId);
                                     VideoList.add(searchingResults);
                                 } catch (GeneralSecurityException | IOException e) {
+                                    supervisor.tell(e,ActorRef.noSender());
                                     e.printStackTrace();
                                 }
                             });
