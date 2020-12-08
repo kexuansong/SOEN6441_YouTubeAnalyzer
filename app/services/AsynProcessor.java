@@ -70,6 +70,10 @@ public class AsynProcessor {
      */
     List<PlaylistItem> playlistItems = null;
     /**
+     * similar videos list
+     */
+    List<SearchResult> searchSimilarResultList = null;
+    /**
      * key
      */
     String key = "";
@@ -292,19 +296,19 @@ public class AsynProcessor {
     /**
      * Get similar videos information from YouTube API
      *
-     * @param videoID video id
+     * @param queryTerm search keyword
      * @return searchSimilarResultList
      * @throws throw IOException
      * @author Geer Jiang
      */
 
-    public List<SearchResult> searchSimilar(String videoID) throws IOException {
-        List<SearchResult> searchSimilarResultList = null;
+    public List<SearchResult> searchSimilar(String queryTerm) throws IOException {
+
         try {
             YouTube.Search.List search = youtube.search().list("id,snippet");
             search.setType("video");
             search.setKey(APIKey);
-            search.setRelatedToVideoId(videoID);
+            search.setQ(queryTerm);
             search.setFields("items(id/videoId,snippet/title)");
             search.setMaxResults(NUMBER_OF_similarVIDEOS_RETURNED);
             // Call the API and print results.
