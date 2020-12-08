@@ -63,7 +63,7 @@ public class SearchActor extends AbstractActorWithTimers {
     @Override
     public void preStart() {
         //getTimers().startPeriodicTimer("Timer", new Tick(), Duration.create(2, TimeUnit.SECONDS));
-        getTimers().startTimerWithFixedDelay("Timer", new Tick(), Duration.create(10, TimeUnit.SECONDS));
+        getTimers().startTimerWithFixedDelay("Timer", new Tick(), Duration.create(5, TimeUnit.SECONDS));
         this.commentsActor = getContext().actorOf(CommentsActor.getProps());
     }
 

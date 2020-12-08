@@ -37,62 +37,62 @@ public class TestHomeController {
      *
      * @author Geer Jiang, Chenwen Wang, Kexuan Song
      */
-    @Test
-    public void TestSearch(){
-        Http.RequestBuilder request1 = Helpers.fakeRequest()
-                .method(GET)
-                .uri("/search");
-        Result result = Helpers.route(fakeApp2, request1);
-        assertNotNull(result);
+//    @Test
+//    public void TestSearch(){
+//        Http.RequestBuilder request1 = Helpers.fakeRequest()
+//                .method(GET)
+//                .uri("/search");
+//        Result result = Helpers.route(fakeApp2, request1);
+//        assertNotNull(result);
+//
+//    }
+//
+//    /**
+//     * Test search method in HomeController
+//     *
+//     * @author Geer Jiang, Chenwen Wang, Kexuan Song
+//     */
+//    @Test
+//    public void TestSimilar(){
+//
+//        Http.RequestBuilder request2 = Helpers.fakeRequest()
+//                .method(GET)
+//                .uri("/similar");
+//        Result result = Helpers.route(fakeApp1, request2);
+//        assertNotNull(result);
+//    }
+//
+//
+//    /**
+//     * Test search method in HomeController
+//     *
+//     * @author Geer Jiang, Chenwen Wang, Kexuan Song
+//     */
+//    @Test
+//    public void TestProfile(){
+//
+//        Http.RequestBuilder request3 = Helpers.fakeRequest()
+//                .method(GET)
+//                .uri("/profile");
+//        Result result = Helpers.route(fakeApp3, request3);
+//        assertNotNull(result);
+//    }
 
-    }
 
-    /**
-     * Test search method in HomeController
-     *
-     * @author Geer Jiang, Chenwen Wang, Kexuan Song
-     */
-    @Test
-    public void TestSimilar(){
-
-        Http.RequestBuilder request2 = Helpers.fakeRequest()
-                .method(GET)
-                .uri("/similar");
-        Result result = Helpers.route(fakeApp1, request2);
-        assertNotNull(result);
-    }
-
-
-    /**
-     * Test search method in HomeController
-     *
-     * @author Geer Jiang, Chenwen Wang, Kexuan Song
-     */
-    @Test
-    public void TestProfile(){
-
-        Http.RequestBuilder request3 = Helpers.fakeRequest()
-                .method(GET)
-                .uri("/profile");
-        Result result = Helpers.route(fakeApp3, request3);
-        assertNotNull(result);
-    }
-
-
-    /**
-     * Test search method in HomeController
-     *
-     * @author Geer Jiang, Chenwen Wang, Kexuan Song
-     */
-    @Test
-    public void TestCVideo(){
-
-        Http.RequestBuilder request4 = Helpers.fakeRequest()
-                .method(GET)
-                .uri("/CVideo");
-        Result result = Helpers.route(fakeApp4, request4);
-        assertNotNull(result);
-    }
+//    /**
+//     * Test search method in HomeController
+//     *
+//     * @author Geer Jiang, Chenwen Wang, Kexuan Song
+//     */
+//    @Test
+//    public void TestCVideo(){
+//
+//        Http.RequestBuilder request4 = Helpers.fakeRequest()
+//                .method(GET)
+//                .uri("/CVideo");
+//        Result result = Helpers.route(fakeApp4, request4);
+//        assertNotNull(result);
+//    }
 
     /**
      * Clear cache after each test

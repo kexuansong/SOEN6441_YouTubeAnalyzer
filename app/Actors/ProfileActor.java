@@ -27,10 +27,6 @@ public class ProfileActor extends AbstractActor {
         System.out.println("Profile Actor Started");
     }
 
-    @Override
-    public void postStop(){ System.out.println("Profile Actor Stopped"); }
-
-
     static public class ProfileRequest{
         String channelId;
         public ProfileRequest(String channelId) {
