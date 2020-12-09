@@ -7,10 +7,10 @@ addSbtPlugin("com.github.sbt" % "sbt-jacoco" % "3.2.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.2")
 
-// plugins.sbt
-val jacocoVersion = "0.8.5"
-
-dependencyOverrides ++= Seq(
-  "org.jacoco" % "org.jacoco.core" % jacocoVersion,
-  "org.jacoco" % "org.jacoco.report" % jacocoVersion,
-  "org.jacoco" % "org.jacoco.agent" % jacocoVersion)
+//// plugins.sbt
+//val jacocoVersion = "0.8.5"
+//
+//dependencyOverrides ++= Seq(
+//  "org.jacoco" % "org.jacoco.core" % jacocoVersion,
+//  "org.jacoco" % "org.jacoco.report" % jacocoVersion,
+//  "org.jacoco" % "org.jacoco.agent" % jacocoVersion)
