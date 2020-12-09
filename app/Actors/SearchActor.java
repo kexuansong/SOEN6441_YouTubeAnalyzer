@@ -39,12 +39,6 @@ public class SearchActor extends AbstractActorWithTimers {
 
     private Set<SearchingResults> output;
 
-    @Inject
-    private ActorSystem actorSystem;
-    @Inject
-    private Materializer materializer;
-
-
 
     public static Props getProps() {
         System.out.println("SearchActor Start");

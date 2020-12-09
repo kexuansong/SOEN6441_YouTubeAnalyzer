@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.security.GeneralSecurityException;
 import java.text.ParseException;
 import java.util.List;
@@ -28,8 +29,8 @@ public class TestAsynProcessor {
      */
     @Test
     public void TestProcessAsync() throws ExecutionException, InterruptedException {
-//        CompletableFuture<List<Videos>> result = asynProcessor.processSearchAsync("java");
-//        Assert.assertEquals(10,result.get().size());
+        CompletableFuture<List<SearchingResults>> result = asynProcessor.processSearchAsync("java");
+        Assert.assertEquals(2,result.get().size());
 
     }
 
@@ -67,6 +68,12 @@ public class TestAsynProcessor {
     public void TestSimilarSearch() throws ExecutionException, InterruptedException {
         CompletableFuture<Map<String,Integer>> result = asynProcessor.similarSearchAsync("vcRFkp8jHJ8");
         Assert.assertNotNull(result.get());
+    }
+
+    @Test
+    public void TestViewCount() throws IOException {
+        BigInteger result = asynProcessor.getVideoView("vcRFkp8jHJ8");
+        Assert.assertNotNull(result);
     }
 
 }

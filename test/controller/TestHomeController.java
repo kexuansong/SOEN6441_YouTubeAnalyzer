@@ -1,18 +1,28 @@
 package controller;
 
+import akka.actor.ActorSystem;
+import akka.stream.Materializer;
 import com.google.api.services.youtube.model.SearchResult;
+import controllers.AssetsFinder;
+import controllers.HomeController;
 import net.sf.ehcache.CacheManager;
 import org.junit.After;
 import org.junit.Test;
 
 import org.mockito.Spy;
 import play.Application;
+import play.cache.AsyncCacheApi;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.test.Helpers;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -38,13 +48,16 @@ public class TestHomeController {
      * @author Geer Jiang, Chenwen Wang, Kexuan Song
      */
 //    @Test
-//    public void TestSearch(){
-//        Http.RequestBuilder request1 = Helpers.fakeRequest()
-//                .method(GET)
-//                .uri("/search");
-//        Result result = Helpers.route(fakeApp2, request1);
-//        assertNotNull(result);
+//    public void testIndex() throws GeneralSecurityException, IOException, ExecutionException, InterruptedException {
 //
+//        ActorSystem system;
+//        system = ActorSystem.create();
+//
+//        CompletionStage<Result> result = new HomeController(null,null,system,null).profile("aaaaa");
+//        CompletableFuture<Result> resultCompletableFuture = result.toCompletableFuture();
+//        assertEquals(OK, resultCompletableFuture.get().status());
+//        assertEquals("text/html", resultCompletableFuture.get().contentType().get());
+//        assertEquals("utf-8", resultCompletableFuture.get().charset().get());
 //    }
 //
 //    /**

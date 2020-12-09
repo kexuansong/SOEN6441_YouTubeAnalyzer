@@ -28,6 +28,10 @@ import play.libs.ws.WSResponse;
 import static java.util.Comparator.comparing;
 
 public class AsynProcessor {
+
+    public AsynProcessor() {
+    }
+
     /**
      * initial youtube object
      */
@@ -48,7 +52,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyCCOBZfwbPGs0DCC6JASluq3j6fejvCPoE";
+    private static final String APIKey = "AIzaSyAKt7GosabYngiwGVFJgtuGa7sVkdHfYQo";
     /**
      * Video list
      */
