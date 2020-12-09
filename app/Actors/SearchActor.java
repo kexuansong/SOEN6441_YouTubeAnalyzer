@@ -49,6 +49,7 @@ public class SearchActor extends AbstractActorWithTimers {
     public static final class Tick {
     }
 
+
     public SearchActor() {
         this.userActor = null;
         this.output = new HashSet<>();
@@ -126,7 +127,7 @@ public class SearchActor extends AbstractActorWithTimers {
 
     }
 
-    private void SendWithCommentActor(List<SearchingResults> searchResults) {
+    private void SendWithCommentActor(List<SearchingResults> searchResults){
         for(SearchingResults i : searchResults){
             commentMessage commentMessage = new commentMessage(i.getVideoId());
             commentsActor.tell(commentMessage,self());
