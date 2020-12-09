@@ -35,6 +35,7 @@ public class SearchActor extends AbstractActorWithTimers {
 
     private ActorRef commentsActor;
 
+
     private String query;
 
     private Set<SearchingResults> output;
@@ -52,6 +53,7 @@ public class SearchActor extends AbstractActorWithTimers {
         this.userActor = null;
         this.output = new HashSet<>();
         this.asynProcessor = new AsynProcessor();
+
     }
 
     @Override

@@ -1,8 +1,10 @@
 package Actors;
 
 import akka.actor.AbstractActor;
+import akka.actor.ActorPath;
 import akka.actor.ActorRef;
 import akka.actor.Props;
+import akka.serialization.JSerializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -21,28 +23,33 @@ import javax.websocket.server.ServerEndpoint;
 
 public class UserActor extends AbstractActor {
 
-    private final ActorRef ws;
+    private ActorRef supervisor;
 
-    public UserActor(final ActorRef wsOut){
-        this.ws = wsOut;
+    public UserActor(){
+        this.supervisor = null;
+        System.out.println();
     }
 
-    public static Props props(final ActorRef wsOut){
+    public static Props props(){
         System.out.println("User Actor Started");
-        return Props.create(UserActor.class,wsOut);
+        return Props.create(UserActor.class);
     }
 
     @Override
     public Receive createReceive() {
         return receiveBuilder()
                 .match(SearchMessage.class, this::parseToJson)
+                .match(RegisterSuperMsg.class, msg ->{supervisor = sender(); })
                 .build();
     }
 
     @Override
     public void preStart(){
         System.out.println("Sending Register Message from User Actor");
-        context().actorSelection("/user/SearchActor/").tell(new SearchActor.RegisterMsg(),self());
+        context().actorSelection("/user/SearchActor").tell(new SearchActor.RegisterMsg(),self());
+    }
+
+    static public class RegisterSuperMsg {
     }
 
     static public class SearchMessage{
@@ -51,7 +58,6 @@ public class UserActor extends AbstractActor {
         private String searchKey;
 
         public SearchMessage(Set<SearchingResults> results,String key) {
-
             this.results = results;
             this.searchKey = key;
 
@@ -75,21 +81,21 @@ public class UserActor extends AbstractActor {
     }
 
     public void parseToJson(SearchMessage searchMessage){
-
         Set<SearchingResults> results = searchMessage.results;
         for (SearchingResults r: results ) {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode response = mapper.valueToTree(r);
-            ws.tell(response, self());
+            supervisor.tell(response, self());
 
         }
     }
 
-    public void Send(Time time){
+//    public void Send(Time time){
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        JsonNode response = mapper.valueToTree(time.time);
+//        ws.tell(response,self());
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode response = mapper.valueToTree(time.time);
-        ws.tell(response,self());
-
-    }}
+//    }
+}

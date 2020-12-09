@@ -44,6 +44,7 @@ public class HomeController extends Controller {
     private Materializer materializer;
     private ActorRef searchActor;
 
+
     /**
      * Inject and
      * @param assetsFinder handle cached & find asstes
@@ -58,7 +59,6 @@ public class HomeController extends Controller {
         this.actorSystem = actorSystem;
         this.materializer = materializer;
         this.searchActor = actorSystem.actorOf(SearchActor.getProps(),"SearchActor");
-        actorSystem.actorOf(Supervisor.props(),"SupervisorActor");
     }
 
     /**
@@ -108,13 +108,12 @@ public class HomeController extends Controller {
     public CompletionStage<Result> search(String searchKey,Http.Request request) throws ExecutionException, InterruptedException {
         AsynProcessor general = new AsynProcessor();
         Optional<String> userSession = request.session().get("Connected");
+
         CompletableFuture<List<SearchingResults>> searchResult = general.processSearchAsync(searchKey);
-        System.out.println(searchResult.get().size());
 
         SearchActor.SearchRequest SearchRequest = new SearchActor.SearchRequest(searchKey);
 
         searchActor.tell(SearchRequest,ActorRef.noSender());
-
 
         CompletionStage<Optional<List<SearchingResults>>> cacheResult = cache.get(userSession.toString());
 
@@ -210,6 +209,6 @@ public class HomeController extends Controller {
 
     public WebSocket ws(){
         System.out.println("WebSocket Started");
-        return WebSocket.Json.accept(request -> ActorFlow.actorRef(UserActor::props,actorSystem,materializer));
+        return WebSocket.Json.accept(request -> ActorFlow.actorRef(Supervisor::props,actorSystem,materializer));
     }}
 
