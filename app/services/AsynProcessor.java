@@ -1,7 +1,9 @@
 package services;
 
 
+import Actors.Supervisor;
 import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -25,6 +27,8 @@ import models.ProfileImp;
 import models.SearchingResults;
 import models.Videos;
 import play.libs.ws.WSResponse;
+
+import javax.inject.Inject;
 
 import static java.util.Comparator.comparing;
 
