@@ -10,12 +10,14 @@ public class SearchingResults {
 //    private String query;
     private String videoId;
     private String sentiment;
+    private BigInteger viewCount;
 
 
-    public SearchingResults(String videoTitle, String title, Long publishDate, String videoId, String channel) {
+    public SearchingResults(String videoTitle, String title, Long publishDate,BigInteger view ,String videoId, String channel) {
         this.videoTitle = videoTitle;
         this.channelTitle = title;
         this.timeAgo = publishDate;
+        this.viewCount =view;
         this.videoId = videoId;
         this.ChannelID = channel;
     }
@@ -43,6 +45,10 @@ public class SearchingResults {
 
     public Long getTimeAgo() {
         return timeAgo;
+    }
+
+    public BigInteger getViewCount() {
+        return viewCount;
     }
 
     public String getVideoId(){ return videoId;}

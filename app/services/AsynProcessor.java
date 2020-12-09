@@ -199,8 +199,9 @@ public class AsynProcessor {
                                     String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
                                     String videoTitle = searchResults.getSnippet().getTitle();
                                     Long date = Calendar.getInstance().getTimeInMillis();
+                                    BigInteger viewCount = getVideoView(videoId);
                                     Long dateTime = (date - searchResults.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,videoId,channelId);
+                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,viewCount,videoId,channelId);
                                     VideoList.add(searchingResults);
                                 } catch (GeneralSecurityException | IOException e) {
                                     supervisor.tell(e,ActorRef.noSender());

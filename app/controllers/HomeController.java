@@ -33,6 +33,7 @@ import java.util.concurrent.ExecutionException;
  * to the application's home page.
  */
 public class HomeController extends Controller {
+
     /**
      * initial assetFinder
      */
@@ -60,6 +61,7 @@ public class HomeController extends Controller {
         this.materializer = materializer;
         this.searchActor = actorSystem.actorOf(SearchActor.getProps(),"SearchActor");
     }
+
 
     /**
      * initial AsynProcessor

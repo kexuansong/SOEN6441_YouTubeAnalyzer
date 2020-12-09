@@ -1,15 +1,15 @@
-//package controller;
-//import Actors.ProfileActor;
-//import Actors.SearchActor;
-//import akka.actor.ActorRef;
-//import akka.actor.ActorSystem;
-//import akka.testkit.javadsl.TestKit;
-//import models.ProfileImp;
-//import org.junit.*;
-//
-//import Actors.CommentsActor;
-//
-//public class CommentsActorTest {
+package actors;
+import Actors.ProfileActor;
+import Actors.SearchActor;
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.testkit.javadsl.TestKit;
+import models.ProfileImp;
+import org.junit.*;
+
+import Actors.CommentsActor;
+
+public class CommentsActorTest {
 //    /**
 //     * Initial actor system
 //     */
@@ -36,4 +36,4 @@
 //        Assert.assertEquals("\uD83D\uDC4D", sentiment);
 //
 //    }
-//}
+}
