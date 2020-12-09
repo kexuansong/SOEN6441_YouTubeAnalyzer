@@ -77,18 +77,6 @@ public class CommentsActor extends AbstractActor {
     public CommentsActor(){
     }
 
-    static public class commentResponse{
-        private String sentiment;
-
-        public commentResponse(String sentiment) {
-            this.sentiment = sentiment;
-        }
-
-        public String getSentiment() {
-            return sentiment;
-        }
-
-    }
 
     /**
      * get comments
