@@ -43,28 +43,33 @@ import static play.test.Helpers.*;
 
         /**
          * Sets up twitterApi to TwitterTestApi
-         * @author MinXue Sun
          */
 
-//    @Test
-//    public void testIndex() {
-//        running(fakeApplication(), () -> {
-//            Call action = routes.HomeController.index();
-//            Http.RequestBuilder request = Helpers.fakeRequest(action);
-//            Result result = route(fakeApplication(),request);
-//            assertEquals(OK, result.status());
-//        });
-//    }
+    @Test
+    public void testIndex() {
+        running(fakeApplication(), () -> {
+            Call action = routes.HomeController.index();
+            Http.RequestBuilder request = Helpers.fakeRequest(action);
+            Result result = route(fakeApplication(),request);
+            assertEquals(SEE_OTHER, result.status());
+        });
+    }
+
+        @Test
+        public void profile() {
+            running(fakeApplication(), () -> {
+                Call action = routes.HomeController.profile("UCiAuybSv94YrdXhrGECtAxQ");
+                Http.RequestBuilder request = Helpers.fakeRequest(action);
+                Result result = route(fakeApplication(),request);
+                assertEquals(OK, result.status());});
 //
-//        @Test
-//        public void profile() {
 //            Http.RequestBuilder request = new Http.RequestBuilder()
 //                    .method(GET)
 //                    .uri("/search");
 //
 //            Result result = route(app, request);
 //            assertEquals(OK, result.status());
-//        }
+        }
 
     @Test
     public void ws(){
