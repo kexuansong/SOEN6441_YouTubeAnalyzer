@@ -64,28 +64,25 @@
 
 
 
-        <table class="gridtable" id="table">
-            <tr>
-                <th>Title</th>
-                <th>Channel Name</th>
-                <th>Recent Videos</th>
-                <th>View Counts</th>
-                <th>Time lapsed</th>
-                <th>Sentiment</th>
-            </tr>
+            <table class="gridtable" id="table">
+                <tr>
+                    <th>Title</th>
+                    <th>Channel Name</th>
+                    <th>Recent Videos</th>
+                    <th>View Counts</th>
+                    <th>Time lapsed</th>
+                    <th>Sentiment</th>
+                </tr>
+                <div id="videos"></div>
 
-
-@*                    <td id="videoTitle"></td>*@
-@*                    <td><a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></td>*@
-@*                    <td><a href=@routes.HomeController.CVideos(result.getChannelID,keyword)>@result.getChannelTitle</a></td>*@
-@*                    <td>@result.getViewCount</td>*@
-@*                    <td>@result.getDateTime mins</td>*@
-@*                    <td id="sentiment"></td>*@
-
-
-@*            <div id="videos"></div>*@
-        </table>
-
+@*//*@@*                <td id="videoTitle"></td>*@
+@*//*@@*                <td><a href=@routes.HomeController.profile(result.getChannelID)>@result.getChannelTitle</a></td>*@
+@*//*@@*                <td><a href=@routes.HomeController.CVideos(result.getChannelID, keyword)>@result.getChannelTitle</a></td>*@
+@*//*@@*                <td>@result.getViewCount</td>*@
+@*//*@@*                <td>@result.getTimeAgo mins</td>*@
+@*//*@@*                <td id="sentiment"></td>*@
+@*//                *@@* <div id="videos"></div>*@
+            </table>
         <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
         <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
 
