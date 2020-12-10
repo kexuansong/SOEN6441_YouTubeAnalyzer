@@ -10,26 +10,38 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 //import java.time.Duration;
 import akka.actor.OneForOneStrategy;
-
+/**
+ * @author Kexuan Song
+ */
 public class Supervisor extends AbstractActor {
 
-
+    /**WebSocket*/
     private final ActorRef ws;
-
+    /**ActorRef of Actor*/
     private ActorRef userActor;
     @Inject
     private ActorSystem actorSystem;
 
-
+    /**
+     * Constructor using {@link ActorRef} which represents an Actor Flow.
+     *
+     * @param wsOut - of type ActorRef.
+     */
     public Supervisor(final ActorRef wsOut) {
         this.ws = wsOut;
     }
 
-
+    /**
+     * Create an instance of the class using {@link Props}.
+     * @param wsOut - of type ActorRef, the actorFlow.
+     * @return Props - an instance of {@link Supervisor}.
+     */
     public static Props props(final ActorRef wsOut){
         return Props.create(Supervisor.class,wsOut);
     }
-
+    /**
+     * Gets called just before an actor class is created.
+     */
     @Override
     public void preStart(){
         System.out.println("Supervisor Started");
@@ -37,20 +49,9 @@ public class Supervisor extends AbstractActor {
         userActor.tell(new UserActor.RegisterSuperMsg(),self());
     }
 
-//    private static SupervisorStrategy strategy =
-//            new OneForOneStrategy(
-//                    10,
-//                    Duration.ofMinutes(1),
-//                    DeciderBuilder.match(ArithmeticException.class, e -> (SupervisorStrategy.Directive) SupervisorStrategy.resume())
-//                            .match(IllegalArgumentException.class, e -> (SupervisorStrategy.Directive) SupervisorStrategy.stop())
-//                            .match(GoogleJsonResponseException.class, e -> (SupervisorStrategy.Directive) SupervisorStrategy.resume())
-//                            .match(NullPointerException.class, e -> {
-//                                System.out.println("throwing null pointer to supervisor");
-//                                return (SupervisorStrategy.Directive) SupervisorStrategy.stop();})
-//                            .matchAny(o -> (SupervisorStrategy.Directive) SupervisorStrategy.escalate())
-//                            .build());
-
-
+    /**
+     * Define the Strategy for Actor System.
+     */
 
     @Override
     public SupervisorStrategy supervisorStrategy() {
@@ -65,7 +66,10 @@ public class Supervisor extends AbstractActor {
     }
 
 
-
+    /**
+     * Handle the incoming messages
+     * @return Receive receive
+     */
     @Override
     public Receive createReceive() {
         return receiveBuilder().match(Props.class, props -> {

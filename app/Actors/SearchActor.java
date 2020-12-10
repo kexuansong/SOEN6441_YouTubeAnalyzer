@@ -18,46 +18,58 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.Patterns.ask;
-
-
+/**
+ * @author Chenwen Wang
+ */
 public class SearchActor extends AbstractActorWithTimers {
 
     @Inject
     AsynProcessor asynProcessor;
-
+    /**ActorRef of Actor*/
     private ActorRef userActor;
-
+    /**ActorRef of Actor*/
     private ActorRef commentsActor;
 
-
+    /**SearchKey*/
     private String query;
-
+    /**Set of searching results*/
     private Set<SearchingResults> output;
 
-
+    /**
+     * Create an instance of the class using.
+     */
     public static Props getProps() {
         System.out.println("SearchActor Start");
         return Props.create(SearchActor.class);
     }
-
+    /**
+     * Dummy inner class used for the timer
+     */
     public static final class Tick {
     }
 
-
+    /**
+     * Constructor
+     */
     public SearchActor() {
         this.userActor = null;
         this.output = new HashSet<>();
         this.asynProcessor = new AsynProcessor();
 
     }
-
+    /**
+     * Start the time, create a Tick every 5 seconds
+     */
     @Override
     public void preStart() {
         //getTimers().startPeriodicTimer("Timer", new Tick(), Duration.create(2, TimeUnit.SECONDS));
         getTimers().startTimerWithFixedDelay("Timer", new Tick(), Duration.create(5, TimeUnit.SECONDS));
         this.commentsActor = getContext().actorOf(CommentsActor.getProps());
     }
-
+    /**
+     * Handle the incoming messages
+     * @return Receive receive
+     */
     @Override
     public Receive createReceive() {
         return receiveBuilder()
@@ -74,10 +86,14 @@ public class SearchActor extends AbstractActorWithTimers {
                 }).build();
 
     }
-
+    /**
+     * Constructor
+     */
     static public class RegisterMsg {
     }
-
+    /**
+     * Define comment Message
+     */
     static public class commentMessage{
         private String videoId;
 
@@ -90,7 +106,9 @@ public class SearchActor extends AbstractActorWithTimers {
         }
 
     }
-
+    /**
+     * firstSearch Message
+     */
     static public class SearchRequest{
         private String searchKey;
 
@@ -105,7 +123,10 @@ public class SearchActor extends AbstractActorWithTimers {
 //        UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(output, Key);
 //        userActors.forEach(actorRef -> actorRef.tell(searchMessage, self()));
 //    }
-
+    /**
+     * firstSearch message handling
+     * @param key message to handle
+     */
     private void firstSearch(String key) throws GeneralSecurityException, IOException {
         asynProcessor.processSearchAsync(key).thenAcceptAsync(searchResults -> {
 
@@ -120,7 +141,10 @@ public class SearchActor extends AbstractActorWithTimers {
         });
 
     }
-
+    /**
+     * Adding sentiment to search results
+     * @param searchResults from model.SearchingResults
+     */
     private void SendWithCommentActor(List<SearchingResults> searchResults){
         for(SearchingResults i : searchResults){
             commentMessage commentMessage = new commentMessage(i.getVideoId());
@@ -132,7 +156,9 @@ public class SearchActor extends AbstractActorWithTimers {
         }
     }
 
-
+    /**
+     * firstSearch message handling
+     */
     public void TickMessage() {
         System.out.println("Key = " + query);
 

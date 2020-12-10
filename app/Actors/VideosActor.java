@@ -12,31 +12,42 @@ import java.util.List;
 import java.util.concurrent.CompletionStage;
 
 import static akka.pattern.Patterns.pipe;
-
+/**
+ * @author Yuejun Chen
+ */
 public class VideosActor extends AbstractActor {
-
+    /**AsynProcessor from services*/
     private AsynProcessor asynProcessor;
+    /**ActorRef of Actor*/
     private ActorRef actorRef;
-
+    /**
+     * Constructor
+     */
     public VideosActor() {
         this.asynProcessor = new AsynProcessor();
     }
-
+    /**
+     * Create an instance of the class using.
+     */
     public static Props props(){
         return Props.create(VideosActor.class);
     }
 
-
+    /**
+     * Video Message
+     */
     static public class VideosRequest{
         String channelId;
         String keyword;
-
         public VideosRequest(String channelId, String keyword) {
             this.channelId = channelId;
             this.keyword = keyword;
         }
     }
-
+    /**
+     * Handle the incoming messages
+     * @return Receive receive
+     */
     @Override
     public Receive createReceive() {
         return receiveBuilder().
@@ -49,5 +60,4 @@ public class VideosActor extends AbstractActor {
                         }
                 ).build();
     }
-
 }

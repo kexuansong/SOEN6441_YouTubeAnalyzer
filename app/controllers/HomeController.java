@@ -211,7 +211,11 @@ public class HomeController extends Controller {
                 }}
             return ok(views.html.similar.render(videoId,sList,assetsFinder));});
     }
-
+    /**
+     * Create and Start WebSocket
+     * @return WebSocket
+     * @author Chenwen Wang
+     */
     public WebSocket ws(){
         System.out.println("WebSocket Started");
         return WebSocket.Json.accept(request -> ActorFlow.actorRef(Supervisor::props,actorSystem,materializer));

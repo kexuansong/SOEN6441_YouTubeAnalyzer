@@ -20,20 +20,28 @@ import java.util.Set;
 import javax.inject.Singleton;
 import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
-
+/**
+ * @author Chenwen Wang
+ */
 public class UserActor extends AbstractActor {
-
+    /**ActorRef of Actor*/
     private ActorRef supervisor;
-
+    /**Constructor*/
     public UserActor(){
         this.supervisor = null;
     }
-
+    /**
+     * Create an instance of the class using.
+     * @return Props
+     */
     public static Props props(){
         System.out.println("User Actor Started");
         return Props.create(UserActor.class);
     }
-
+    /**
+     * Handle the incoming messages
+     * @return Receive receive
+     */
     @Override
     public Receive createReceive() {
         return receiveBuilder()
@@ -41,16 +49,22 @@ public class UserActor extends AbstractActor {
                 .match(RegisterSuperMsg.class, msg ->{supervisor = sender(); })
                 .build();
     }
-
+    /**
+     * Start Actor
+     */
     @Override
     public void preStart(){
         System.out.println("Sending Register Message from User Actor");
         context().actorSelection("/user/SearchActor").tell(new SearchActor.RegisterMsg(),self());
     }
-
+    /**
+     *Constructor
+     */
     static public class RegisterSuperMsg {
     }
-
+    /**
+     * Constructor for messages
+     */
     static public class SearchMessage{
 
         private Set<SearchingResults> results;
@@ -62,22 +76,10 @@ public class UserActor extends AbstractActor {
         }
     }
 
-//    static public class Time{
-//        private String time;
-//
-//        public Time(String time) {
-//            this.time = time;
-//        }
-//    }
-//
-//    static public class firstSearchMsg{
-//        public String key;
-//
-//        public firstSearchMsg(String key) {
-//            this.key = key;
-//        }
-//    }
-
+    /**
+     * Process the searchMessage to Json.
+     * @param searchMessage - of SearchMessage class.
+     */
     public void parseToJson(SearchMessage searchMessage){
         Set<SearchingResults> results = searchMessage.results;
         for (SearchingResults r: results ) {
@@ -90,11 +92,4 @@ public class UserActor extends AbstractActor {
         }
     }
 
-//    public void Send(Time time){
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        JsonNode response = mapper.valueToTree(time.time);
-//        ws.tell(response,self());
-
-//    }
 }
