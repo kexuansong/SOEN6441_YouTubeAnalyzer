@@ -36,7 +36,7 @@ import static play.test.Helpers.*;
 /**
  * Test HomeController
  *
- * @author Geer Jiang, Chenwen Wang, Kexuan Song
+ * @author Chenwen Wang, Kexuan Song, Geer Jiang
  */
 public class HomeControllerTest extends WithApplication {
 
