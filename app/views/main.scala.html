@@ -88,7 +88,32 @@
                 }
 
         </Style>
-        <script type="text/javascript">
+    </head>
+    <body  data-ws-url="ws://localhost:9000/ws">
+
+        <div class="form-group" style="text-align: center">
+            <h1>
+                YouTube Analyzer
+            </h1>
+            <br>
+            <br>
+
+
+            <div class="search bar6">
+                <div id="search">
+                    <form action="search" method="GET" id="searchForm" name="search">
+                    <input type="text" name="searchkey" id="query" placeholder="Search">
+                    <button type="submit" value="Search" onclick="sendMessage()"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+                @* And here's where we render the `Html` object containing
+         * the page content. *@
+        @content
+    </body>
+
+    <script type="text/javascript">
             let idList =[];
             let videoList = [];
             var websocket;
@@ -131,30 +156,6 @@
 
             }
         </script>
-    </head>
-    <body  data-ws-url="ws://localhost:9000/ws">
-
-        <div class="form-group" style="text-align: center">
-            <h1>
-                YouTube Analyzer
-            </h1>
-            <br>
-            <br>
-
-
-            <div class="search bar6">
-                <div id="search">
-                    <form action="search" method="GET" id="searchForm" name="search">
-                    <input type="text" name="searchkey" id="query" placeholder="Search">
-                    <button type="submit" value="Search" onclick="sendMessage()"></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-                @* And here's where we render the `Html` object containing
-         * the page content. *@
-        @content
-    </body>
 
 
 </html>

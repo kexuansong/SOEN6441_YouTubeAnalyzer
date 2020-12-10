@@ -2,11 +2,8 @@ package Actors;
 
 import akka.actor.AbstractActorWithTimers;
 import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.stream.Materializer;
 import models.SearchingResults;
-import scala.compat.java8.FutureConverters;
 import scala.concurrent.duration.Duration;
 import services.AsynProcessor;
 
@@ -14,13 +11,10 @@ import services.AsynProcessor;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.Patterns.ask;
@@ -112,17 +106,17 @@ public class SearchActor extends AbstractActorWithTimers {
 //        userActors.forEach(actorRef -> actorRef.tell(searchMessage, self()));
 //    }
 
-    private CompletionStage<Void> firstSearch(String key) throws GeneralSecurityException, IOException {
-        return asynProcessor.processSearchAsync(key).thenAcceptAsync(searchResults -> {
+    private void firstSearch(String key) throws GeneralSecurityException, IOException {
+        asynProcessor.processSearchAsync(key).thenAcceptAsync(searchResults -> {
 
             // Copy the current state of results in a temporary variable
             Set<SearchingResults> Results = new HashSet<>(searchResults);
 
             SendWithCommentActor(searchResults);
 
-            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(Results,key);
+            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(Results, key);
 
-            userActor.tell(searchMessage,self());
+            userActor.tell(searchMessage, self());
         });
 
     }
@@ -173,10 +167,10 @@ public class SearchActor extends AbstractActorWithTimers {
 //            newResult.removeAll(current);
 //    UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(newResult,Key);
 
-    public CompletionStage<Void> TickMessage() {
+    public void TickMessage() {
         System.out.println("Key = " + query);
 
-        return asynProcessor.processSearchAsync(query).thenAcceptAsync(searchResults -> {
+        asynProcessor.processSearchAsync(query).thenAcceptAsync(searchResults -> {
 
 
             SendWithCommentActor(searchResults);
@@ -194,9 +188,9 @@ public class SearchActor extends AbstractActorWithTimers {
             newResults.removeAll(oldResults);
 
 
-            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(newResults,query);
+            UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(newResults, query);
 
-            userActor.tell(searchMessage,self());
+            userActor.tell(searchMessage, self());
         });
 
     }

@@ -62,6 +62,8 @@ public class Videos {
 
     }
 
+
+
     /**
      * Constructor
      * @param channelTitle channel title
@@ -91,9 +93,15 @@ public class Videos {
      * Constructor
      * @param videoTitle video title
      */
-    public Videos(String videoTitle){
+    public Videos(String videoTitle, String query){
+        this.videoTitle = videoTitle;
+        this.query = query;
+    }
+
+    public Videos(String videoTitle) {
         this.videoTitle = videoTitle;
     }
+
 
     /**
      * Getter

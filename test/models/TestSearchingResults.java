@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -23,9 +24,10 @@ public class TestSearchingResults {
         Long publishDate = 10L;
         String videoId = "1";
         String channel = "countries";
+        BigInteger view = BigInteger.ONE;
 
 
-        SearchingResults s1 = new SearchingResults(videoTitle,title,publishDate,videoId,channel);
+        SearchingResults s1 = new SearchingResults(videoTitle,title,publishDate,view,videoId,channel);
 
         Assert.assertEquals("BEIJING",s1.getVideoTitle());
         Assert.assertEquals("bj",s1.getChannelTitle());
@@ -34,6 +36,9 @@ public class TestSearchingResults {
         //Assert.assertEquals(10L,s1.getTimeAgo());
         s1.setSentiment("good");
         Assert.assertEquals("good",s1.getSentiment());
+        Assert.assertEquals(BigInteger.ONE,s1.getViewCount());
+        Assert.assertEquals("countries",s1.getChannelID());
+        Assert.assertNotNull(s1.getTimeAgo());
 
 
     }

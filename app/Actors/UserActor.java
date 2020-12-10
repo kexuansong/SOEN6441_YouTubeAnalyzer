@@ -27,7 +27,6 @@ public class UserActor extends AbstractActor {
 
     public UserActor(){
         this.supervisor = null;
-        System.out.println();
     }
 
     public static Props props(){
@@ -60,25 +59,24 @@ public class UserActor extends AbstractActor {
         public SearchMessage(Set<SearchingResults> results,String key) {
             this.results = results;
             this.searchKey = key;
-
         }
     }
 
-    static public class Time{
-        private String time;
-
-        public Time(String time) {
-            this.time = time;
-        }
-    }
-
-    static public class firstSearchMsg{
-        public String key;
-
-        public firstSearchMsg(String key) {
-            this.key = key;
-        }
-    }
+//    static public class Time{
+//        private String time;
+//
+//        public Time(String time) {
+//            this.time = time;
+//        }
+//    }
+//
+//    static public class firstSearchMsg{
+//        public String key;
+//
+//        public firstSearchMsg(String key) {
+//            this.key = key;
+//        }
+//    }
 
     public void parseToJson(SearchMessage searchMessage){
         Set<SearchingResults> results = searchMessage.results;

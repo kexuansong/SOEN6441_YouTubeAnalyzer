@@ -35,10 +35,13 @@ public class TestVideo {
         Videos videos = new Videos();
         Videos videos1 = new Videos(VideoTitle,VideoId,ChannelTitle,ChannelID,viewCount,dateTime,sentiment);
         Videos videos2 = new Videos(ChannelTitle, VideoTitle, date, stringDate);
-        Videos videos3 = new Videos(VideoTitle);
+        Videos videos3 = new Videos(VideoTitle,"aaaa");
 
         //int result = videos2.getIntDate();
         //Assert.assertEquals(123679,result);
+//        Assert.assertNotNull(videos1.getDate());
+//        Assert.assertNotNull(videos1.getDateTime());
+//        Assert.assertNotNull(videos1.getQuery());
         Assert.assertEquals(20170901,videos2.getIntDate());
         Assert.assertEquals(-1,videos1.getOccurenceTimesInTitle("java"));
         Assert.assertEquals("java",videos3.getVideoTitle());
@@ -52,6 +55,7 @@ public class TestVideo {
 //      Assert.assertEquals("s",videos2.getVideoDescription());
 //        Assert.assertEquals(10L,videos1.getDateTime());
         Assert.assertEquals("2017-09-01",videos2.getStringDate());
+
 
 
     }
