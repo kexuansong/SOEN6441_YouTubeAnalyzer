@@ -57,7 +57,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyA05gBmty3qW0bm57j6aSqqmB82-bjd4H4";
+    private static final String APIKey = "AIzaSyDGiXRThxL2rQPA0lTixHIWoNsbe7uAmdA";
     /**
      * Video list
      */
@@ -309,19 +309,19 @@ public class AsynProcessor {
     /**
      * Get similar videos information from YouTube API
      *
-     * @param queryTerm search keyword
+     * @param videoId search keyword
      * @return searchSimilarResultList
      * @throws throw IOException
      * @author Geer Jiang
      */
 
-    public List<SearchResult> searchSimilar(String queryTerm) throws IOException {
+    public List<SearchResult> searchSimilar(String videoId) throws IOException {
 
         try {
             YouTube.Search.List search = youtube.search().list("id,snippet");
             search.setType("video");
             search.setKey(APIKey);
-            search.setQ(queryTerm);
+            search.setRelatedToVideoId(videoId);
             search.setFields("items(id/videoId,snippet/title)");
             search.setMaxResults(NUMBER_OF_similarVIDEOS_RETURNED);
             // Call the API and print results.
@@ -329,12 +329,6 @@ public class AsynProcessor {
             searchSimilarResultList = searchSimilarResponse.getItems();
             int size = searchSimilarResultList.size();
             System.out.println(size);
-//            List<Videos> sortedSimilarList = similarList.stream()
-//                    .collect(
-//                            Collectors.collectingAndThen(
-//                                    Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(searchKey))), ArrayList::new
-//                            ))
-//                    .sort();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -350,10 +344,10 @@ public class AsynProcessor {
      * @return similarList
      * @author Geer Jiang
      */
-    public CompletableFuture<Map<String, Integer>> similarSearchAsync(String searchKey) {
+    public CompletableFuture<List<String>> similarSearchAsync(String videoId) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                return searchSimilar(searchKey);
+                return searchSimilar(videoId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -379,9 +373,10 @@ public class AsynProcessor {
                             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                                     (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+                    List<String> sortedList = new ArrayList<String>(sortedMap.keySet());
 
-                    //System.out.println(sortedMap);
-                            return sortedMap;
+                    //System.out.println(sortedList);
+                            return sortedList;
                         }
                 );
     }

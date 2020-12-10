@@ -191,22 +191,25 @@ public class HomeController extends Controller {
     }
     /**
      * Async process similar videos action
-     * @param searchKey search key
+     * @param videoId search key
      * @return not found message if error occurred or return profile object to html
      * @author Geer Jiang
      */
 
-    public CompletionStage<Result> similar(String searchKey) {
-        return CompletableFuture.supplyAsync(() -> general.similarSearchAsync(searchKey)).thenApply(results -> {
-                    try {
-                        Map<String, Integer> sMap = general.similarSearchAsync(searchKey).get();
-                        return ok(similar.render(searchKey,sMap, assetsFinder));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        return notFound("Error");
-                    }
-                }
+    public CompletionStage<Result> similar(String videoId) {
+//        CompletableFuture<List<String>> SimilarSearch = general.similarSearchAsync(videoId);
+//        return SimilarSearch.thenApply(r -> ok(similar.render(videoId,r,assetsFinder)));
+        ActorRef actorRef = actorSystem.actorOf(SimilarActor.props());
+        CompletionStage<Object> Similar = FutureConverters.toJava(
+                ask(actorRef,new SimilarActor.SimilarRequest(videoId),10000)
         );
+        return Similar.thenApply(result ->{
+            List<String> sList = new ArrayList<String>();
+            if (result instanceof ArrayList<?>) {
+                for (Object o : (List<?>) result) {
+                    sList.add((String)o);
+                }}
+            return ok(views.html.similar.render(videoId,sList,assetsFinder));});
     }
 
     public WebSocket ws(){

@@ -8,6 +8,7 @@ import services.AsynProcessor;
 import static akka.pattern.Patterns.pipe;
 
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletionStage;
 public class SimilarActor extends AbstractActor{
@@ -18,17 +19,17 @@ public class SimilarActor extends AbstractActor{
     }
 
     public static Props props(){
-        return Props.create(ProfileActor.class);
+        return Props.create(SimilarActor.class);
     }
 
     @Override
     public void preStart(){
-        System.out.println("Profile Actor Started");
+        System.out.println("Similar Actor Started");
     }
 
     @Override
     public void postStop(){
-        System.out.println("Profile Actor Stopped");
+        System.out.println("Similar Actor Stopped");
     }
     static public class SimilarRequest{
         String searchKey;
@@ -42,7 +43,7 @@ public class SimilarActor extends AbstractActor{
                 match(SimilarRequest.class,
                         similarRequest ->
                         {
-                            CompletionStage<Map<String, Integer>> completionStage = asynProcessor.similarSearchAsync(similarRequest.searchKey);
+                            CompletionStage<List<String>> completionStage = asynProcessor.similarSearchAsync(similarRequest.searchKey);
                             actorRef = getSender();
                             pipe(completionStage,getContext().dispatcher()).to(actorRef);
                         }
