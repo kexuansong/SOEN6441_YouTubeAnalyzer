@@ -57,7 +57,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyDGiXRThxL2rQPA0lTixHIWoNsbe7uAmdA";
+    private static final String APIKey = "AIzaSyAlyDmRgBhJ9f5EJr70FP3JKppLzGqDKhQ";
     /**
      * Video list
      */
@@ -195,16 +195,16 @@ public class AsynProcessor {
                             list.forEach(searchResults ->{
                                 String videoId = searchResults.getId().getVideoId();
                                 String channelId = searchResults.getSnippet().getChannelId();
+                                String query = searchKey;
                                 try {
                                     String channelName = getChannelInfo(channelId).get(0).getSnippet().getTitle();
                                     String videoTitle = searchResults.getSnippet().getTitle();
                                     Long date = Calendar.getInstance().getTimeInMillis();
                                     BigInteger viewCount = getVideoView(videoId);
                                     Long dateTime = (date - searchResults.getSnippet().getPublishedAt().getValue()) / 1000 / 60;
-                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,viewCount,videoId,channelId);
+                                    SearchingResults searchingResults = new SearchingResults(videoTitle,channelName,dateTime,viewCount,videoId,channelId,query);
                                     VideoList.add(searchingResults);
                                 } catch (GeneralSecurityException | IOException e) {
-                                    supervisor.tell(e,ActorRef.noSender());
                                     e.printStackTrace();
                                 }
                             });
@@ -328,7 +328,7 @@ public class AsynProcessor {
             SearchListResponse searchSimilarResponse = search.execute();
             searchSimilarResultList = searchSimilarResponse.getItems();
             int size = searchSimilarResultList.size();
-            System.out.println(size);
+            //System.out.println(size);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -340,7 +340,7 @@ public class AsynProcessor {
     /**
      * Get similar videos information list
      *
-     * @param searchKey search key
+     * @param videoId search key
      * @return similarList
      * @author Geer Jiang
      */

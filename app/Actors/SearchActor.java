@@ -65,12 +65,12 @@ public class SearchActor extends AbstractActorWithTimers {
                     userActor = sender();
                 })
                 .match(SearchRequest.class, firstSearchMsg ->{
-                        query = firstSearchMsg.searchKey;
-                        firstSearch(firstSearchMsg.searchKey);}
+                    query = firstSearchMsg.searchKey;
+                    firstSearch(firstSearchMsg.searchKey);}
                 )
                 .match(Tick.class, msg -> {
                     if(query !=null){
-                    TickMessage();}
+                        TickMessage();}
                 }).build();
 
     }
@@ -132,40 +132,6 @@ public class SearchActor extends AbstractActorWithTimers {
         }
     }
 
-//    public void firstSearch(String key){
-//        System.out.println("From first Search Method " + key);
-//    }
-
-
-//    public CompletionStage<Void> tickMessage() {
-//        // Every 5 seconds, check for new tweets if we have a query
-//        return twitterService.getTweets(query).thenAcceptAsync(searchResults -> {
-//            // Copy the current state of statuses in a temporary variable
-//            Set<Status> oldStatuses = new HashSet<>(statuses);
-//
-//            // Add all the statuses to the list, now filtered to only add the new ones
-//            statuses.addAll(searchResults.getStatuses());
-//
-//            // Copy the current state of statuses after addition in a temporary variable
-//            Set<Status> newStatuses = new HashSet<>(statuses);
-//
-//            // Get the new statuses only by doing new - old = what we have to display
-//            newStatuses.removeAll(oldStatuses);
-//
-//            newStatuses.forEach(status -> status.setQuery(query));
-//
-//            Messages.StatusesMessage statusesMessage =
-//                    new Messages.StatusesMessage(newStatuses, query);
-//
-//            userActor.tell(statusesMessage, self());
-//        });
-//    }
-//
-//    Set<SearchingResults> current = new HashSet<>(output);
-//            output.addAll(searchingResults);
-//    Set<SearchingResults> newResult = new HashSet<>(current);
-//            newResult.removeAll(current);
-//    UserActor.SearchMessage searchMessage = new UserActor.SearchMessage(newResult,Key);
 
     public void TickMessage() {
         System.out.println("Key = " + query);
@@ -194,14 +160,4 @@ public class SearchActor extends AbstractActorWithTimers {
         });
 
     }
-
-//    private void TickMessage(){
-//        System.out.println("We get " + query);
-//        String currentTime = LocalDateTime.now().toString();
-//        UserActor.Time time = new UserActor.Time(currentTime);
-//
-//        userActor.tell(time,self());
-//    }
 }
-
-

@@ -38,12 +38,12 @@ import static play.test.Helpers.*;
  *
  * @author Geer Jiang, Chenwen Wang, Kexuan Song
  */
-    public class HomeControllerTest extends WithApplication {
+public class HomeControllerTest extends WithApplication {
 
 
-        /**
-         * Sets up twitterApi to TwitterTestApi
-         */
+    /**
+     * Sets up twitterApi to TwitterTestApi
+     */
 
     @Test
     public void testIndex() {
@@ -67,7 +67,7 @@ import static play.test.Helpers.*;
     @Test
     public void similar(){
         running(fakeApplication(), () -> {
-            Call action = routes.HomeController.similar("java");
+            Call action = routes.HomeController.similar("UCIzsZZ0goo");
             Http.RequestBuilder request = Helpers.fakeRequest(action);
             Result result = route(fakeApplication(),request);
             assertEquals(OK, result.status());});
@@ -95,7 +95,7 @@ import static play.test.Helpers.*;
 //
 //            Result result = route(app, request);
 //            assertEquals(OK, result.status());
-        }
+    }
 
     @Test
     public void ws(){
@@ -131,9 +131,3 @@ import static play.test.Helpers.*;
     }
 
 }
-
-
-
-
-
-

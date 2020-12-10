@@ -27,10 +27,6 @@ public class SimilarActor extends AbstractActor{
         System.out.println("Similar Actor Started");
     }
 
-    @Override
-    public void postStop(){
-        System.out.println("Similar Actor Stopped");
-    }
     static public class SimilarRequest{
         String searchKey;
         public SimilarRequest(String searchKey) {

@@ -25,13 +25,15 @@ public class TestSearchingResults {
         String videoId = "1";
         String channel = "countries";
         BigInteger view = BigInteger.ONE;
+        String query = "beijing";
 
 
-        SearchingResults s1 = new SearchingResults(videoTitle,title,publishDate,view,videoId,channel);
+        SearchingResults s1 = new SearchingResults(videoTitle,title,publishDate,view,videoId,channel,query);
 
         Assert.assertEquals("BEIJING",s1.getVideoTitle());
         Assert.assertEquals("bj",s1.getChannelTitle());
         Assert.assertEquals("1",s1.getVideoId());
+        Assert.assertEquals("beijing",s1.getQuery());
         //Assert.assertEquals("countries",s1.getChannelTitle());
         //Assert.assertEquals(10L,s1.getTimeAgo());
         s1.setSentiment("good");

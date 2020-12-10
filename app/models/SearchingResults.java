@@ -7,19 +7,20 @@ public class SearchingResults {
     private String channelTitle;
     private Long timeAgo;
     private String ChannelID;
-//    private String query;
+    private String query;
     private String videoId;
     private String sentiment;
     private BigInteger viewCount;
 
 
-    public SearchingResults(String videoTitle, String title, Long publishDate,BigInteger view ,String videoId, String channel) {
+    public SearchingResults(String videoTitle, String title, Long publishDate,BigInteger view ,String videoId, String channel, String query) {
         this.videoTitle = videoTitle;
         this.channelTitle = title;
         this.timeAgo = publishDate;
         this.viewCount =view;
         this.videoId = videoId;
         this.ChannelID = channel;
+        this.query = query;
     }
 
 //    public void setQuery(String query) {
@@ -53,7 +54,7 @@ public class SearchingResults {
 
     public String getVideoId(){ return videoId;}
 
-//    public String getQuery() {
-//        return query;
-//    }
+    public String getQuery() {
+        return query;
+    }
 }

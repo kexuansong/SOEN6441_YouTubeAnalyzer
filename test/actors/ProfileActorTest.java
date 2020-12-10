@@ -1,24 +1,23 @@
-package actors;
-
-import Actors.ProfileActor;
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.testkit.javadsl.TestKit;
-import models.ProfileImp;
-import org.junit.*;
-
-/**
- * Profile Actor Test
- */
-public class ProfileActorTest {
-//    /**
-//     * Initial actor system
-//     */
-//    static ActorSystem system;
+//package actors;
 //
-//    /**
-//     * create actor system
-//     */
+//import Actors.ProfileActor;
+//import akka.actor.ActorRef;
+//import akka.actor.ActorSystem;
+//import akka.testkit.javadsl.TestKit;
+//import models.ProfileImp;
+//import org.junit.*;
+//
+///**
+// * Profile Actor Test
+// */
+//public class ProfileActorTest {
+////    /**//     * Initial actor system
+//////     */
+//   static ActorSystem system;
+//////
+//////    /**
+//////     * create actor system
+//////     */
 //    @Before
 //    public void setup() {
 //        system = ActorSystem.create();
@@ -38,4 +37,5 @@ public class ProfileActorTest {
 //        Assert.assertEquals("Yellow Dude", profileImp.getTitle());
 //
 //    }
-}
+//}
+//

@@ -136,12 +136,14 @@
                 var tr=document.createElement("tr");
                 var vtitle=document.createElement("td");
                 var ctitle=document.createElement("td");
+                var ctitle2=document.createElement("td");
                 var view = document.createElement("td");
                 var time=document.createElement("td");
                 var sentiment=document.createElement("td");
 
-                vtitle.innerHTML= message.videoTitle
+                vtitle.innerHTML= '<a href="http://localhost:9000/similar?videoId='+ message.videoId+'">' + message.videoTitle + '</a>';
                 ctitle.innerHTML='<a href="http://localhost:9000/profile/'+ message.channelID +'">' + message.channelTitle + '</a>';
+                ctitle2.innerHTML='<a href="http://localhost:9000/CVideos?channelID='+ message.channelID +'&keyword='+message.query+'">' + message.channelTitle + '</a>';
                 view.innerHTML = message.viewCount;
                 time.innerHTML= message.timeAgo;
                 sentiment.innerHTML= message.sentiment;
@@ -150,6 +152,7 @@
                 tab.appendChild(tr);
                 tr.appendChild(vtitle);
                 tr.appendChild(ctitle);
+                tr.appendChild(ctitle2);
                 tr.appendChild(view);
                 tr.appendChild(time);
                 tr.appendChild(sentiment);

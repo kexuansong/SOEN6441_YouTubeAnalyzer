@@ -84,6 +84,7 @@ public class UserActor extends AbstractActor {
 
             ObjectMapper mapper = new ObjectMapper();
             JsonNode response = mapper.valueToTree(r);
+            System.out.println("get res");
             supervisor.tell(response, self());
 
         }

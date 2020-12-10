@@ -159,13 +159,13 @@ public class HomeController extends Controller {
                 ask(actorRef,new VideosActor.VideosRequest(channelID,keyword),10000)
         );
         return Videos.thenApply(result ->{
-                    List<Videos> cv = new ArrayList<Videos>();
-                    if (result instanceof ArrayList<?>) {
-                        for (Object o : (List<?>) result) {
-                           cv.add(Videos.class.cast(o));
-                        }}
+            List<Videos> cv = new ArrayList<Videos>();
+            if (result instanceof ArrayList<?>) {
+                for (Object o : (List<?>) result) {
+                    cv.add(Videos.class.cast(o));
+                }}
             return ok(views.html.channelVideos.render(cv,assetsFinder));});
-        }
+    }
 
 
 

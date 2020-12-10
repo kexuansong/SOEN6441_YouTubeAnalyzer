@@ -14,7 +14,7 @@
 //import akka.actor.ActorRef;
 //import akka.actor.ActorSystem;
 //import akka.testkit.javadsl.TestKit;
-//import models.ProfileImpl;
+//import models.ProfileImp;
 //import models.Videos;
 //
 ///**
@@ -41,21 +41,21 @@
 //    public static void teardown() {
 //        TestKit.shutdownActorSystem(system);
 //        system = null;
-//    }
+//    }}
 //
 //    /**
 //     * Validates that search returns at least one tweet by calling the {@code RequestTweetMessage} message protocol and using the
 //     * {@code TweetSearchActor} actor.
 //     */
-//    @Test
-//    public void testSearch() {
-//        TestKit probe = new TestKit(system);
-//        ActorRef testActor = probe.getTestActor();
-//        ActorRef searchActor = system.actorOf(SearchActor.props(testActor));
-//        SearchActor.RegisterMsg requestMessage = new SearchActor.RegisterMsg(new MockServiceImpl(),
-//                null, "bank", null, null);
-//        tweetActor.tell(requestTweetMessage, probe.getRef());
-//        ObjectNode objectNode = probe.expectMsgClass(ObjectNode.class);
-//        assertThat(objectNode.size(), CoreMatchers.is(1));
-//    }
-
+////    @Test
+////    public void testSearch() {
+////        TestKit probe = new TestKit(system);
+////        ActorRef testActor = probe.getTestActor();
+////        ActorRef searchActor = system.actorOf(SearchActor.props(testActor));
+////        SearchActor.RegisterMsg requestMessage = new SearchActor.RegisterMsg(new MockServiceImpl(),
+////                null, "bank", null, null);
+////        tweetActor.tell(requestTweetMessage, probe.getRef());
+////        ObjectNode objectNode = probe.expectMsgClass(ObjectNode.class);
+////        assertThat(objectNode.size(), CoreMatchers.is(1));
+////    }}
+//
