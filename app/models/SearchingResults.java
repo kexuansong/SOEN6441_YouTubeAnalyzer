@@ -2,36 +2,40 @@ package models;
 
 import java.math.BigInteger;
 
+/**
+ * @author Chenwen Wang
+ */
+
 public class SearchingResults {
-    /*
+    /**
     video title
      */
     private String videoTitle;
-    /*
+    /**
     channel title
     */
     private String channelTitle;
-    /*
+    /**
     timeAgo
     */
     private Long timeAgo;
-    /*
+    /**
     channel id
     */
     private String ChannelID;
-    /*
+    /**
     query
     */
     private String query;
-    /*
+    /**
     video id
     */
     private String videoId;
-    /*
+    /**
     sentiment
     */
     private String sentiment;
-    /*
+    /**
     view count
     */
     private BigInteger viewCount;

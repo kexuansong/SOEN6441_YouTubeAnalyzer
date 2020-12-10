@@ -36,7 +36,7 @@ public class CommentsActor extends AbstractActor {
     /**
      * Api key
      */
-    private static final String DEVELOPER_KEY = "AIzaSyAlyDmRgBhJ9f5EJr70FP3JKppLzGqDKhQ";
+    private static final String DEVELOPER_KEY = "AIzaSyAYa9ZWETWlqA5kCwLo8xg4xNGGqUD9VPU";
     /**
      *Total Comment Numbers
      */
@@ -57,6 +57,9 @@ public class CommentsActor extends AbstractActor {
      * String VideoId
      */
     private static String VideoId;
+    /**
+     * initial List
+     */
 
     private List<String> commentsList = new ArrayList<>();
 
@@ -178,6 +181,12 @@ public class CommentsActor extends AbstractActor {
         }
     }
 
+    /**
+     * Use async function to get comments
+     * @param videoId video id
+     * @return sentiment
+     */
+
     public CompletableFuture<String> future(String videoId){
         return CompletableFuture.supplyAsync(() -> {
             try {
@@ -194,6 +203,10 @@ public class CommentsActor extends AbstractActor {
 
     }
 
+    /**
+     * handling incoming message
+     * @return sentiment with pipe
+     */
     @Override
     public Receive createReceive() {
         return receiveBuilder()

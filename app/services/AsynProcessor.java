@@ -32,7 +32,14 @@ import javax.inject.Inject;
 
 import static java.util.Comparator.comparing;
 
+/**
+ * @author Chenwen Wang, Kexuan Song, Geer Jiang, Yuejun Chen
+ */
 public class AsynProcessor {
+
+    /**
+     * default constructor
+     */
 
     public AsynProcessor() {
     }
@@ -57,7 +64,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyAlyDmRgBhJ9f5EJr70FP3JKppLzGqDKhQ";
+    private static final String APIKey = "AIzaSyAYa9ZWETWlqA5kCwLo8xg4xNGGqUD9VPU";
     /**
      * Video list
      */
@@ -494,6 +501,7 @@ public class AsynProcessor {
      * get views of video
      * @param videoId video id
      * @return viewTotal
+     * @author Chenwen Wang
      */
     public BigInteger getVideoView(String videoId) throws IOException {
         //videoList

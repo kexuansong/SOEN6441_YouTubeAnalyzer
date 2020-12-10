@@ -205,6 +205,11 @@ public class Videos {
         return -i;
     }
 
+    /**
+     * Getter
+     * @return searchKey
+     */
+
     public String getQuery() {
         return query;
     }

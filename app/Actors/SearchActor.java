@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.Patterns.ask;
 /**
- * @author Chenwen Wang
+ * @author Chenwen Wang, Kexuan Song
  */
 public class SearchActor extends AbstractActorWithTimers {
 
