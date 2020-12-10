@@ -42,9 +42,8 @@ public class HomeControllerTest extends WithApplication {
 
 
     /**
-     * Sets up twitterApi to TwitterTestApi
+     * Sets up YoutubeApi to YoutubeTestApi
      */
-
     @Test
     public void testIndex() {
         running(fakeApplication(), () -> {
@@ -53,7 +52,11 @@ public class HomeControllerTest extends WithApplication {
             Result result = route(fakeApplication(),request);
             assertEquals(303, result.status());});
     }
-
+    /**
+     * Validates a call on the router for the
+     * {@code  controllers.HomeController.search(searchkey: String,request:Request)} action and validates that the
+     * returned result correspond to the {@code SEE_OTHER}.
+     */
     @Test
     public void search(){
         running(fakeApplication(), () -> {
@@ -63,7 +66,11 @@ public class HomeControllerTest extends WithApplication {
             assertEquals(OK, result.status());});
 //
     }
-
+    /**
+     * Validates a call on the router for the
+     * {@code controllers.HomeController.similar(searchkey: String)} action and validates that the
+     * returned result correspond to the {@code SEE_OTHER}.
+     */
     @Test
     public void similar(){
         running(fakeApplication(), () -> {
@@ -72,7 +79,11 @@ public class HomeControllerTest extends WithApplication {
             Result result = route(fakeApplication(),request);
             assertEquals(OK, result.status());});
     }
-
+    /**
+     * Validates a call on the router for the
+     * {@code controllers.HomeController.CVideos(channelID: String,keyword :String)} action and validates that the
+     * returned result correspond to the {@code SEE_OTHER}.
+     */
     @Test
     public void videos(){
         running(fakeApplication(), () -> {
@@ -81,6 +92,11 @@ public class HomeControllerTest extends WithApplication {
             Result result = route(fakeApplication(),request);
             assertEquals(OK, result.status());});
     }
+    /**
+     * Validates a call on the router for the
+     * {@code controllers.routes.profile(channelID: String)} action and validates that the
+     * returned result correspond to the {@code SEE_OTHER}.
+     */
     @Test
     public void profile() {
         running(fakeApplication(), () -> {
@@ -96,7 +112,9 @@ public class HomeControllerTest extends WithApplication {
 //            Result result = route(app, request);
 //            assertEquals(OK, result.status());
     }
-
+    /**
+     * Validates the web socket connection by sending a request and awaiting for a response.
+     */
     @Test
     public void ws(){
         TestServer server = testServer(19001);

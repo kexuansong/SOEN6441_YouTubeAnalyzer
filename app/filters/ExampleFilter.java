@@ -23,6 +23,10 @@ public class ExampleFilter extends EssentialFilter {
         this.exec = exec;
     }
 
+    /**
+     * @param next  EssentialAction
+     *  add header to all requests next
+     */
     @Override
     public EssentialAction apply(EssentialAction next) {
         return EssentialAction.of(request ->
