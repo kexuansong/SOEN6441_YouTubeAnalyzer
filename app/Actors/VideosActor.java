@@ -26,10 +26,6 @@ public class VideosActor extends AbstractActor {
         return Props.create(VideosActor.class);
     }
 
-    @Override
-    public void postStop(){
-        System.out.println("Videos Actor Stopped");
-    }
 
     static public class VideosRequest{
         String channelId;
