@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import static akka.pattern.Patterns.ask;
 /**
- * @author Chenwen Wang, Kexuan Song
+ * @author Chenwen Wang
  */
 public class SearchActor extends AbstractActorWithTimers {
 
@@ -34,6 +34,8 @@ public class SearchActor extends AbstractActorWithTimers {
     private String query;
     /**Set of searching results*/
     private Set<SearchingResults> output;
+
+    private Set<String> history = new HashSet<>();
 
     /**
      * Create an instance of the class using.
@@ -78,6 +80,7 @@ public class SearchActor extends AbstractActorWithTimers {
                 })
                 .match(SearchRequest.class, firstSearchMsg ->{
                     query = firstSearchMsg.searchKey;
+                    history.add(query);
                     firstSearch(firstSearchMsg.searchKey);}
                 )
                 .match(Tick.class, msg -> {

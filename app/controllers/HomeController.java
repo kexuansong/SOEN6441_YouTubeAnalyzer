@@ -209,7 +209,7 @@ public class HomeController extends Controller {
                 for (Object o : (List<?>) result) {
                     sList.add((String)o);
                 }}
-            return ok(views.html.similar.render(videoId,sList,assetsFinder));});
+            return ok(views.html.similar.render(sList,assetsFinder));});
     }
     /**
      * Create and Start WebSocket

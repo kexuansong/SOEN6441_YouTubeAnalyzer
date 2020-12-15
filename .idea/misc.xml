@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/javadoc" />
+    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Documents/MaCS/SOEN 6441/Web_App/Part2/JavaDoc" />
     <option name="OPTION_SCOPE" value="private" />
+    <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
+    <option name="OPTION_DOCUMENT_TAG_VERSION" value="true" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11.0.9 (2)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/test" />

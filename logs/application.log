@@ -1,144 +1,16 @@
-2020-12-09 22:33:29,913 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:30,211 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:30,335 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:30,475 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:33:30,720 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:30,744 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:33:55,967 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:56,304 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:56,487 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:56,672 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:33:56,937 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:56,959 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:33:57,073 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:57,170 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:33:58,388 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-09 22:33:58,389 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-09 22:33:58,411 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
-2020-12-09 22:34:37,301 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:34:37,600 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:34:37,800 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:34:37,950 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:34:38,194 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:34:38,289 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:34:39,616 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-09 22:34:39,618 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-09 22:34:39,628 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
-2020-12-09 22:35:59,045 [WARN] from play.filters.headers.SecurityHeadersConfig in play-dev-mode-akka.actor.default-dispatcher-5 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:35:59,052 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2020-12-15 14:58:16,692 [INFO] from play.api.http.EnabledFilters in play-dev-mode-akka.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.csrf.CSRFFilter
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
     filters.ExampleFilter
+    play.filters.hosts.AllowedHostsFilter
 
-2020-12-09 22:35:59,217 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev) (no global state)
-2020-12-09 22:37:52,813 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:37:53,091 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:37:53,239 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:37:53,404 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:37:53,668 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:37:53,692 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:37:53,811 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:37:53,900 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:37:55,103 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-09 22:37:55,104 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-09 22:37:55,111 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
-2020-12-09 22:39:17,698 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:39:17,941 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:39:18,066 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:39:18,213 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:39:18,445 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:39:18,463 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:39:18,558 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:39:18,634 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:39:19,881 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-09 22:39:19,883 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-09 22:39:19,893 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Running provided shutdown stop hooks
-2020-12-09 22:40:13,638 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
-2020-12-09 22:40:13,652 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-8 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
-2020-12-09 22:40:13,710 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-11 - Running provided shutdown stop hooks
-2020-12-09 22:46:49,057 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:46:49,312 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:46:49,433 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:46:49,554 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 22:59:50,040 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:59:50,266 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:59:50,374 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 22:59:50,493 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 23:09:36,011 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:09:36,284 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:09:37,794 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-09 23:09:37,804 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-09 23:09:37,817 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
-2020-12-09 23:11:55,540 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:11:55,777 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:11:57,069 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-09 23:11:57,081 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-09 23:11:57,098 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
-2020-12-09 23:13:54,301 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:13:54,638 [WARN] from play.filters.hosts.AllowedHostsFilter in pool-1-thread-1 - Host not allowed: localhost
-2020-12-09 23:13:54,909 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:13:54,994 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:13:56,122 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-09 23:13:56,124 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-09 23:13:56,134 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
-2020-12-09 23:15:10,425 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:15:10,739 [WARN] from play.filters.headers.SecurityHeadersConfig in pool-1-thread-1 - play.filters.headers.contentSecurityPolicy is deprecated in 2.7.0.  Please use play.filters.csp.CSPFilter instead.
-2020-12-09 23:15:12,092 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-09 23:15:12,104 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-09 23:15:12,120 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
-2020-12-10 01:29:15,400 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:29:15,402 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:29:15,409 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
-2020-12-10 01:31:26,355 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:31:26,357 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:31:26,363 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
-2020-12-10 01:32:30,038 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:32:30,039 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:32:30,046 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
-2020-12-10 01:42:47,139 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:42:47,141 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:42:47,147 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Running provided shutdown stop hooks
-2020-12-10 01:43:09,808 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:43:09,810 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:43:09,816 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
-2020-12-10 01:46:37,679 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:46:37,681 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:46:37,687 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
-2020-12-10 01:48:13,026 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:48:13,028 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:48:13,034 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
-2020-12-10 01:49:30,369 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:49:30,371 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:49:30,377 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-6 - Running provided shutdown stop hooks
-2020-12-10 01:58:59,999 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 01:59:00,002 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 01:59:00,011 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Running provided shutdown stop hooks
-2020-12-10 02:07:38,194 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 02:07:38,196 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 02:07:38,202 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
-2020-12-10 02:10:18,229 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 02:10:18,231 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 02:10:18,236 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
-2020-12-10 02:11:06,995 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 02:11:06,996 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 02:11:07,002 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
-2020-12-10 14:59:42,161 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 14:59:42,164 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 14:59:42,173 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-2 - Running provided shutdown stop hooks
-2020-12-10 15:00:57,283 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 15:00:57,285 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 15:00:57,291 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
-2020-12-10 15:03:55,242 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 15:03:55,243 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 15:03:55,250 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
-2020-12-10 15:47:33,948 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 15:47:33,950 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 15:47:33,956 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
-2020-12-10 15:49:16,528 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 15:49:16,529 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 15:49:16,535 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks
-2020-12-10 15:50:03,119 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
-2020-12-10 15:50:03,121 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-5 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
-2020-12-10 15:50:03,127 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-4 - Running provided shutdown stop hooks
+2020-12-15 14:58:16,826 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-5 - Application started (Dev) (no global state)
+2020-12-15 14:58:37,020 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-shutdown-hook-1 - Stopping Akka HTTP server...
+2020-12-15 14:58:37,031 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:9000
+2020-12-15 14:58:37,091 [INFO] from play.core.server.AkkaHttpServer in play-dev-mode-akka.actor.internal-dispatcher-14 - Running provided shutdown stop hooks
+2020-12-15 14:59:07,024 [INFO] from akka.actor.RepointableActorRef in default-akka.actor.default-dispatcher-6 - Message [java.lang.String] to Actor[akka://default/user/$a#-585944036] was unhandled. [7] dead letters encountered. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+2020-12-15 14:59:08,359 [INFO] from play.api.internal.libs.concurrent.CoordinatedShutdownSupport in pool-1-thread-1 - Starting synchronous coordinated shutdown with ServerStoppedReason reason and 2147508000 milliseconds timeout
+2020-12-15 14:59:08,360 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Terminating server binding for /0:0:0:0:0:0:0:0:19001
+2020-12-15 14:59:08,369 [INFO] from play.core.server.AkkaHttpServer in application-akka.actor.internal-dispatcher-3 - Running provided shutdown stop hooks

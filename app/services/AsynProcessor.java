@@ -33,6 +33,7 @@ import javax.inject.Inject;
 import static java.util.Comparator.comparing;
 
 /**
+ * Api Service
  * @author Chenwen Wang, Kexuan Song, Geer Jiang, Yuejun Chen
  */
 public class AsynProcessor {
@@ -64,7 +65,7 @@ public class AsynProcessor {
     /**
      * Api key
      */
-    private static final String APIKey = "AIzaSyCslZBKWk5MnGsFsHPj2Dw4xWPRJ0meehg";
+    private static final String APIKey = "AIzaSyCQ4fH0vvu0kdlNxAtJgqe7AzR9qTLGuHQ";
     /**
      * Video list
      */

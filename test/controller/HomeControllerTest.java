@@ -74,7 +74,7 @@ public class HomeControllerTest extends WithApplication {
     @Test
     public void similar(){
         running(fakeApplication(), () -> {
-            Call action = routes.HomeController.similar("UCIzsZZ0goo");
+            Call action = routes.HomeController.similar("ON1tzYUkiuE");
             Http.RequestBuilder request = Helpers.fakeRequest(action);
             Result result = route(fakeApplication(),request);
             assertEquals(OK, result.status());});

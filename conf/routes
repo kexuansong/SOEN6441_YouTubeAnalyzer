@@ -6,7 +6,7 @@ GET     /                           controllers.HomeController.index(request:Req
 GET     /search                     controllers.HomeController.search(searchkey: String,request:Request)
 GET     /profile/:channelID          controllers.HomeController.profile(channelID: String)
 GET     /CVideos                    controllers.HomeController.CVideos(channelID: String,keyword :String)
-GET     /similar                    controllers.HomeController.similar(searchkey: String)
+GET     /similar                   controllers.HomeController.similar(videoId: String)
 
 GET     /ws                         controllers.HomeController.ws
 

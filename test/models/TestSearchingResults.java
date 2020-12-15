@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * Test Searching Results
  *
- * @ Yuejun
+ * @author Yuejun
  */
 public class TestSearchingResults {
 
