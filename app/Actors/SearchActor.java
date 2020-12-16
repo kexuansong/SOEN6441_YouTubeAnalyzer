@@ -65,7 +65,7 @@ public class SearchActor extends AbstractActorWithTimers {
     @Override
     public void preStart() {
         //getTimers().startPeriodicTimer("Timer", new Tick(), Duration.create(2, TimeUnit.SECONDS));
-        getTimers().startTimerWithFixedDelay("Timer", new Tick(), Duration.create(5, TimeUnit.SECONDS));
+        getTimers().startTimerWithFixedDelay("Timer", new Tick(), Duration.create(20, TimeUnit.SECONDS));
         this.commentsActor = getContext().actorOf(CommentsActor.getProps());
     }
     /**
@@ -132,6 +132,7 @@ public class SearchActor extends AbstractActorWithTimers {
      */
     private void firstSearch(String key) throws GeneralSecurityException, IOException {
         asynProcessor.processSearchAsync(key).thenAcceptAsync(searchResults -> {
+            System.out.println("first search :" + key);
 
             // Copy the current state of results in a temporary variable
             Set<SearchingResults> Results = new HashSet<>(searchResults);

@@ -83,12 +83,55 @@
 @*//*@@*                <td id="sentiment"></td>*@
 @*//                *@@* <div id="videos"></div>*@
             </table>
-        <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
 
 
     </div>
     </body>
-    <script type='text/javascript' src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-    <script type='text/javascript' src='@routes.Assets.versioned("javascripts/index.js")'></script>
+
+    <script type="text/javascript">
+            let idList =[];
+            let videoList = [];
+            var websocket;
+            websocket = new WebSocket("ws://localhost:9000/ws");
+            websocket.onmessage = function processMessage(message){
+                var message = JSON.parse(message.data);
+                if(idList.includes(message.videoId)){console.log(message)}
+                else {
+                    idList.push(message.videoId);
+                    console.log(message);
+                    parseVideos(message);
+                }
+            }
+            function sendMessage(){
+                websocket.send(query.value);
+                console.log(query.value);
+            }
+
+            function parseVideos(message){
+                var tr=document.createElement("tr");
+                var vtitle=document.createElement("td");
+                var ctitle=document.createElement("td");
+                var ctitle2=document.createElement("td");
+                var view = document.createElement("td");
+                var time=document.createElement("td");
+                var sentiment=document.createElement("td");
+
+                vtitle.innerHTML= '<a href="http://localhost:9000/similar?videoId='+ message.videoId+'">' + message.videoTitle + '</a>';
+                ctitle.innerHTML='<a href="http://localhost:9000/profile/'+ message.channelID +'">' + message.channelTitle + '</a>';
+                ctitle2.innerHTML='<a href="http://localhost:9000/CVideos?channelID='+ message.channelID +'&keyword='+message.query+'">' + message.channelTitle + '</a>';
+                view.innerHTML = message.viewCount;
+                time.innerHTML= message.timeAgo;
+                sentiment.innerHTML= message.sentiment;
+
+                var tab= document.getElementById("table");
+                tab.appendChild(tr);
+                tr.appendChild(vtitle);
+                tr.appendChild(ctitle);
+                tr.appendChild(ctitle2);
+                tr.appendChild(view);
+                tr.appendChild(time);
+                tr.appendChild(sentiment);
+
+            }
+    </script>
 }

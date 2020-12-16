@@ -75,7 +75,7 @@ public class Supervisor extends AbstractActor {
         return receiveBuilder().match(Props.class, props -> {
             getSender().tell(getContext().actorOf(props),getSelf());
         }).match(JsonNode.class,msg->{
-            System.out.println("supervisor gets jsonnode");
+            System.out.println("**supervisor gets jsonNode**");
             ws.forward(msg,getContext());
         }).build();
     }
